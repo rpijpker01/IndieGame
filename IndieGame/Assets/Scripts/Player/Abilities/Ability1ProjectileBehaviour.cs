@@ -49,7 +49,7 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
             {
                 if ((enemy.transform.position - transform.position).magnitude < _radius)
                 {
-                    enemy.GetComponent<EnemyController>().TakeDamage(transform.position, _knockBackStrength, _radius * 5);
+                    enemy.GetComponent<EnemyController>().TakeDamage(75, transform.position, _knockBackStrength, _radius * 5);
                 }
             }
 
