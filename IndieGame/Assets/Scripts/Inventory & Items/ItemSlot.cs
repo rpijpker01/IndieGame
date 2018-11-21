@@ -15,18 +15,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         _image = GetComponent<Image>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //Using the unity interface, check if an item is right-clicked
-        if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
-        {
-            if (_item != null && OnRightClickEvent != null)
-            {
-                OnRightClickEvent(_item);
-            }
-        }
-    }
-
     public Item Item
     {
         get { return _item; }
@@ -42,6 +30,19 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             {
                 _image.sprite = _item.Icon;
                 _image.enabled = true;
+            }
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //Using the unity interface, check if an item is right-clicked
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (Item != null)
+            {
+                print(Item.Name);
+                OnRightClickEvent(Item);
             }
         }
     }

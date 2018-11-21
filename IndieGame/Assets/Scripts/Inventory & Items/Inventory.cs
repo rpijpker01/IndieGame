@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public event Action<Item> OnItemRightClickEvent;
+    public event Action<Item> OnInventoryItemRightClickEvent;
 
     public List<Item> _items;
     private Transform _itemsParent;
@@ -18,12 +18,9 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < _itemSlots.Length; i++)
         {
             //Call this event whenever an item from the inventory is right-clicked
-            _itemSlots[i].OnRightClickEvent += OnItemRightClickEvent;
+            _itemSlots[i].OnRightClickEvent += OnInventoryItemRightClickEvent;
         }
-    }
 
-    private void Start()
-    {
         Refresh();
     }
 
@@ -32,7 +29,9 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
             transform.parent.GetComponent<Canvas>().enabled = !transform.parent.GetComponent<Canvas>().isActiveAndEnabled;
         if (Input.GetKeyDown(KeyCode.G))
+        {
             Refresh();
+        }
     }
 
     public bool AddItem(Item pItem)

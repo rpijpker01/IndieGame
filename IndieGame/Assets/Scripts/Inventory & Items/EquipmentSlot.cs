@@ -9,6 +9,7 @@ public class EquipmentSlot : ItemSlot
     protected override void Awake()
     {
         base.Awake();
+
         //Assign each equippable slot with the type it can hold
         AssignSlotType();
     }

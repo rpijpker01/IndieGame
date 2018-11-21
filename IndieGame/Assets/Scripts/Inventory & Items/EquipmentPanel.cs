@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class EquipmentPanel : MonoBehaviour
 {
-    public delegate void OnEquip();
-    public static OnEquip onEquip;
-
     private Transform _equipmentPanelParent;
     private EquipmentSlot[] _equipmentSlots;
 
-    public event Action<Item> OnItemRightClickEvent;
+    public event Action<Item> OnEquipmentPanelItemRightClickEvent;
 
     private void Awake()
     {
@@ -21,7 +18,7 @@ public class EquipmentPanel : MonoBehaviour
 
         for (int i = 0; i < _equipmentSlots.Length; i++)
         {
-            _equipmentSlots[i].OnRightClickEvent += OnItemRightClickEvent;
+            _equipmentSlots[i].OnRightClickEvent += OnEquipmentPanelItemRightClickEvent;
             _equipmentSlots[i].GetComponent<Image>().enabled = false;
         }
     }

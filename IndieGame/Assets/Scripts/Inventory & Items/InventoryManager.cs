@@ -11,8 +11,8 @@ public class InventoryManager : MonoBehaviour
         _equipmentPanel = GameObject.Find("EquipmentPanel").GetComponent<EquipmentPanel>();
 
         //Call the function when an item from the inventory is right-clicked
-        _inventory.OnItemRightClickEvent += EquipItemFromInventory;
-        _equipmentPanel.OnItemRightClickEvent += UnequipItemFromEquipmentPanel;
+        _inventory.OnInventoryItemRightClickEvent += EquipItemFromInventory;
+        _equipmentPanel.OnEquipmentPanelItemRightClickEvent += UnequipItemFromEquipmentPanel;
     }
 
     public void EquipItemFromInventory(Item pItem)
