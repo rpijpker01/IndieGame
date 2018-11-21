@@ -19,16 +19,24 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage)
     {
         //take the actual damage ofc lmao (coming soon tm)
     }
 
-    public void TakeDamage(Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
+    public void TakeDamage(float damage, Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
     {
         //Take the actual damage ofc lmao (coming soon tm)
 
         //Knock the enemy back
         rigidbody.AddExplosionForce(knockBackStrength, knockBackOrigin, knockBackRadius);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "CollisionBox")
+        {
+            TakeDamage(25, GameController.player.transform.position, 500, 3);
+        }
     }
 }
