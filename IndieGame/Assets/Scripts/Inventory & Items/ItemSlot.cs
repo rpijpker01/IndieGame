@@ -31,6 +31,36 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 _image.sprite = _item.Icon;
                 _image.enabled = true;
             }
+
+            if (_item is Equippable)
+            {
+                Equippable e = (Equippable)_item;
+
+                switch (e.name.ToLower().ToCharArray()[0])
+                {
+                    case 'h':
+                    e.ItemType = EquipmentType.Helm;
+                    break;
+                    case 'c':
+                    e.ItemType = EquipmentType.Chest;
+                    break;
+                    case 'g':
+                    e.ItemType = EquipmentType.Gloves;
+                    break;
+                    case 'p':
+                    e.ItemType = EquipmentType.Pants;
+                    break;
+                    case 'b':
+                    e.ItemType = EquipmentType.Boots;
+                    break;
+                    case 'w':
+                    e.ItemType = EquipmentType.Weapon;
+                    break;
+                    case 'o':
+                    e.ItemType = EquipmentType.OffHand;
+                    break;
+                }
+            }
         }
     }
 
@@ -41,7 +71,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             if (Item != null)
             {
-                print(Item.Name);
                 OnRightClickEvent(Item);
             }
         }

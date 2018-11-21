@@ -28,6 +28,9 @@ public class EquipmentSlot : ItemSlot
             case "gloves":
             _slotType = EquipmentType.Gloves;
             break;
+            case "gloves1":
+            _slotType = EquipmentType.Gloves1;
+            break;
             case "pants":
             _slotType = EquipmentType.Pants;
             break;
