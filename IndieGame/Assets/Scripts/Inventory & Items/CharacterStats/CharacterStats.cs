@@ -103,7 +103,7 @@ namespace F.CharacterStats
                     finalValue *= 1 + m.Value / 100;
             }
 
-            //Round it to avoid calculation errors
+            //Round it to avoid calculation error
             return (float)Math.Round(finalValue, 0);
         }
 

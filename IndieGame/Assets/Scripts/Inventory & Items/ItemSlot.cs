@@ -3,16 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     protected Image _image;
     protected Item _item;
+
+    private ItemTooltip _tooltip;
 
     public event Action<Item> OnRightClickEvent;
 
     protected virtual void Awake()
     {
         _image = GetComponent<Image>();
+        _tooltip = GameObject.Find("ItemTooltip").GetComponent<ItemTooltip>();
+        OnRightClickEvent += _tooltip.HideTooltip;
     }
 
     public Item Item
@@ -28,7 +32,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-                _image.sprite = _item.Icon;
+                _image.sprite = _item.IconInInv;
                 _image.enabled = true;
             }
 
@@ -74,5 +78,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 OnRightClickEvent(Item);
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (Item is Equippable)
+            _tooltip.ShowTooltip((Equippable)Item);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _tooltip.HideTooltip();
     }
 }

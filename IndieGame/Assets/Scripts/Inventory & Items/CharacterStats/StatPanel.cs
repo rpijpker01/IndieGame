@@ -11,7 +11,7 @@ public class StatPanel : MonoBehaviour
     private void Awake()
     {
         _statDisplays = GetComponentsInChildren<StatDisplay>();
-        _statNames = new string[] { "Health", "Mana", "Armor", "Strength", "Intelligence" };
+        _statNames = new string[] { "Max Health", "Max Mana", "Armor", "Strength", "Intelligence" };
 
         UpdateStatNames();
     }
@@ -25,6 +25,9 @@ public class StatPanel : MonoBehaviour
         for (int i = 0; i < _statDisplays.Length; i++)
         {
             _statDisplays[i].gameObject.SetActive(i < _stats.Length);
+
+            if (i < _stats.Length)
+                _statDisplays[i].Stats = _stats[i];
         }
     }
 
@@ -32,7 +35,7 @@ public class StatPanel : MonoBehaviour
     {
         for (int i = 0; i < _stats.Length; i++)
         {
-            _statDisplays[i].Value.text = _stats[i].Value.ToString();
+            _statDisplays[i].UpdateStatValue();
         }
     }
 
