@@ -6,7 +6,7 @@ public class InventoryInput : MonoBehaviour
     private ItemTooltip _itemTooltip;
     private StatTooltip _statTooltip;
 
-    private void Start()
+    private void Awake()
     {
         _charPanel = GameObject.Find("CharacterPanel");
         _itemTooltip = GameObject.Find("ItemTooltip").GetComponent<ItemTooltip>();
