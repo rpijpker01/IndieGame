@@ -15,6 +15,14 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
     [Range(0, 1000)]
     private float _knockBackStrength;
 
+    private float _damageValue = 75;
+    public float damageValue
+    {
+        get { return _damageValue; }
+        set { _damageValue = value; }
+    }
+
+
     private DateTime _spawnTime;
 
     // Use this for initialization
@@ -33,6 +41,7 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
         //Delete the projectile when it's been flying too long
         if ((DateTime.Now - _spawnTime).TotalSeconds > 20)
         {
+            DamageEnemiesInRange();
             Destroy(this.gameObject);
         }
     }
@@ -41,19 +50,25 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
     {
         if (other.tag != "Player")
         {
-            //Get all enemies in the scene
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-            //Damage all the enemies in range
-            foreach (GameObject enemy in enemies)
-            {
-                if ((enemy.transform.position - transform.position).magnitude < _radius)
-                {
-                    enemy.GetComponent<EnemyController>().TakeDamage(75, transform.position, _knockBackStrength, _radius * 5);
-                }
-            }
+            DamageEnemiesInRange();
 
             Destroy(this.gameObject);
+        }
+    }
+
+    private void DamageEnemiesInRange()
+    {
+        //Get all enemies in the scene
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        //Damage all the enemies in range
+        foreach (GameObject enemy in enemies)
+        {
+            if ((enemy.transform.position - transform.position).magnitude < _radius)
+            {
+                float damageWithFalloff = _damageValue / (enemy.transform.position - transform.position).magnitude;
+                enemy.GetComponent<EnemyController>().TakeDamage(damageWithFalloff, transform.position, _knockBackStrength, _radius * 5);
+            }
         }
     }
 

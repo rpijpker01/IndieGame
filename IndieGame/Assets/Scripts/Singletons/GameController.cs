@@ -8,12 +8,13 @@ public class GameController : MonoBehaviour
 
     public static GameObject player;
     public static PlayerController playerController;
+    public static DamageNumbersCanvas damageNumbersCanvas;
 
     public static GameObject cameraObj;
     public static Camera camera;
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         gameController = this;
         player = GameObject.FindGameObjectWithTag("Player");
