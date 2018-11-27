@@ -20,29 +20,29 @@ public class EquipmentSlot : ItemSlot
         switch (gameObject.name.ToLower())
         {
             case "helm":
-            _slotType = EquipmentType.Helm;
-            break;
+                _slotType = EquipmentType.Helm;
+                break;
             case "chest":
-            _slotType = EquipmentType.Chest;
-            break;
+                _slotType = EquipmentType.Chest;
+                break;
             case "gloves":
-            _slotType = EquipmentType.Gloves;
-            break;
+                _slotType = EquipmentType.Gloves;
+                break;
             case "gloves1":
-            _slotType = EquipmentType.Gloves1;
-            break;
+                _slotType = EquipmentType.Gloves1;
+                break;
             case "pants":
-            _slotType = EquipmentType.Pants;
-            break;
+                _slotType = EquipmentType.Pants;
+                break;
             case "boots":
-            _slotType = EquipmentType.Boots;
-            break;
+                _slotType = EquipmentType.Boots;
+                break;
             case "weapon":
-            _slotType = EquipmentType.Weapon;
-            break;
+                _slotType = EquipmentType.Weapon;
+                break;
             case "off-hand":
-            _slotType = EquipmentType.OffHand;
-            break;
+                _slotType = EquipmentType.OffHand;
+                break;
         }
     }
 

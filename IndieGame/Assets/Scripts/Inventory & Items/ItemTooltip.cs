@@ -91,6 +91,8 @@ public class ItemTooltip : MonoBehaviour
         _positiveStat.text = _positive.ToString();
         _negativeStat.text = _negative.ToString();
 
+        _tooltipTransform.position = Input.mousePosition;
+
         gameObject.SetActive(true);
     }
 

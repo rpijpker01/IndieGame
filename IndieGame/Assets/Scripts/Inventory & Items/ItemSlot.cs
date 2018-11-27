@@ -43,26 +43,26 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 switch (e.name.ToLower().ToCharArray()[0])
                 {
                     case 'h':
-                    e.ItemType = EquipmentType.Helm;
-                    break;
+                        e.ItemType = EquipmentType.Helm;
+                        break;
                     case 'c':
-                    e.ItemType = EquipmentType.Chest;
-                    break;
+                        e.ItemType = EquipmentType.Chest;
+                        break;
                     case 'g':
-                    e.ItemType = EquipmentType.Gloves;
-                    break;
+                        e.ItemType = EquipmentType.Gloves;
+                        break;
                     case 'p':
-                    e.ItemType = EquipmentType.Pants;
-                    break;
+                        e.ItemType = EquipmentType.Pants;
+                        break;
                     case 'b':
-                    e.ItemType = EquipmentType.Boots;
-                    break;
+                        e.ItemType = EquipmentType.Boots;
+                        break;
                     case 'w':
-                    e.ItemType = EquipmentType.Weapon;
-                    break;
+                        e.ItemType = EquipmentType.Weapon;
+                        break;
                     case 'o':
-                    e.ItemType = EquipmentType.OffHand;
-                    break;
+                        e.ItemType = EquipmentType.OffHand;
+                        break;
                 }
             }
         }

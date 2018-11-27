@@ -8,6 +8,8 @@ public class StatPanel : MonoBehaviour
 
     private CharacterStats[] _stats;
 
+    private float _coins;
+
     private void Awake()
     {
         _statDisplays = GetComponentsInChildren<StatDisplay>();

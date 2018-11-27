@@ -37,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1132115899156654}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.68, y: 0.98, z: 24.65}
+  m_LocalRotation: {x: -0, y: -0.7012811, z: -0, w: 0.71288496}
+  m_LocalPosition: {x: 15.935345, y: 0.98, z: 20.997889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.060005, z: 0}
 --- !u!23 &23367689978003592
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c0c0a62ec1bc2458e150004a81f4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lootDropPrefab: {fileID: 1266160461775014, guid: df2d2c5892de6134d97778767b66866b,
+    type: 2}
 --- !u!136 &136423374596557504
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -15,7 +15,7 @@ public class InventoryInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.C))
         {
             _charPanel.SetActive(!_charPanel.activeSelf);
             _itemTooltip.HideTooltip();

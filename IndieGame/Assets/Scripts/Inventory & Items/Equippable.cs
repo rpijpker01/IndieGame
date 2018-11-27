@@ -29,6 +29,17 @@ public class Equippable : Item
     [SerializeField] private float _armorValuePercent;
     [SerializeField] private float _strenghtValuePercent;
     [SerializeField] private float _intelligenceValuePercent;
+    [Space]
+    [SerializeField] private int _itemValue;
+    [Space]
+    [SerializeField] [Range(0, 100)] private float _dropChancePercent;
+    [Header("Drops in:")]
+    [SerializeField] private bool _zoneOne;
+    [SerializeField] private bool _zoneTwo;
+    [SerializeField] private bool _zoneThree;
+    [SerializeField] private bool _zoneFour;
+    [SerializeField] private bool _zoneFive;
+    [SerializeField] private bool _allZones;
 
     public void Equip(InventoryManager pInv)
     {
@@ -79,4 +90,14 @@ public class Equippable : Item
     public float ArmorPercent { get { return _armorValuePercent; } }
     public float StrengthPercent { get { return _strenghtValuePercent; } }
     public float IntelligencePercent { get { return _intelligenceValuePercent; } }
+
+    public bool ZoneOne { get { return _zoneOne; } }
+    public bool ZoneTwo { get { return _zoneTwo; } }
+    public bool ZoneThree { get { return _zoneThree; } }
+    public bool ZoneFour { get { return _zoneFour; } }
+    public bool ZoneFive { get { return _zoneFive; } }
+    public bool AllZone { get { return _allZones; } }
+
+    public float DropChance { get { return _dropChancePercent; } }
+    public int Value { get { return _itemValue; } }
 }
