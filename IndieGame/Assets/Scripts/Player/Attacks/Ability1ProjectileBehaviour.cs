@@ -67,6 +67,7 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
             if ((enemy.transform.position - transform.position).magnitude < _radius)
             {
                 float damageWithFalloff = _damageValue / (enemy.transform.position - transform.position).magnitude;
+                damageWithFalloff = Mathf.Clamp(damageWithFalloff, 0, _damageValue * 1.5f);
                 enemy.GetComponent<EnemyController>().TakeDamage(damageWithFalloff, transform.position, _knockBackStrength, _radius * 5);
             }
         }

@@ -10,23 +10,26 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 1)]
     private float _rotationSpeed = 0.8f;
     [SerializeField]
-    [Range(0, 20)]
+    [Range(0, 1000)]
     private float _movementSpeed = 2f;
     [SerializeField]
-    [Range(0, 5)]
+    [Range(0, 500)]
     private float _accelerationSpeed = 0.5f;
 
     private bool _moving;
 
     private float _currentSpeed;
-    private Vector3 _rotation;
+    public Vector3 rotation;
 
     private MeshFilter _meshFilter;
+    private Rigidbody _rigidBody;
+    private Quaternion _surfaceRotation;
 
     // Use this for initialization
     void Start()
     {
         _meshFilter = GetComponent<MeshFilter>();
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -40,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _rotation.y = transform.rotation.eulerAngles.y;
+            rotation.y = transform.localRotation.eulerAngles.y;
+            _rigidBody.velocity = Vector3.zero;
         }
 
         StickCharacterToGround();
@@ -52,41 +56,41 @@ public class PlayerMovement : MonoBehaviour
         //Rotation for orthogonal directions
         if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
-            _rotation.y = 0;
+            rotation.y = 0;
         }
         if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
-            _rotation.y = 90;
+            rotation.y = 90;
         }
         if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
         {
-            _rotation.y = 180;
+            rotation.y = 180;
         }
         if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
-            _rotation.y = 270;
+            rotation.y = 270;
         }
 
         //Rotation for diagonal directions
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
-            _rotation.y = 315;
+            rotation.y = 315;
         }
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
-            _rotation.y = 45;
+            rotation.y = 45;
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
         {
-            _rotation.y = 135;
+            rotation.y = 135;
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
-            _rotation.y = 225;
+            rotation.y = 225;
         }
 
         //Slerp for setting rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(_rotation), _rotationSpeed);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, _rotation.y, transform.rotation.z), _rotationSpeed);
     }
 
     //Moving the player
@@ -112,13 +116,14 @@ public class PlayerMovement : MonoBehaviour
 
         //Set player position
         Vector2 movementInAxi = new Vector2();
-        movementInAxi.x = Mathf.Sin(_rotation.y * Mathf.Deg2Rad);
+        movementInAxi.x = Mathf.Sin(rotation.y * Mathf.Deg2Rad);
         movementInAxi.y = Mathf.Sqrt(1f - (movementInAxi.x * movementInAxi.x));
-        if (_rotation.y > 90 && _rotation.y < 270)
+        if (rotation.y > 90 && rotation.y < 270)
         {
             movementInAxi.y = -movementInAxi.y;
         }
-        transform.position = transform.position + (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
+        _rigidBody.velocity = (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
+        //transform.position = transform.position + (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
     }
 
     //Move player down to the ground
@@ -128,7 +133,12 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit raycastHit = new RaycastHit();
         Physics.Raycast(transform.position, -transform.up, out raycastHit);
 
+        //Set rotation
+        _surfaceRotation = Quaternion.FromToRotation(Vector3.up, raycastHit.normal);
+        transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
+        transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
+
         //Set position
-        transform.position = new Vector3(transform.position.x, raycastHit.point.y + _meshFilter.mesh.bounds.extents.y, transform.position.z);
+        transform.position = transform.position - (transform.up * raycastHit.distance) + (transform.up * _meshFilter.mesh.bounds.extents.y);
     }
 }
