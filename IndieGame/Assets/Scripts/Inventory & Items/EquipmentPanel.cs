@@ -31,6 +31,11 @@ public class EquipmentPanel : MonoBehaviour
             if (_equipmentSlots[i].EquipmentType == pItem.ItemType)
             {
                 pPrevioursItem = (Equippable)_equipmentSlots[i].Item;
+
+                if (pItem.ItemType == EquipmentType.Gloves)
+                    _equipmentSlots[i + 1].Item = pItem;
+                else if (pItem.ItemType == EquipmentType.Gloves1)
+                    _equipmentSlots[i - 1].Item = pItem;
                 _equipmentSlots[i].Item = pItem;
                 return true;
             }
@@ -47,6 +52,11 @@ public class EquipmentPanel : MonoBehaviour
         {
             if (_equipmentSlots[i].Item == pItem)
             {
+                if (pItem.ItemType == EquipmentType.Gloves)
+                    _equipmentSlots[i + 1].Item = null;
+                else if (pItem.ItemType == EquipmentType.Gloves1)
+                    _equipmentSlots[i - 1].Item = null;
+
                 _equipmentSlots[i].Item = null;
                 return true;
             }

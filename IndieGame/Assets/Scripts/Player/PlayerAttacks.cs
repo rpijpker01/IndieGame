@@ -9,10 +9,19 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField]
     [Range(0, 3)]
     private float _attackDuration = 1;
+    [Header("Basic Attack")]
+    [SerializeField]
+    private float _attackDamage;
     [SerializeField]
     private GameObject _attackCollisionBox;
+    [Header("Ability 1")]
+    [SerializeField]
+    private float _abilityOneManaCost;
+    [SerializeField]
+    private float _abilityOneDamage;
     [SerializeField]
     private GameObject _ability1ProjectilePrefab;
+
 
     private DateTime _attackStartTime;
 
@@ -46,8 +55,11 @@ public class PlayerAttacks : MonoBehaviour
         Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
 
         //Rotates the player towards the mouse
-        transform.LookAt(raycastHit.point);
-        transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+        Transform transformCopy = this.transform;
+        transformCopy.LookAt(raycastHit.point);
+        transformCopy.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+
+        GameController.player.GetComponent<PlayerMovement>().rotation = transformCopy.rotation.eulerAngles;
     }
 
     private void BasicAttack()
@@ -58,6 +70,7 @@ public class PlayerAttacks : MonoBehaviour
             RotateTowardsMouse();
             GameController.playerController.isAttacking = true;
             _collisionBox = Instantiate(_attackCollisionBox, transform.position + transform.forward * _meshFilter.mesh.bounds.size.z, transform.rotation, transform.parent);
+            _collisionBox.GetComponent<BasicAttackBehaviour>().damageValue = _attackDamage;
             _attackStartTime = DateTime.Now;
         }
     }
@@ -69,9 +82,11 @@ public class PlayerAttacks : MonoBehaviour
         {
             RotateTowardsMouse();
             GameController.playerController.isAttacking = true;
+
             //Check what ability is selected (COMING SOON tm)
             //switch(ability) etc etc
-            Instantiate(_ability1ProjectilePrefab, transform.position + transform.forward * _meshFilter.mesh.bounds.size.z, transform.rotation, transform.parent);
+            GameObject projectile = Instantiate(_ability1ProjectilePrefab, transform.position + transform.forward * _meshFilter.mesh.bounds.size.z, transform.rotation, transform.parent);
+            projectile.GetComponent<Ability1ProjectileBehaviour>().damageValue = _abilityOneDamage;
             _attackStartTime = DateTime.Now;
         }
     }

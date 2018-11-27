@@ -100,7 +100,7 @@ public class LevelGenerator : MonoBehaviour
         {
             //Level Generation
             System.DateTime startGeneratingLevel = System.DateTime.Now;
-            StartGeneratingLevel(32, 32);
+            StartGeneratingLevel(16, 16);
             Debug.Log("Level generation time: " + (System.DateTime.Now - startGeneratingLevel));
             //Main path
             System.DateTime startGeneratingMainPath = System.DateTime.Now;
@@ -123,7 +123,7 @@ public class LevelGenerator : MonoBehaviour
         }
         //try
         //{
-            GenerateDungeonLevel(width, width);
+        GenerateDungeonLevel(width, width);
         //}
         //catch
         //{
@@ -269,8 +269,6 @@ public class LevelGenerator : MonoBehaviour
 
         GenerateSidePaths();
         DoubleCheckPieces();
-        //GenerateMainPath();
-        //GenerateLeftOverArea(_startNode, _endNode);
     }
 
     private void GenerateSidePaths()
@@ -512,22 +510,22 @@ public class LevelGenerator : MonoBehaviour
         Vector2Int _nextPos = new Vector2Int((int)FindValueInArray(1, _roadObjects).x, (int)FindValueInArray(1, _roadObjects).y);
         Vector2Int _previousPos = _currentPos;
 
-        if (_currentPos.y - 1 >= 0 && 
+        if (_currentPos.y - 1 >= 0 &&
             _roadObjects[_currentPos.x, _currentPos.y - 1] > 0 && _roadObjects[_currentPos.x, _currentPos.y - 1] < 1000)
         {
             _previousPos = new Vector2Int(_currentPos.x, _currentPos.y - 1);
         }
-        else if (_currentPos.y + 1 < _roadObjects.GetLength(1) && 
+        else if (_currentPos.y + 1 < _roadObjects.GetLength(1) &&
             _roadObjects[_currentPos.x, _currentPos.y + 1] > 0 && _roadObjects[_currentPos.x, _currentPos.y + 1] < 1000)
         {
             _previousPos = new Vector2Int(_currentPos.x, _currentPos.y + 1);
         }
-        else if (_currentPos.x - 1 >= 0 && 
+        else if (_currentPos.x - 1 >= 0 &&
             _roadObjects[_currentPos.x - 1, _currentPos.y] > 0 && _roadObjects[_currentPos.x - 1, _currentPos.y] < 1000)
         {
             _previousPos = new Vector2Int(_currentPos.x - 1, _currentPos.y);
         }
-        else if (_currentPos.x + 1 < _roadObjects.GetLength(0) && 
+        else if (_currentPos.x + 1 < _roadObjects.GetLength(0) &&
             _roadObjects[_currentPos.x + 1, _currentPos.y] > 0 && _roadObjects[_currentPos.x + 1, _currentPos.y] < 1000)
         {
             _previousPos = new Vector2Int(_currentPos.x + 1, _currentPos.y);
@@ -760,82 +758,82 @@ public class LevelGenerator : MonoBehaviour
                     bool down = false;
                     bool left = false;
 
-                    if(j + 1 < _roadObjects.GetLength(1) && _roadObjects[i, j + 1] > 0) { up = true; }
+                    if (j + 1 < _roadObjects.GetLength(1) && _roadObjects[i, j + 1] > 0) { up = true; }
                     if (i + 1 < _roadObjects.GetLength(0) && _roadObjects[i + 1, j] > 0) { right = true; }
                     if (j - 1 >= 0 && _roadObjects[i, j - 1] > 0) { down = true; }
                     if (i - 1 >= 0 && _roadObjects[i - 1, j] > 0) { left = true; }
 
                     //Intersection
-                    if(up && right && left && down)
+                    if (up && right && left && down)
                     {
                         _spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.CrossSection;
                     }
                     //T sections
-                    else if(up && down && left)
+                    else if (up && down && left)
                     {
                         pieceRotation = Quaternion.Euler(0, 0, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
-                    else if(up && down && right)
+                    else if (up && down && right)
                     {
                         pieceRotation = Quaternion.Euler(0, 180, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
-                    else if(right && left && up)
+                    else if (right && left && up)
                     {
                         pieceRotation = Quaternion.Euler(0, 90, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
-                    else if(right && left && down)
+                    else if (right && left && down)
                     {
                         pieceRotation = Quaternion.Euler(0, 270, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
                     //Corners
-                    else if(down && left)
+                    else if (down && left)
                     {
                         pieceRotation = Quaternion.Euler(0, 0, 0);
                         _spawnedPathPieces.Add(Instantiate(_cornerPieces[Random.Range(0, _cornerPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.Corner;
                     }
-                    else if(down && right)
+                    else if (down && right)
                     {
                         pieceRotation = Quaternion.Euler(0, 270, 0);
                         _spawnedPathPieces.Add(Instantiate(_cornerPieces[Random.Range(0, _cornerPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.Corner;
                     }
-                    else if(up && left)
+                    else if (up && left)
                     {
                         pieceRotation = Quaternion.Euler(0, 90, 0);
                         _spawnedPathPieces.Add(Instantiate(_cornerPieces[Random.Range(0, _cornerPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.Corner;
                     }
-                    else if(up && right)
+                    else if (up && right)
                     {
                         pieceRotation = Quaternion.Euler(0, 180, 0);
                         _spawnedPathPieces.Add(Instantiate(_cornerPieces[Random.Range(0, _cornerPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.Corner;
                     }
                     //Straight path
-                    else if(up && down)
+                    else if (up && down)
                     {
                         pieceRotation = Quaternion.Euler(0, 0, 0);
                         _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.StraightRoad;
                     }
-                    else if(right && left)
+                    else if (right && left)
                     {
                         pieceRotation = Quaternion.Euler(0, 90, 0);
                         _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.StraightRoad;
                     }
                     //Dead ends
-                    else if(up || down || right || left)
+                    else if (up || down || right || left)
                     {
                         if (up)
                         {
