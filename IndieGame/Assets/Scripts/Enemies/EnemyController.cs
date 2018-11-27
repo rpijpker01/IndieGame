@@ -24,14 +24,10 @@ public class EnemyController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-<<<<<<< HEAD
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _health = _startingHealth;
-=======
-        rigidbody = GetComponent<Rigidbody>();
         _currentHealth = _maxHealth;
->>>>>>> Inventory_and_Equipment
     }
 
     // Update is called once per frame
@@ -78,9 +74,7 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(float damage, Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
     {
         //Take the actual damage ofc lmao (coming soon tm)
-<<<<<<< HEAD
         _health -= damage;
-=======
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
@@ -89,15 +83,14 @@ public class EnemyController : MonoBehaviour
             DropItems();
             return;
         }
->>>>>>> Inventory_and_Equipment
 
         //Display damage number on canvas
         GameController.damageNumbersCanvas.DisplayDamageNumber(damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
 
-<<<<<<< HEAD
         //Knock the enemy back
         _rigidbody.AddExplosionForce(knockBackStrength, knockBackOrigin, knockBackRadius);
-=======
+    }
+
     private void DropItems()
     {
         GetAvailableItems();
@@ -130,7 +123,6 @@ public class EnemyController : MonoBehaviour
         {
             TakeDamage(25, GameController.player.transform.position, 500, 3);
         }
->>>>>>> Inventory_and_Equipment
     }
 
     private void GetAvailableItems()
