@@ -24,13 +24,13 @@ public class DamageTextBehaviour : MonoBehaviour
         _startingFontSize = _textScript.fontSize;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Set position of text
         this.transform.position = GameController.camera.WorldToScreenPoint(_worldStartingPosition) + new Vector3(0, _yOffset, 0);
 
         //Move text up
-        _yOffset += 0.5f;
+        _yOffset += 1f;
 
         //Decrease size of text
         if (_textScript.fontSize > _startingFontSize)
@@ -42,12 +42,17 @@ public class DamageTextBehaviour : MonoBehaviour
         _textColor = _textScript.color;
         _textColor.a -= 0.01f;
         _textScript.color = _textColor;
+
+        if (_textColor.a <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void SetStartingPosition(Vector3 worldStartingPosition, float damageValue)
     {
         _worldStartingPosition = worldStartingPosition;
-        _textScript.fontSize = 100;
+        _textScript.fontSize = 75;
 
         if (damageValue < 30)
         {

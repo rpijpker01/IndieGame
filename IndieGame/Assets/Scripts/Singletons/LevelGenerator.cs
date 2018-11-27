@@ -269,8 +269,6 @@ public class LevelGenerator : MonoBehaviour
 
         GenerateSidePaths();
         DoubleCheckPieces();
-        //GenerateMainPath();
-        //GenerateLeftOverArea(_startNode, _endNode);
     }
 
     private void GenerateSidePaths()

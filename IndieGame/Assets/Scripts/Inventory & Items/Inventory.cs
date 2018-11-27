@@ -24,16 +24,6 @@ public class Inventory : MonoBehaviour
         Refresh();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-            transform.parent.GetComponent<Canvas>().enabled = !transform.parent.GetComponent<Canvas>().isActiveAndEnabled;
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Refresh();
-        }
-    }
-
     public bool AddItem(Item pItem)
     {
         if (IsFull()) return false;
