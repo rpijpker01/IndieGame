@@ -287,14 +287,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\PlayerCoins.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\StatDisplay.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\StatModifier.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\StatPanel.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\StatTooltip.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Consumable.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\EquipmentPanel.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\EquipmentSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Equippable.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\InventoryInput.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemDrop.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemSlot.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemTooltip.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopInventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopItemSlot.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopKeeper.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\Ability1ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\BasicAttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttacks.cs" />
@@ -305,6 +317,9 @@
     <Compile Include="Assets\Scripts\Singletons\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Singletons\UICanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\CameraFollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\Tools\DisableOnStart.cs" />
+    <Compile Include="Assets\Scripts\Tools\ErrorMessage.cs" />
+    <Compile Include="Assets\Scripts\Tools\FollowItemPosition.cs" />
     <Compile Include="Assets\Scripts\UI\DamageTextBehaviour.cs" />
     <Compile Include="Assets\TestingNavMeshObstacle.cs" />
   </ItemGroup>
