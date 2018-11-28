@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,18 @@ public class GameController : MonoBehaviour
 
     public static ErrorMessage errorMessage;
 
+    public static event Action<GameObject> OnMouseOverGameObjectEvent;
+    public static event Action<GameObject> OnMouseAwayFromGameObject;
+    public static event Action<GameObject> OnMouseLeftClickGameObject;
+    public static event Action<GameObject> OnCtrlButtonHoldEvent;
+    public static event Action<GameObject> OnCrtlButtonLetgoEvent;
+
+    public static bool mouseIsOnScreen;
+
+    private GameObject _gameObjectToCompare;
+    private bool _mouseOverAnotherObject;
+    private Rect _screenSize;
+
     // Use this for initialization
     private void Awake()
     {
@@ -31,12 +44,14 @@ public class GameController : MonoBehaviour
         camera = cameraObj.GetComponent<Camera>();
 
         //Create a loot pool and add the items to a list
-        Object[] lootableItems = Resources.LoadAll("LootPool");
+        UnityEngine.Object[] lootableItems = UnityEngine.Resources.LoadAll("LootPool");
         for (int i = 0; i < lootableItems.Length; i++)
         {
             Item item = lootableItems[i] as Item;
             lootPool.Add(item);
         }
+
+        _screenSize = new Rect(0, 0, Screen.width, Screen.height);
 
         BakeNavMesh();
     }
@@ -57,5 +72,55 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (_screenSize.Contains(Input.mousePosition))
+        {
+            RaycastHit hit = new RaycastHit();
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+            ManageGameObjectOnMouse(hit.transform.gameObject);
+        }
+    }
+
+    public void ManageGameObjectOnMouse(GameObject pNewGameObject)
+    {
+        if (_gameObjectToCompare == null || _gameObjectToCompare != pNewGameObject && _mouseOverAnotherObject)
+        {
+            _gameObjectToCompare = pNewGameObject;
+            if (OnMouseOverGameObjectEvent != null)
+                OnMouseOverGameObjectEvent(_gameObjectToCompare);
+
+            _mouseOverAnotherObject = false;
+        }
+        else if (!_mouseOverAnotherObject)
+        {
+            if (OnMouseAwayFromGameObject != null)
+                OnMouseAwayFromGameObject(_gameObjectToCompare);
+
+            _mouseOverAnotherObject = true;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                if (OnMouseLeftClickGameObject != null)
+                    OnMouseLeftClickGameObject(pNewGameObject);
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                if (OnCrtlButtonLetgoEvent != null)
+                    OnCrtlButtonLetgoEvent(pNewGameObject);
+                if (OnCtrlButtonHoldEvent != null)
+                    OnCtrlButtonHoldEvent(pNewGameObject);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            if (OnCrtlButtonLetgoEvent != null)
+                OnCrtlButtonLetgoEvent(pNewGameObject);
+        }
     }
 }

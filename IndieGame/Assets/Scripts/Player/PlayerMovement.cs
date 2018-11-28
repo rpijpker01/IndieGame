@@ -133,12 +133,15 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit raycastHit = new RaycastHit();
         Physics.Raycast(transform.position, -transform.up, out raycastHit);
 
-        //Set rotation
-        _surfaceRotation = Quaternion.FromToRotation(Vector3.up, raycastHit.normal);
-        transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
-        transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
+        if (!raycastHit.collider.isTrigger)
+        {
+            //Set rotation
+            _surfaceRotation = Quaternion.FromToRotation(Vector3.up, raycastHit.normal);
+            transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
+            transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
 
-        //Set position
-        transform.position = transform.position - (transform.up * raycastHit.distance) + (transform.up * _meshFilter.mesh.bounds.extents.y);
+            //Set position
+            transform.position = transform.position - (transform.up * raycastHit.distance) + (transform.up * _meshFilter.mesh.bounds.extents.y);
+        }
     }
 }

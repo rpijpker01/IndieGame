@@ -3,23 +3,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     protected Image _image;
     protected Item _item;
 
-    private ItemTooltip _tooltip;
+    protected Color _normalCol = Color.white;
+    protected Color _noAlphaCol = new Color(1, 1, 1, 0);
 
-    public event Action<Item> OnRightClickEvent;
+    public event Action<ItemSlot> OnRightClickEvent;
+    public event Action<ItemSlot> OnBeginDragEvent;
+    public event Action<ItemSlot> OnEndDragEvent;
+    public event Action<ItemSlot> OnPointerEnterEvent;
+    public event Action<ItemSlot> OnPointerExitEvent;
+    public event Action<ItemSlot> OnDragEvent;
+    public event Action<ItemSlot> OnDropEvent;
+
 
     protected virtual void Awake()
     {
         _image = GetComponent<Image>();
-        _tooltip = GameObject.Find("ItemTooltip").GetComponent<ItemTooltip>();
-        OnRightClickEvent += _tooltip.HideTooltip;
     }
 
-    public Item Item
+    public virtual Item Item
     {
         get { return _item; }
         set
@@ -28,12 +34,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
             if (_item == null)
             {
-                _image.enabled = false;
+                _image.color = _noAlphaCol;
             }
             else
             {
                 _image.sprite = _item.IconInInv;
-                _image.enabled = true;
+                _image.color = _normalCol;
             }
 
             if (_item is Equippable)
@@ -68,26 +74,58 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
     }
 
+    public virtual bool CanReceiveItem(Item pItem)
+    {
+        return true;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         //Using the unity interface, check if an item is right-clicked
         if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Item != null)
-            {
-                OnRightClickEvent(Item);
-            }
+            if (OnRightClickEvent != null)
+                OnRightClickEvent(this);
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Item is Equippable)
-            _tooltip.ShowTooltip((Equippable)Item);
+        if (OnPointerEnterEvent != null)
+            OnPointerEnterEvent(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _tooltip.HideTooltip();
+        if (OnPointerExitEvent != null)
+            OnPointerExitEvent(this);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        if (OnBeginDragEvent != null)
+            OnBeginDragEvent(this);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (OnEndDragEvent != null)
+            OnEndDragEvent(this);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (OnDragEvent != null)
+            OnDragEvent(this);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        if (OnDropEvent != null)
+            OnDropEvent(this);
     }
 }

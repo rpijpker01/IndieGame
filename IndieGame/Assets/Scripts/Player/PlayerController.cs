@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float _health;
     private float _mana;
     private bool _isPlayingDyingAnimation = true;
+
+    private ItemDrop _droppedItem;
 
     //Components
     private Collider _collider;

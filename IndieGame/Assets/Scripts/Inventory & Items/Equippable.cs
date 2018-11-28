@@ -18,17 +18,19 @@ public class Equippable : Item
 {
     [SerializeField] private EquipmentType _equipmentType;
 
-    [SerializeField] private float _healthValue;
-    [SerializeField] private float _manaValue;
-    [SerializeField] private float _armorValue;
-    [SerializeField] private float _strenghtValue;
-    [SerializeField] private float _intelligenceValue;
+    [Header("Flat Stats:\t\tMin\t\tMax")]
+    [SerializeField] private Vector2 _healthValue;
+    [SerializeField] private Vector2 _manaValue;
+    [SerializeField] private Vector2 _armorValue;
+    [SerializeField] private Vector2 _strengthValue;
+    [SerializeField] private Vector2 _intelligenceValue;
     [Space]
-    [SerializeField] private float _healthValuePercent;
-    [SerializeField] private float _manaValuePercent;
-    [SerializeField] private float _armorValuePercent;
-    [SerializeField] private float _strenghtValuePercent;
-    [SerializeField] private float _intelligenceValuePercent;
+    [Header("Percent Stats:\t\tMin\t\tMax")]
+    [SerializeField] private Vector2 _healthValuePercent;
+    [SerializeField] private Vector2 _manaValuePercent;
+    [SerializeField] private Vector2 _armorValuePercent;
+    [SerializeField] private Vector2 _strengthValuePercent;
+    [SerializeField] private Vector2 _intelligenceValuePercent;
     [Space]
     [SerializeField] private int _itemValue;
     [Space]
@@ -41,32 +43,78 @@ public class Equippable : Item
     [SerializeField] private bool _zoneFive;
     [SerializeField] private bool _allZones;
 
+    private float _health;
+    private float _healthPercent;
+    private float _mana;
+    private float _manaPercent;
+    private float _armor;
+    private float _armorPercent;
+    private float _strength;
+    private float _strengthPercent;
+    private float _intelligence;
+    private float _intelligencePercent;
+
     public void Equip(InventoryManager pInv)
     {
-        if (_healthValue != 0)
-            pInv.Health.AddModifier(new StatModifier(_healthValue, StatModifierType.Flat, this));
-        if (_healthValuePercent != 0)
-            pInv.Health.AddModifier(new StatModifier(_healthValuePercent, StatModifierType.PercentAdd, this));
+        //Health & %Health
+        if (_healthValue.x != 0 && _healthValue.x <= _healthValue.y)
+        {
+            _health = Random.Range(_healthValue.x, _healthValue.y);
+            pInv.Health.AddModifier(new StatModifier(_health, StatModifierType.Flat, this));
+        }
+        if (_healthValuePercent.x != 0 && _healthValuePercent.x <= _healthValuePercent.y)
+        {
+            _healthPercent = Random.Range(_healthValuePercent.x, _healthValuePercent.y);
+            pInv.Health.AddModifier(new StatModifier(_healthPercent, StatModifierType.PercentAdd, this));
+        }
 
-        if (_manaValue != 0)
-            pInv.Mana.AddModifier(new StatModifier(_manaValue, StatModifierType.Flat, this));
-        if (_manaValuePercent != 0)
-            pInv.Mana.AddModifier(new StatModifier(_manaValuePercent, StatModifierType.PercentAdd, this));
+        //Mana & %Mana
+        if (_manaValue.x != 0 && _manaValue.x <= _manaValue.y)
+        {
+            _mana = Random.Range(_manaValue.x, _manaValue.y);
+            pInv.Mana.AddModifier(new StatModifier(_mana, StatModifierType.Flat, this));
+        }
+        if (_manaValuePercent.x != 0 && _manaValuePercent.x <= _manaValuePercent.y)
+        {
+            _manaPercent = Random.Range(_manaValuePercent.x, _manaValuePercent.y);
+            pInv.Mana.AddModifier(new StatModifier(_manaPercent, StatModifierType.PercentAdd, this));
+        }
 
-        if (_armorValue != 0)
-            pInv.Armor.AddModifier(new StatModifier(_armorValue, StatModifierType.Flat, this));
-        if (_armorValuePercent != 0)
-            pInv.Armor.AddModifier(new StatModifier(_armorValuePercent, StatModifierType.PercentAdd, this));
+        //Armor & %Armor
+        if (_armorValue.x != 0 && _armorValue.x <= _armorValue.y)
+        {
+            _armor = Random.Range(_armorValue.x, _armorValue.y);
+            pInv.Armor.AddModifier(new StatModifier(_armor, StatModifierType.Flat, this));
+        }
+        if (_armorValuePercent.x != 0 && _armorValuePercent.x <= _armorValuePercent.y)
+        {
+            _armorPercent = Random.Range(_armorValuePercent.x, _armorValuePercent.y);
+            pInv.Armor.AddModifier(new StatModifier(_armorPercent, StatModifierType.PercentAdd, this));
+        }
 
-        if (_strenghtValue != 0)
-            pInv.Strength.AddModifier(new StatModifier(_strenghtValue, StatModifierType.Flat, this));
-        if (_strenghtValuePercent != 0)
-            pInv.Strength.AddModifier(new StatModifier(_strenghtValuePercent, StatModifierType.PercentAdd, this));
+        //StrengthMana & %Strength
+        if (_strengthValue.x != 0 && _strengthValue.x <= _strengthValue.y)
+        {
+            _strength = Random.Range(_strengthValue.x, _strengthValue.y);
+            pInv.Strength.AddModifier(new StatModifier(_strength, StatModifierType.Flat, this));
+        }
+        if (_strengthValuePercent.x != 0 && _strengthValuePercent.x <= _strengthValuePercent.y)
+        {
+            _strengthPercent = Random.Range(_strengthValuePercent.x, _strengthValuePercent.y);
+            pInv.Strength.AddModifier(new StatModifier(_strengthPercent, StatModifierType.PercentAdd, this));
+        }
 
-        if (_intelligenceValue != 0)
-            pInv.Intelligence.AddModifier(new StatModifier(_intelligenceValue, StatModifierType.Flat, this));
-        if (_intelligenceValuePercent != 0)
-            pInv.Intelligence.AddModifier(new StatModifier(_intelligenceValuePercent, StatModifierType.PercentAdd, this));
+        //Intelligence & %Intelligence
+        if (_intelligenceValue.x != 0 && _intelligenceValue.x <= _intelligenceValue.y)
+        {
+            _intelligence = Random.Range(_intelligenceValue.x, _intelligenceValue.y);
+            pInv.Intelligence.AddModifier(new StatModifier(_intelligence, StatModifierType.Flat, this));
+        }
+        if (_intelligenceValuePercent.x != 0 && _intelligenceValuePercent.x <= _intelligenceValuePercent.y)
+        {
+            _intelligencePercent = Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
+            pInv.Intelligence.AddModifier(new StatModifier(_intelligencePercent, StatModifierType.PercentAdd, this));
+        }
     }
 
     public void Unequip(InventoryManager pInv)
@@ -79,17 +127,17 @@ public class Equippable : Item
     }
 
     public EquipmentType ItemType { get { return _equipmentType; } set { _equipmentType = value; } }
-    public float Health { get { return _healthValue; } }
-    public float Mana { get { return _manaValue; } }
-    public float Armor { get { return _armorValue; } }
-    public float Strength { get { return _strenghtValue; } }
-    public float Intelligence { get { return _intelligenceValue; } }
+    public float Health { get { return _health; } }
+    public float Mana { get { return _mana; } }
+    public float Armor { get { return _armor; } }
+    public float Strength { get { return _strength; } }
+    public float Intelligence { get { return _intelligence; } }
 
-    public float HealthPercent { get { return _healthValuePercent; } }
-    public float Manapercent { get { return _manaValuePercent; } }
-    public float ArmorPercent { get { return _armorValuePercent; } }
-    public float StrengthPercent { get { return _strenghtValuePercent; } }
-    public float IntelligencePercent { get { return _intelligenceValuePercent; } }
+    public float HealthPercent { get { return _healthPercent; } }
+    public float Manapercent { get { return _manaPercent; } }
+    public float ArmorPercent { get { return _armorPercent; } }
+    public float StrengthPercent { get { return _strengthPercent; } }
+    public float IntelligencePercent { get { return _intelligencePercent; } }
 
     public bool ZoneOne { get { return _zoneOne; } }
     public bool ZoneTwo { get { return _zoneTwo; } }

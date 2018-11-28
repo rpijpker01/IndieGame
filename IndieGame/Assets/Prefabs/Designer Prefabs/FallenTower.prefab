@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4839410779565406}
   - component: {fileID: 33129557446987566}
   - component: {fileID: 23978275516265650}
+  - component: {fileID: 65730969612161164}
+  - component: {fileID: 114073141046385594}
   m_Layer: 0
   m_Name: FallenTower
   m_TagString: Untagged
@@ -35,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866124751811894}
   m_LocalRotation: {x: -0, y: -0.3247566, z: -0, w: 0.9457976}
-  m_LocalPosition: {x: 4.1044326, y: 5.1313763, z: -7.37}
+  m_LocalPosition: {x: 14.505045, y: 5.081376, z: 33.113407}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +84,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866124751811894}
   m_Mesh: {fileID: 4300000, guid: ddba00c6f4ec4884a923609aea871f0b, type: 3}
+--- !u!65 &65730969612161164
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866124751811894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.376162, y: 2.2311335, z: 10.194476}
+  m_Center: {x: -0.02510834, y: -3.9658093, z: -0.016715527}
+--- !u!114 &114073141046385594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866124751811894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffa1fc6570b2614dacfaca5b4b0d2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textAboveObject: Destroyed Building
+  _showTextBox: 1
+  _fontSize: 50
