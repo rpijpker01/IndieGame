@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour
 
     private void TeleportPlayerToLevel()
     {
-        player.transform.position = levelGenerator.playerSpawnPosition;
+        player.transform.position = levelGenerator.playerSpawnPosition + transform.up * 2;
         _hasToFadeOut = true;
         _fadeTime = DateTime.Now.AddMilliseconds(2000);
     }

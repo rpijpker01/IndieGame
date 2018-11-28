@@ -289,10 +289,12 @@ public class EnemyController : MonoBehaviour
                 drops.Add(eq);
         }
 
+        Debug.Log(drops.Count);
+
         for (int i = 0; i < drops.Count && i < _maxDrops; i++)
         {
             int rnd = UnityEngine.Random.Range(0, drops.Count - 1);
-            GameObject go = Instantiate(lootDropPrefab, this.transform.position, Quaternion.identity);
+            GameObject go = Instantiate(lootDropPrefab, this.transform.position + Vector3.up * 2, Quaternion.identity);
             if (go == null) continue;
             go.GetComponentInChildren<ItemDrop>().Init(drops[rnd]);
         }
