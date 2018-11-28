@@ -350,6 +350,7 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\PlayerCoins.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\StatDisplay.cs" />
@@ -378,11 +379,14 @@
     <Compile Include="Assets\Scripts\Singletons\DamageNumbersCanvas.cs" />
     <Compile Include="Assets\Scripts\Singletons\GameController.cs" />
     <Compile Include="Assets\Scripts\Singletons\LevelGenerator.cs" />
+    <Compile Include="Assets\Scripts\Singletons\MainCanvas.cs" />
     <Compile Include="Assets\Scripts\Singletons\UICanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\Tools\FollowItemPosition.cs" />
+    <Compile Include="Assets\Scripts\Tools\Portal.cs" />
+    <Compile Include="Assets\Scripts\Tools\SoundPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\DamageTextBehaviour.cs" />
     <Compile Include="Assets\Scripts\Wobble.cs" />
     <Compile Include="Assets\TestingNavMeshObstacle.cs" />

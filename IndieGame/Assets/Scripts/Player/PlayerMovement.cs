@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    [Range(0, 1)]
+    [Range(0, 50)]
     private float _rotationSpeed = 0.8f;
     [SerializeField]
     [Range(0, 1000)]
