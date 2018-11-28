@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
     private int _detectRange = 30;
     [SerializeField]
     private bool _isMeleeEnemy = true;
+    [SerializeField]
+    private bool _isDummy = false;
     [Header("Melee Enemy")]
     [SerializeField]
     private float _meleeDamage;
@@ -39,10 +41,21 @@ public class EnemyController : MonoBehaviour
     private Collider _collider;
     private NavMeshAgent _agent;
     private SoundPlayer _soundPlayer;
+    private Animator _animator;
 
     //Attacking variables
     private bool _isAttacking;
     private DateTime _lastAttackTime;
+
+    //Animation stuffz
+    private enum AnimationState
+    {
+        Idle,
+        Attacking,
+        Walking,
+        Dying
+    }
+    private AnimationState _animationState;
 
     [Header("Loot drops")]
     //Just testing the item drops btw ^_^
@@ -59,6 +72,7 @@ public class EnemyController : MonoBehaviour
         _collider = GetComponent<Collider>();
         _agent = GetComponent<NavMeshAgent>();
         _soundPlayer = GetComponent<SoundPlayer>();
+        _animator = GetComponent<Animator>();
         _health = _startingHealth;
 
         if (GetComponent<Animation>() != null)
@@ -71,13 +85,16 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         Dying();
-        if (_isMeleeEnemy)
+        if (_health > 0)
         {
-            MeleeEnemyBehaviour();
-        }
-        else
-        {
-            RangedEnemyBehaviour();
+            if (_isMeleeEnemy)
+            {
+                MeleeEnemyBehaviour();
+            }
+            else
+            {
+                RangedEnemyBehaviour();
+            }
         }
     }
 
@@ -86,6 +103,9 @@ public class EnemyController : MonoBehaviour
     {
         if (_health <= 0)
         {
+            _agent.isStopped = true;
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             if (_destroyEnemy)
             {
                 DropItems();
@@ -101,15 +121,21 @@ public class EnemyController : MonoBehaviour
     //Melee enemy stuff
     private void MeleeEnemyBehaviour()
     {
-        MeleeAttack();
-        MeleeMovement();
+        if (!_isDummy)
+        {
+            MeleeAttack();
+            MeleeMovement();
+        }
     }
 
     //Ranged enemy stuff
     private void RangedEnemyBehaviour()
     {
-        RangedAttack();
-        RangedMovement();
+        if (!_isDummy)
+        {
+            RangedAttack();
+            RangedMovement();
+        }
     }
 
     //Shoot / spit at the player
@@ -139,7 +165,10 @@ public class EnemyController : MonoBehaviour
                 {
                     //Move towards player
                     if (_agent != null && _agent.isOnNavMesh)
+                    {
+                        SetAnimationState(AnimationState.Walking);
                         _agent.destination = GameController.player.transform.position;
+                    }
                 }
                 else
                 {
@@ -159,11 +188,14 @@ public class EnemyController : MonoBehaviour
     {
         if (GameController.player != null)
         {
-            if ((transform.position - GameController.player.transform.position).magnitude < _detectRange)
+            if ((transform.position - GameController.player.transform.position).magnitude < _detectRange && (DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
             {
                 //Move towards player
                 if (_agent != null && _agent.isOnNavMesh)
+                {
+                    SetAnimationState(AnimationState.Walking);
                     _agent.destination = GameController.player.transform.position;
+                }
             }
         }
         else
@@ -178,16 +210,23 @@ public class EnemyController : MonoBehaviour
         if (GameController.player != null)
         {
             //Check if the player is in range
-            if ((GameController.player.transform.position - transform.position).magnitude < 1.5f)
+            if ((GameController.player.transform.position - transform.position).magnitude < 2f)
             {
                 if ((DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
                 {
-                    //Deal damage to the player
-                    GameController.playerController.TakeDamage(_meleeDamage);
+                    _agent.destination = transform.position;
+                    transform.LookAt(GameController.player.transform);
+
+                    //Play animation
+                    SetAnimationState(AnimationState.Attacking);
 
                     //Set last attack time to this
                     _lastAttackTime = DateTime.Now;
                 }
+            }
+            else
+            {
+                SetAnimationState(AnimationState.Idle);
             }
         }
         else
@@ -203,16 +242,15 @@ public class EnemyController : MonoBehaviour
     private void PlayDyingAnimation()
     {
         //Play death animation here lmao
-
-
-        //Give permission to destroy the enemy
-        _destroyEnemy = true;
+        SetAnimationState(AnimationState.Dying);
+        GetComponent<Collider>().enabled = false;
     }
 
     public void TakeDamage(float damage)
     {
-        //take the actual damage ofc lmao (coming soon tm)
-        _health -= damage;
+        if (!_isDummy)
+            //take the actual damage ofc lmao (coming soon tm)
+            _health -= damage;
 
         //Display damage number on canvas
         GameController.damageNumbersCanvas.DisplayDamageNumber(false, damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
@@ -220,8 +258,9 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float damage, Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
     {
-        //Take the actual damage ofc lmao (coming soon tm)
-        _health -= damage;
+        if (!_isDummy)
+            //Take the actual damage ofc lmao (coming soon tm)
+            _health -= damage;
 
         //Display damage number on canvas
         GameController.damageNumbersCanvas.DisplayDamageNumber(false, damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
@@ -301,5 +340,34 @@ public class EnemyController : MonoBehaviour
         if (null != _soundPlayer)
             _soundPlayer.PlayAudioClip(0);
         Debug.Log("Great step sound");
+    }
+
+    private void SetAnimationState(AnimationState animationState)
+    {
+        _animator.SetBool("isWalking", false);
+        _animator.SetBool("isDying", false);
+        _animator.SetBool("isIdle", false);
+        _animator.SetBool("isAttacking", false);
+        switch (animationState)
+        {
+            case AnimationState.Idle:
+                _animator.SetBool("isIdle", true);
+                break;
+            case AnimationState.Attacking:
+                _animator.SetBool("isAttacking", true);
+                break;
+            case AnimationState.Walking:
+                _animator.SetBool("isWalking", true);
+                break;
+            case AnimationState.Dying:
+                _animator.SetBool("isDying", true);
+                break;
+        }
+    }
+
+    public void DamagePlayer()
+    {
+        //Deal damage to the player
+        GameController.playerController.TakeDamage(_meleeDamage);
     }
 }
