@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    [Range(0, 1)]
+    [Range(0, 50)]
     private float _rotationSpeed = 0.8f;
     [SerializeField]
     [Range(0, 1000)]
@@ -24,12 +24,14 @@ public class PlayerMovement : MonoBehaviour
     private MeshFilter _meshFilter;
     private Rigidbody _rigidBody;
     private Quaternion _surfaceRotation;
+    private GameObject _rotationDummy;
 
     // Use this for initialization
     void Start()
     {
         _meshFilter = GetComponent<MeshFilter>();
         _rigidBody = GetComponent<Rigidbody>();
+        _rotationDummy = GameObject.Find("RotationDummy").gameObject;
     }
 
     // Update is called once per frame
@@ -122,7 +124,8 @@ public class PlayerMovement : MonoBehaviour
         {
             movementInAxi.y = -movementInAxi.y;
         }
-        _rigidBody.velocity = (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
+        _rigidBody.velocity = _rotationDummy.transform.forward * _currentSpeed * Time.deltaTime;
+        //_rigidBody.velocity = (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
         //transform.position = transform.position + (new Vector3(movementInAxi.x, 0, movementInAxi.y) * _currentSpeed * Time.deltaTime);
     }
 
@@ -131,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Check where the ground is
         RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(transform.position, -transform.up, out raycastHit);
+        Physics.Raycast(transform.position, -Vector3.up, out raycastHit);
 
         if (!raycastHit.collider.isTrigger)
         {
@@ -143,5 +146,24 @@ public class PlayerMovement : MonoBehaviour
             //Set position
             transform.position = transform.position - (transform.up * raycastHit.distance) + (transform.up * _meshFilter.mesh.bounds.extents.y);
         }
+        //Set rotation
+        if (_rotationDummy != null)
+        {
+            _surfaceRotation = Quaternion.FromToRotation(Vector3.up, raycastHit.normal);
+            _rotationDummy.transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
+            _rotationDummy.transform.RotateAround(_rotationDummy.transform.up, rotation.y * Mathf.Deg2Rad);
+
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, _rotationDummy.transform.rotation, Time.deltaTime * _rotationSpeed);
+        }
+        else
+        {
+            _surfaceRotation = Quaternion.FromToRotation(Vector3.up, raycastHit.normal);
+            transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
+            transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
+        }
+
+
+        //Set position
+        transform.position = transform.position - (transform.up * (raycastHit.distance - 0.05f)) + (transform.up * _meshFilter.mesh.bounds.extents.y);
     }
 }

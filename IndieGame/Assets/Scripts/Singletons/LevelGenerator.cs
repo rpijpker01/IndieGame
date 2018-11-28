@@ -41,11 +41,21 @@ public class LevelGenerator : MonoBehaviour
     private int[,] _roadObjects;
     private List<Object> _spawnedPathPieces = new List<Object>();
 
+    public Vector3 playerSpawnPosition = Vector3.zero;
+
+    public delegate void DoneWithGenerating();
+    public DoneWithGenerating doneWithGenerating;
+
     private struct MazeNode
     {
         public RoadPiece roadPiece;
         public Vector3 position;
         public List<MazeNode> adjecentNodes;
+    }
+
+    private void Awake()
+    {
+        GameController.levelGenerator = this;
     }
 
     // Use this for initialization
@@ -64,7 +74,7 @@ public class LevelGenerator : MonoBehaviour
 
         if (_cornerPieces.Length > 0)
         {
-            GameObject tempPiece = ((GameObject)Instantiate(_middlePieces[0]));
+            GameObject tempPiece = ((GameObject)Instantiate(_cornerPieces[0]));
             _extents = tempPiece.GetComponentInChildren<BoxCollider>().bounds.extents;
             Destroy(tempPiece);
             Debug.Log(_extents);
@@ -111,7 +121,26 @@ public class LevelGenerator : MonoBehaviour
             GenerateLeftOverArea(_startNode, _endNode);
             Debug.Log("Filling in left over area time: " + (System.DateTime.Now - startFillingInLeftOverArea));
             Debug.Log("Total Time: " + (System.DateTime.Now - startGeneratingLevel) + " / " + (System.DateTime.Now - startGeneratingLevel).TotalMilliseconds + "ms");
+            doneWithGenerating();
         }
+    }
+
+    public void GenerateFullDungeonLevel(int width, int height)
+    {
+        //Level Generation
+        System.DateTime startGeneratingLevel = System.DateTime.Now;
+        StartGeneratingLevel(width, height);
+        Debug.Log("Level generation time: " + (System.DateTime.Now - startGeneratingLevel));
+        //Main path
+        System.DateTime startGeneratingMainPath = System.DateTime.Now;
+        GenerateMainPath();
+        Debug.Log("Main path generation time: " + (System.DateTime.Now - startGeneratingMainPath));
+        //Fill in left over area
+        System.DateTime startFillingInLeftOverArea = System.DateTime.Now;
+        GenerateLeftOverArea(_startNode, _endNode);
+        Debug.Log("Filling in left over area time: " + (System.DateTime.Now - startFillingInLeftOverArea));
+        Debug.Log("Total Time: " + (System.DateTime.Now - startGeneratingLevel) + " / " + (System.DateTime.Now - startGeneratingLevel).TotalMilliseconds + "ms");
+        doneWithGenerating();
     }
 
     private void StartGeneratingLevel(int width, int height)
@@ -121,14 +150,7 @@ public class LevelGenerator : MonoBehaviour
             Destroy(_spawnedPathPieces[i]);
             _spawnedPathPieces.RemoveAt(i);
         }
-        //try
-        //{
         GenerateDungeonLevel(width, width);
-        //}
-        //catch
-        //{
-        //    StartGeneratingLevel(width, height);
-        //}
     }
 
     public void GenerateSquareLevel(int width = 3, int height = 3)
@@ -187,7 +209,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateDungeonLevel(int width, int height)
+    private void GenerateDungeonLevel(int width, int height)
     {
         _dungeonPieces = new MazeNode[width, height];
         _roadObjects = new int[width, height];
@@ -592,11 +614,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (IsPieceFacingNode(_currentPos, _currentPos + new Vector2Int(0, 1)))
                 {
-                    pieceRotation = Quaternion.Euler(0, 90, 0);
+                    pieceRotation = Quaternion.Euler(0, 0, 0);
                 }
                 else
                 {
-                    pieceRotation = Quaternion.Euler(0, 270, 0);
+                    pieceRotation = Quaternion.Euler(0, 180, 0);
                 }
                 _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                 _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
@@ -606,11 +628,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (IsPieceFacingNode(_currentPos, _currentPos + new Vector2Int(1, 0)))
                 {
-                    pieceRotation = Quaternion.Euler(0, 180, 0);
+                    pieceRotation = Quaternion.Euler(0, 90, 0);
                 }
                 else
                 {
-                    pieceRotation = Quaternion.Euler(0, 0, 0);
+                    pieceRotation = Quaternion.Euler(0, -90, 0);
                 }
                 _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                 _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
@@ -621,15 +643,29 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (obj1 != null && Mathf.RoundToInt(((GameObject)obj1).transform.rotation.eulerAngles.y) == 90 && _dungeonPieces[_currentPos.x + 1, _currentPos.y].roadPiece != RoadPiece.Corner)
                 {
-                    pieceRotation = Quaternion.Euler(0, 270, 0);
+                    pieceRotation = Quaternion.Euler(0, 180, 0);
                 }
                 else if ((obj2 != null && Mathf.RoundToInt(((GameObject)obj2).transform.rotation.eulerAngles.y) == 90 && _dungeonPieces[_currentPos.x - 1, _currentPos.y].roadPiece != RoadPiece.Corner))
                 {
-                    pieceRotation = Quaternion.Euler(0, 270, 0);
+                    pieceRotation = Quaternion.Euler(0, 180, 0);
                 }
                 else if ((obj3 != null && Mathf.RoundToInt(((GameObject)obj3).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y + 1].roadPiece != RoadPiece.Corner) && _nextPos.x > _currentPos.x)
                 {
-                    pieceRotation = Quaternion.Euler(0, 180, 0);
+                    pieceRotation = Quaternion.Euler(0, 90, 0);
+                }
+                else
+                {
+                    pieceRotation = Quaternion.Euler(0, -90, 0);
+                }
+                _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
+                _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
+            }
+            else if ((_currentPos.y == _previousPos.y && _currentPos.y != _nextPos.y && (_roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y - 1, 0, _roadObjects.GetLength(1) - 1)] > 1000 || _roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y + 1, 0, _roadObjects.GetLength(1) - 1)] > 1000))
+                && ((obj3 != null && Mathf.RoundToInt(((GameObject)obj3).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y + 1].roadPiece != RoadPiece.Corner) || (obj4 != null && Mathf.RoundToInt(((GameObject)obj4).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y - 1].roadPiece != RoadPiece.Corner)))
+            {
+                if (obj3 != null && Mathf.RoundToInt(((GameObject)obj3).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y + 1].roadPiece != RoadPiece.Corner)
+                {
+                    pieceRotation = Quaternion.Euler(0, 90, 0);
                 }
                 else
                 {
@@ -638,58 +674,16 @@ public class LevelGenerator : MonoBehaviour
                 _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                 _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
             }
-            //TEST 1
-            //else if ((_currentPos.x == _previousPos.x && _currentPos.x != _nextPos.x && (_roadObjects[(int)Mathf.Clamp(_currentPos.x - 1, 0, _roadObjects.GetLength(0) - 1), _currentPos.y] > 1000 || _roadObjects[(int)Mathf.Clamp(_currentPos.x + 1, 0, _roadObjects.GetLength(0) - 1), _currentPos.y] > 1000 || _roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y - 1, 0, _roadObjects.GetLength(1) - 1)] > 1000) || _roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y + 1, 0, _roadObjects.GetLength(1) - 1)] > 1000))
-            //{
-            //    if(_roadObjects[(int)Mathf.Clamp(_currentPos.x - 1, 0, _roadObjects.GetLength(0) - 1), _currentPos.y] > 1000 || _roadObjects[(int)Mathf.Clamp(_currentPos.x + 1, 0, _roadObjects.GetLength(0) - 1), _currentPos.y] > 1000)
-            //    {
-            //        if(_previousPos.y > _currentPos.y)
-            //        {
-            //            pieceRotation = Quaternion.Euler(0, 90, 0);
-            //        }
-            //        else
-            //        {
-            //            pieceRotation = Quaternion.Euler(0, 270, 0);
-            //        }
-            //    }
-            //    else if (_roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y - 1, 0, _roadObjects.GetLength(0) - 1)] > 1000 || _roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y + 1, 0, _roadObjects.GetLength(0) - 1)] > 1000)
-            //    {
-            //        if (_currentPos.x > _nextPos.x)
-            //        {
-            //            pieceRotation = Quaternion.Euler(0, 0, 0);
-            //        }
-            //        else
-            //        {
-            //            pieceRotation = Quaternion.Euler(0, 180, 0);
-            //        }
-            //    }
-            //    _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
-            //    _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
-            //}
-            else if ((_currentPos.y == _previousPos.y && _currentPos.y != _nextPos.y && (_roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y - 1, 0, _roadObjects.GetLength(1) - 1)] > 1000 || _roadObjects[_currentPos.x, (int)Mathf.Clamp(_currentPos.y + 1, 0, _roadObjects.GetLength(1) - 1)] > 1000))
-                && ((obj3 != null && Mathf.RoundToInt(((GameObject)obj3).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y + 1].roadPiece != RoadPiece.Corner) || (obj4 != null && Mathf.RoundToInt(((GameObject)obj4).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y - 1].roadPiece != RoadPiece.Corner)))
-            {
-                if (obj3 != null && Mathf.RoundToInt(((GameObject)obj3).transform.rotation.eulerAngles.y) == 0 && _dungeonPieces[_currentPos.x, _currentPos.y + 1].roadPiece != RoadPiece.Corner)
-                {
-                    pieceRotation = Quaternion.Euler(0, 180, 0);
-                }
-                else
-                {
-                    pieceRotation = Quaternion.Euler(0, 90, 0);
-                }
-                _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
-                _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.TSection;
-            }
             //Straight path pieces
             else if (_currentPos.x != _previousPos.x && _currentPos.x != _nextPos.x)
             {
-                pieceRotation = Quaternion.Euler(0, 90, 0);
+                pieceRotation = Quaternion.Euler(0, 0, 0);
                 _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                 _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.StraightRoad;
             }
             else if (_currentPos.x == _previousPos.x && _currentPos.x == _nextPos.x)
             {
-                pieceRotation = Quaternion.Euler(0, 0, 0);
+                pieceRotation = Quaternion.Euler(0, 90, 0);
                 _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                 _dungeonPieces[_currentPos.x, _currentPos.y].roadPiece = RoadPiece.StraightRoad;
             }
@@ -772,25 +766,25 @@ public class LevelGenerator : MonoBehaviour
                     //T sections
                     else if (up && down && left)
                     {
-                        pieceRotation = Quaternion.Euler(0, 0, 0);
+                        pieceRotation = Quaternion.Euler(0, -90, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
                     else if (up && down && right)
                     {
-                        pieceRotation = Quaternion.Euler(0, 180, 0);
+                        pieceRotation = Quaternion.Euler(0, 90, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
                     else if (right && left && up)
                     {
-                        pieceRotation = Quaternion.Euler(0, 90, 0);
+                        pieceRotation = Quaternion.Euler(0, 0, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
                     else if (right && left && down)
                     {
-                        pieceRotation = Quaternion.Euler(0, 270, 0);
+                        pieceRotation = Quaternion.Euler(0, 180, 0);
                         _spawnedPathPieces.Add(Instantiate(_tSectionPieces[Random.Range(0, _tSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.TSection;
                     }
@@ -822,13 +816,13 @@ public class LevelGenerator : MonoBehaviour
                     //Straight path
                     else if (up && down)
                     {
-                        pieceRotation = Quaternion.Euler(0, 0, 0);
+                        pieceRotation = Quaternion.Euler(0, 90, 0);
                         _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.StraightRoad;
                     }
                     else if (right && left)
                     {
-                        pieceRotation = Quaternion.Euler(0, 90, 0);
+                        pieceRotation = Quaternion.Euler(0, 0, 0);
                         _spawnedPathPieces.Add(Instantiate(_middlePieces[Random.Range(0, _middlePieces.Length)], piecePosition, pieceRotation, transform.parent));
                         _dungeonPieces[i, j].roadPiece = RoadPiece.StraightRoad;
                     }
@@ -865,8 +859,10 @@ public class LevelGenerator : MonoBehaviour
         Quaternion pieceRotation = Quaternion.Euler(0, 0, 0);
         Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, 0, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * startNode.x, 0, _extents.z * 2 * startNode.y);
         //Spawn start node
+        Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[startNode.x, startNode.y].position)).gameObject);
         _spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
         _dungeonPieces[startNode.x, startNode.y].roadPiece = RoadPiece.CrossSection;
+        playerSpawnPosition = piecePosition + transform.up * GameController.player.GetComponent<Collider>().bounds.extents.y;
         //Spawn end node
         piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, 0, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * endNode.x, 0, _extents.z * 2 * endNode.y);
         Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[endNode.x, endNode.y].position)).gameObject);
@@ -1076,13 +1072,14 @@ public class LevelGenerator : MonoBehaviour
                         }
                         break;
                     case RoadPiece.StraightRoad:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 90)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 0)
                         {
                             return true;
                         }
                         break;
                     case RoadPiece.TSection:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 0)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != -90
+                            && Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 270)
                         {
                             return true;
                         }
@@ -1110,13 +1107,13 @@ public class LevelGenerator : MonoBehaviour
                         }
                         break;
                     case RoadPiece.StraightRoad:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 90)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 0)
                         {
                             return true;
                         }
                         break;
                     case RoadPiece.TSection:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 180)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 90)
                         {
                             return true;
                         }
@@ -1143,14 +1140,13 @@ public class LevelGenerator : MonoBehaviour
                         }
                         break;
                     case RoadPiece.StraightRoad:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 0)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 90)
                         {
                             return true;
                         }
                         break;
                     case RoadPiece.TSection:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 270
-                            && Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != -90)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 180)
                         {
                             return true;
                         }
@@ -1178,13 +1174,13 @@ public class LevelGenerator : MonoBehaviour
                         }
                         break;
                     case RoadPiece.StraightRoad:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 0)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) == 90)
                         {
                             return true;
                         }
                         break;
                     case RoadPiece.TSection:
-                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 90)
+                        if (Mathf.RoundToInt(((GameObject)_spawnedPathPieces.Find(spawnedPiece => ((GameObject)spawnedPiece).transform.position == piecePosition)).transform.rotation.eulerAngles.y) != 0)
                         {
                             return true;
                         }
