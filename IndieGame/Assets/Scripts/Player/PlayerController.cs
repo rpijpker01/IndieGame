@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private float _startingHealth = 100;
     [SerializeField]
     private float _startingMana = 100;
+    [SerializeField]
+    [Range(0, 1)]
+    private float _manaRegenSpeed = 0.05f;
     private float _health;
     private float _mana;
     private bool _isPlayingDyingAnimation = true;
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Dying();
+        UpdateMana();
     }
 
     private void Dying()
@@ -44,6 +48,18 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+        }
+    }
+
+    private void UpdateMana()
+    {
+        if (_mana < _startingMana)
+        {
+            _mana += _manaRegenSpeed;
+        }
+        else if (_mana > _startingMana)
+        {
+            _mana = _startingMana;
         }
     }
 
@@ -72,5 +88,9 @@ public class PlayerController : MonoBehaviour
     public float GetMana()
     {
         return _mana;
+    }
+    public void SetMana(float mana)
+    {
+        _mana = mana;
     }
 }
