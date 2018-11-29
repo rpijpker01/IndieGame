@@ -193,6 +193,8 @@ public class GameController : MonoBehaviour
         {
             levelGenerator.GenerateFullDungeonLevel(16, 16);
             BakeNavMesh();
+            CameraFollowPlayer.InvertCamera();
+            PlayerMovement.InvertControls();
             _loadingLevel = false;
         }
     }
@@ -202,6 +204,8 @@ public class GameController : MonoBehaviour
         if (mainCanvas.GetBlackgroundAlpha() == 1)
         {
             TeleportPlayerToHub();
+            CameraFollowPlayer.InvertCamera();
+            PlayerMovement.InvertControls();
             _loadingHub = false;
         }
     }
