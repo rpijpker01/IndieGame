@@ -77,27 +77,36 @@ public class GameController : MonoBehaviour
             {
                 if (gameObject.GetComponent<CapsuleCollider>() != null)
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    CapsuleCollider capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
-                    obstacle.shape = NavMeshObstacleShape.Capsule;
-                    obstacle.center = capsuleCollider.center;
-                    obstacle.radius = capsuleCollider.radius;
-                    obstacle.height = capsuleCollider.height;
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        CapsuleCollider capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+                        obstacle.shape = NavMeshObstacleShape.Capsule;
+                        obstacle.center = capsuleCollider.center;
+                        obstacle.radius = capsuleCollider.radius;
+                        obstacle.height = capsuleCollider.height;
+                        obstacle.carving = true;
+                    }
                 }
                 else if (gameObject.GetComponent<BoxCollider>() != null)
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
-                    obstacle.shape = NavMeshObstacleShape.Box;
-                    obstacle.center = boxCollider.center;
-                    obstacle.size = boxCollider.size;
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
+                        obstacle.shape = NavMeshObstacleShape.Box;
+                        obstacle.center = boxCollider.center;
+                        obstacle.size = boxCollider.size;
+                        obstacle.carving = true;
+                    }
                 }
                 else
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        obstacle.carving = true;
+                    }
                 }
             }
         }

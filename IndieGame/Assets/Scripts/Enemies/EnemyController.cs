@@ -209,7 +209,7 @@ public class EnemyController : MonoBehaviour
         if (GameController.player != null)
         {
             //Check if the player is in range
-            if ((GameController.player.transform.position - transform.position).magnitude < 2f)
+            if ((GameController.player.transform.position - transform.position).magnitude < 1.5f)
             {
                 if ((DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
                 {
@@ -288,8 +288,6 @@ public class EnemyController : MonoBehaviour
             if (rnd <= eq.DropChance)
                 drops.Add(eq);
         }
-
-        Debug.Log(drops.Count);
 
         for (int i = 0; i < drops.Count && i < _maxDrops; i++)
         {
