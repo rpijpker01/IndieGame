@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 9
+  controlID: 10
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 11
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 12
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -418,19 +418,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Material/Misc
+    - Assets/Prefabs/Designer Prefabs/Props
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Material/Misc
+  - Assets/Prefabs/Designer Prefabs/Props
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Anna Kemper\Documents\IndieGame\IndieGame
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 1e3b0000
-    m_LastClickedID: 15134
-    m_ExpandedIDs: 00000000b42a00009c2b0000482c0000702c0000762c0000782c0000b0300000e430000006340000083400000a34000078340000fa3400002e360000e4370000b6380000483a0000e03a0000e63a0000fc3d0000823e0000983e0000ec3f00009e400000a64000005e42000064420000726400007464000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 95}
+    m_SelectedIDs: fa330000
+    m_LastClickedID: 13306
+    m_ExpandedIDs: 00000000b42a0000a82b0000542c00007c2c0000822c0000842c0000f0300000123400001434000016340000063500003c360000f8370000ca3800005c3a0000f43a0000fa3a0000123e0000b03e000004400000b6400000784200007e420000a6640000a864000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -458,7 +458,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b42a00009c2b0000482c0000702c0000762c0000782c0000b0300000e430000006340000083400000a34000078340000fa3400002e360000e4370000b6380000483a0000e03a0000e63a0000fc3d0000823e0000983e0000ec3f00009e400000a64000005e420000644200007264000074640000
+    m_ExpandedIDs: 00000000b42a0000a82b0000542c00007c2c0000822c0000842c0000bc300000f030000012340000143400001634000084340000063500003c360000f8370000ca3800005c3a0000f43a0000fa3a0000123e00009a3e0000b03e000004400000b6400000be400000784200007e420000a6640000a8640000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -510,7 +510,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 349}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 115
 --- !u!114 &16
@@ -576,9 +576,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 608fffff
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 8eb1ffff90b1ffff96fbffff00000000
+    m_ExpandedIDs: 5690feff96fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -594,7 +594,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 0
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 4}
     m_SearchString: 
   m_ExpandedScenes:
   - Props
@@ -634,9 +634,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 29.583542, y: 0.8523234, z: -12.513943}
+    m_Target: {x: 42.902824, y: -2.2478983, z: -3.113593}
     speed: 2
-    m_Value: {x: 29.583542, y: 0.8523234, z: -12.513943}
+    m_Value: {x: 42.902824, y: -2.2478983, z: -3.113593}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -660,13 +660,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.15931809, y: 0.30485576, z: -0.05178753, w: -0.93755543}
+    m_Target: {x: -0.2545017, y: 0.1663591, z: -0.044475805, w: -0.9516361}
     speed: 2
-    m_Value: {x: -0.15931718, y: 0.304854, z: -0.05178723, w: -0.93755007}
+    m_Value: {x: -0.25449714, y: 0.16635612, z: -0.04447501, w: -0.9516191}
   m_Size:
-    m_Target: 4.7745094
+    m_Target: 9.940204
     speed: 2
-    m_Value: 4.7745094
+    m_Value: 9.940204
   m_Ortho:
     m_Target: 0
     speed: 2
