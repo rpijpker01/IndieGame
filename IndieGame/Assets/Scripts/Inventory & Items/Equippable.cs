@@ -59,62 +59,63 @@ public class Equippable : Item
         //Health & %Health
         if (_healthValue.x != 0 && _healthValue.x <= _healthValue.y)
         {
-            _health = Random.Range(_healthValue.x, _healthValue.y);
+            _health = (int)Random.Range(_healthValue.x, _healthValue.y);
             pInv.Health.AddModifier(new StatModifier(_health, StatModifierType.Flat, this));
         }
         if (_healthValuePercent.x != 0 && _healthValuePercent.x <= _healthValuePercent.y)
         {
-            _healthPercent = Random.Range(_healthValuePercent.x, _healthValuePercent.y);
+            _healthPercent = (int)Random.Range(_healthValuePercent.x, _healthValuePercent.y);
             pInv.Health.AddModifier(new StatModifier(_healthPercent, StatModifierType.PercentAdd, this));
         }
 
         //Mana & %Mana
         if (_manaValue.x != 0 && _manaValue.x <= _manaValue.y)
         {
-            _mana = Random.Range(_manaValue.x, _manaValue.y);
+            _mana = (int)Random.Range(_manaValue.x, _manaValue.y);
             pInv.Mana.AddModifier(new StatModifier(_mana, StatModifierType.Flat, this));
         }
         if (_manaValuePercent.x != 0 && _manaValuePercent.x <= _manaValuePercent.y)
         {
-            _manaPercent = Random.Range(_manaValuePercent.x, _manaValuePercent.y);
+            _manaPercent = (int)Random.Range(_manaValuePercent.x, _manaValuePercent.y);
             pInv.Mana.AddModifier(new StatModifier(_manaPercent, StatModifierType.PercentAdd, this));
         }
 
         //Armor & %Armor
         if (_armorValue.x != 0 && _armorValue.x <= _armorValue.y)
         {
-            _armor = Random.Range(_armorValue.x, _armorValue.y);
+            _armor = (int)Random.Range(_armorValue.x, _armorValue.y);
             pInv.Armor.AddModifier(new StatModifier(_armor, StatModifierType.Flat, this));
         }
         if (_armorValuePercent.x != 0 && _armorValuePercent.x <= _armorValuePercent.y)
         {
-            _armorPercent = Random.Range(_armorValuePercent.x, _armorValuePercent.y);
+            _armorPercent = (int)Random.Range(_armorValuePercent.x, _armorValuePercent.y);
             pInv.Armor.AddModifier(new StatModifier(_armorPercent, StatModifierType.PercentAdd, this));
         }
 
         //StrengthMana & %Strength
         if (_strengthValue.x != 0 && _strengthValue.x <= _strengthValue.y)
         {
-            _strength = Random.Range(_strengthValue.x, _strengthValue.y);
+            _strength = (int)Random.Range(_strengthValue.x, _strengthValue.y);
             pInv.Strength.AddModifier(new StatModifier(_strength, StatModifierType.Flat, this));
         }
         if (_strengthValuePercent.x != 0 && _strengthValuePercent.x <= _strengthValuePercent.y)
         {
-            _strengthPercent = Random.Range(_strengthValuePercent.x, _strengthValuePercent.y);
+            _strengthPercent = (int)Random.Range(_strengthValuePercent.x, _strengthValuePercent.y);
             pInv.Strength.AddModifier(new StatModifier(_strengthPercent, StatModifierType.PercentAdd, this));
         }
 
         //Intelligence & %Intelligence
         if (_intelligenceValue.x != 0 && _intelligenceValue.x <= _intelligenceValue.y)
         {
-            _intelligence = Random.Range(_intelligenceValue.x, _intelligenceValue.y);
+            _intelligence = (int)Random.Range(_intelligenceValue.x, _intelligenceValue.y);
             pInv.Intelligence.AddModifier(new StatModifier(_intelligence, StatModifierType.Flat, this));
         }
         if (_intelligenceValuePercent.x != 0 && _intelligenceValuePercent.x <= _intelligenceValuePercent.y)
         {
-            _intelligencePercent = Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
+            _intelligencePercent = (int)Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
             pInv.Intelligence.AddModifier(new StatModifier(_intelligencePercent, StatModifierType.PercentAdd, this));
         }
+        Debug.Log(_strength);
     }
 
     public void Unequip(InventoryManager pInv)

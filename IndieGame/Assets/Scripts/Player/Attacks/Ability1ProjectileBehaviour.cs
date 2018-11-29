@@ -48,7 +48,7 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player")
+        if (other.tag != "Player" && other.tag != "LootDrop")
         {
             DamageEnemiesInRange();
 
@@ -64,11 +64,11 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
         //Damage all the enemies in range
         foreach (GameObject enemy in enemies)
         {
-            if ((enemy.transform.position - transform.position).magnitude < _radius)
+            if ((enemy.transform.position - transform.position).magnitude < _radius && enemy.GetComponent<Collider>().enabled == true)
             {
                 float damageWithFalloff = _damageValue / (enemy.transform.position - transform.position).magnitude;
                 damageWithFalloff = Mathf.Clamp(damageWithFalloff, 0, _damageValue * 1.5f);
-                enemy.GetComponent<EnemyController>().TakeDamage(damageWithFalloff, transform.position, _knockBackStrength, _radius * 5);
+                enemy.GetComponent<EnemyController>().TakeDamage(damageWithFalloff, transform.position, _knockBackStrength, _radius);
             }
         }
     }
