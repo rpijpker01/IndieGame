@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class FollowItemPosition : MonoBehaviour
 {
     [SerializeField] private Text _textObject;
+    [SerializeField] private Image _background;
+
     private Transform _item;
+    private ItemDrop _itemScript;
     private string _itemName;
+    private int _oldIndex;
 
     private void Update()
     {
@@ -14,10 +19,25 @@ public class FollowItemPosition : MonoBehaviour
 
     public void Init()
     {
-        GameObject go = GameObject.Find("InGameUICanvas");
+        GameObject go = GameObject.Find("ContainerForItemNameDisplays");
         transform.SetParent(go.transform);
-        transform.SetAsFirstSibling();
         _textObject.text = _itemName;
+        _itemScript = _item.GetComponent<ItemDrop>();
+
+        _background.enabled = false;
+        _textObject.enabled = false;
+    }
+
+    public void Highlight()
+    {
+        _background.enabled = true;
+        _textObject.enabled = true;
+    }
+
+    public void Shade()
+    {
+        _background.enabled = false;
+        _textObject.enabled = false;
     }
 
     public string ItemName

@@ -21,6 +21,9 @@ public class PlayerAttacks : MonoBehaviour
     private float _abilityOneDamage;
     [SerializeField]
     private GameObject _ability1ProjectilePrefab;
+    [SerializeField]
+    [Range(0, 100)]
+    private int _ability1ManaCost = 25;
 
 
     private DateTime _attackStartTime;
@@ -78,10 +81,13 @@ public class PlayerAttacks : MonoBehaviour
     private void Abilities()
     {
         //Check for mouse input
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && GameController.playerController.GetMana() > _abilityOneManaCost)
         {
             RotateTowardsMouse();
             GameController.playerController.isAttacking = true;
+
+            //Drain mana from the player
+            GameController.playerController.SetMana(GameController.playerController.GetMana() - _abilityOneManaCost);
 
             //Check what ability is selected (COMING SOON tm)
             //switch(ability) etc etc

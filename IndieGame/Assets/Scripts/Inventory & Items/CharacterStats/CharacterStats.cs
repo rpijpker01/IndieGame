@@ -7,7 +7,7 @@ namespace F.CharacterStats
     [Serializable]
     public class CharacterStats
     {
-        protected float _baseValue;
+        public float _baseValue;
         protected float _lastBaseValue = float.MinValue;
         protected float _finalValue;
 

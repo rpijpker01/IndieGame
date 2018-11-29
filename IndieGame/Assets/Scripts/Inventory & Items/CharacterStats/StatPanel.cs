@@ -29,7 +29,9 @@ public class StatPanel : MonoBehaviour
             _statDisplays[i].gameObject.SetActive(i < _stats.Length);
 
             if (i < _stats.Length)
+            {
                 _statDisplays[i].Stats = _stats[i];
+            }
         }
     }
 

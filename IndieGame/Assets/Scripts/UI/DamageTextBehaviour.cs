@@ -52,7 +52,7 @@ public class DamageTextBehaviour : MonoBehaviour
     public void SetStartingPosition(Vector3 worldStartingPosition, float damageValue)
     {
         _worldStartingPosition = worldStartingPosition;
-        _textScript.fontSize = 75;
+        _textScript.fontSize = 170;
 
         if (damageValue < 30)
         {

@@ -19,10 +19,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4960377956396184}
-  - component: {fileID: 65236398890500490}
   - component: {fileID: 114936326866997630}
-  - component: {fileID: 54292527762904508}
   - component: {fileID: 212218733545599570}
+  - component: {fileID: 135850023614111152}
+  - component: {fileID: 111362666518052610}
+  - component: {fileID: 65326645381281510}
+  - component: {fileID: 54149001176735580}
   m_Layer: 0
   m_Name: LootDrop
   m_TagString: LootDrop
@@ -40,7 +42,7 @@ GameObject:
   - component: {fileID: 4407530467624358}
   m_Layer: 0
   m_Name: LootDropParent
-  m_TagString: Untagged
+  m_TagString: LootDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266160461775014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.361801, y: 0.71130925, z: 10.538664}
+  m_LocalPosition: {x: -996.66815, y: 7.3981486e-17, z: -11.619746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4960377956396184}
@@ -72,7 +74,7 @@ Transform:
   m_Father: {fileID: 4407530467624358}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54292527762904508
+--- !u!54 &54149001176735580
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,7 +89,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65236398890500490
+--- !u!65 &65326645381281510
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -99,6 +101,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.05}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &111362666518052610
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1028138126581124}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 28ce2e60828e8f84fb894453483203a6, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 28ce2e60828e8f84fb894453483203a6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114936326866997630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,6 +127,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9904f6acdaee73b43a7475007b3c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135850023614111152
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1028138126581124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212218733545599570
 SpriteRenderer:
   m_ObjectHideFlags: 1

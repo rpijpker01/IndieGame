@@ -11,22 +11,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
   m_Name: W sword 1
   m_EditorClassIdentifier: 
+  _id: 4ccb72aa2826b0549a3111ebb7ee9d44
   _name: SLAPPER
-  _iconInInventory: {fileID: 21300000, guid: 387abf73b270ff342b15ed0f519dac8d, type: 3}
-  _iconWhenEquipped: {fileID: 0}
+  _iconInInventory: {fileID: 21300000, guid: b0039ad2eaffa754ba0d912a3c896654, type: 3}
+  _iconWhenEquipped: {fileID: 21300000, guid: 61c86a004e5ee7f43b50fdf2c96ddd62, type: 3}
   _equipmentType: 6
-  _healthValue: 0
-  _manaValue: 0
-  _armorValue: 0
-  _strenghtValue: 50
-  _intelligenceValue: -10
-  _healthValuePercent: 0
-  _manaValuePercent: 0
-  _armorValuePercent: -50
-  _strenghtValuePercent: 100
-  _intelligenceValuePercent: -10
-  _itemValue: 0
-  _dropChancePercent: 25
+  _healthValue: {x: -100, y: 100}
+  _manaValue: {x: -100, y: 100}
+  _armorValue: {x: -100, y: 100}
+  _strengthValue: {x: -100, y: 100}
+  _intelligenceValue: {x: -100, y: 100}
+  _healthValuePercent: {x: -100, y: 100}
+  _manaValuePercent: {x: -100, y: 100}
+  _armorValuePercent: {x: -100, y: 100}
+  _strengthValuePercent: {x: -100, y: 100}
+  _intelligenceValuePercent: {x: -100, y: 100}
+  _itemValue: 88
+  _dropChancePercent: 100
   _zoneOne: 0
   _zoneTwo: 0
   _zoneThree: 0

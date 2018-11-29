@@ -46,5 +46,64 @@ public class EquipmentSlot : ItemSlot
         }
     }
 
+    public override Item Item
+    {
+        get { return _item; }
+
+        set
+        {
+            _item = value;
+
+            if (_item == null)
+            {
+                _image.color = _noAlphaCol;
+            }
+            else
+            {
+                _image.sprite = _item.IconWhenEquipped;
+                _image.color = _normalCol;
+            }
+
+            if (_item is Equippable)
+            {
+                Equippable e = (Equippable)_item;
+
+                switch (e.name.ToLower().ToCharArray()[0])
+                {
+                    case 'h':
+                        e.ItemType = EquipmentType.Helm;
+                        break;
+                    case 'c':
+                        e.ItemType = EquipmentType.Chest;
+                        break;
+                    case 'g':
+                        e.ItemType = EquipmentType.Gloves;
+                        break;
+                    case 'p':
+                        e.ItemType = EquipmentType.Pants;
+                        break;
+                    case 'b':
+                        e.ItemType = EquipmentType.Boots;
+                        break;
+                    case 'w':
+                        e.ItemType = EquipmentType.Weapon;
+                        break;
+                    case 'o':
+                        e.ItemType = EquipmentType.OffHand;
+                        break;
+                }
+            }
+        }
+    }
+
+    public override bool CanReceiveItem(Item pItem)
+    {
+        if (pItem == null)
+            return true;
+
+        Equippable eq = pItem as Equippable;
+        return eq != null && eq.ItemType == _slotType;
+    }
+
     public EquipmentType EquipmentType { get { return _slotType; } }
 }

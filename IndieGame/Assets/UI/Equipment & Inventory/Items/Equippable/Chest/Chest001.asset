@@ -11,22 +11,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
   m_Name: Chest001
   m_EditorClassIdentifier: 
+  _id: 64e9ca1ea0db49f49ab6565b924fef1f
   _name: Yer
-  _iconInInventory: {fileID: 0}
-  _iconWhenEquipped: {fileID: 0}
+  _iconInInventory: {fileID: 21300000, guid: 935fae50853726e44bee681f7d9bed37, type: 3}
+  _iconWhenEquipped: {fileID: 21300000, guid: 42576b26a458cf74c9b9e23dde70d44e, type: 3}
   _equipmentType: 1
-  _healthValue: 0
-  _manaValue: 0
-  _armorValue: 0
-  _strenghtValue: 0
-  _intelligenceValue: 0
-  _healthValuePercent: 0
-  _manaValuePercent: 0
-  _armorValuePercent: 0
-  _strenghtValuePercent: 0
-  _intelligenceValuePercent: 0
+  _healthValue: {x: 10, y: 50}
+  _manaValue: {x: -10, y: 10}
+  _armorValue: {x: 50, y: 100}
+  _strengthValue: {x: -2, y: 2}
+  _intelligenceValue: {x: -10, y: -5}
+  _healthValuePercent: {x: 0, y: 0}
+  _manaValuePercent: {x: 0, y: 0}
+  _armorValuePercent: {x: 0, y: 0}
+  _strengthValuePercent: {x: 0, y: 0}
+  _intelligenceValuePercent: {x: 0, y: 0}
   _itemValue: 50
-  _dropChancePercent: 0
+  _dropChancePercent: 100
   _zoneOne: 0
   _zoneTwo: 0
   _zoneThree: 0

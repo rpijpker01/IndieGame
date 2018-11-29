@@ -8,7 +8,13 @@ public class EquipmentPanel : MonoBehaviour
     private Transform _equipmentPanelParent;
     private EquipmentSlot[] _equipmentSlots;
 
-    public event Action<Item> OnEquipmentPanelItemRightClickEvent;
+    public event Action<ItemSlot> OnRightClickEvent;
+    public event Action<ItemSlot> OnBeginDragEvent;
+    public event Action<ItemSlot> OnEndDragEvent;
+    public event Action<ItemSlot> OnPointerEnterEvent;
+    public event Action<ItemSlot> OnPointerExitEvent;
+    public event Action<ItemSlot> OnDragEvent;
+    public event Action<ItemSlot> OnDropEvent;
 
     private void Awake()
     {
@@ -18,8 +24,14 @@ public class EquipmentPanel : MonoBehaviour
 
         for (int i = 0; i < _equipmentSlots.Length; i++)
         {
-            _equipmentSlots[i].OnRightClickEvent += OnEquipmentPanelItemRightClickEvent;
-            _equipmentSlots[i].GetComponent<Image>().enabled = false;
+            _equipmentSlots[i].OnRightClickEvent += OnRightClickEvent;
+            _equipmentSlots[i].OnBeginDragEvent += OnBeginDragEvent;
+            _equipmentSlots[i].OnEndDragEvent += OnEndDragEvent;
+            _equipmentSlots[i].OnPointerEnterEvent += OnPointerEnterEvent;
+            _equipmentSlots[i].OnPointerExitEvent += OnPointerExitEvent;
+            _equipmentSlots[i].OnDragEvent += OnDragEvent;
+            _equipmentSlots[i].OnDropEvent += OnDropEvent;
+            _equipmentSlots[i].GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
     }
 

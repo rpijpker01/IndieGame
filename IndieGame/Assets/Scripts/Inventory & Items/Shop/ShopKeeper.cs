@@ -21,13 +21,15 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
         _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         _characterPanel = GameObject.Find("CharacterPanel");
 
-        GameObject dialogue = _characterPanel.transform.parent.GetChild(2).transform.GetChild(0).gameObject;
+        GameObject dialogue = _characterPanel.transform.parent.GetChild(3).transform.GetChild(0).gameObject;
         _dialogueParent = dialogue.GetComponent<Transform>();
         _dialogueText = dialogue.GetComponentInChildren<Text>();
-        _inventory = _characterPanel.transform.parent.GetChild(2).transform.GetChild(1).gameObject;
+        _inventory = _characterPanel.transform.parent.GetChild(3).transform.GetChild(1).gameObject;
 
-        _itemTooltip = _characterPanel.transform.parent.GetChild(3).GetComponent<ItemTooltip>();
-        _statTooltip = _characterPanel.transform.parent.GetChild(4).GetComponent<StatTooltip>();
+        _itemTooltip = _characterPanel.transform.parent.GetChild(4).GetComponent<ItemTooltip>();
+        _statTooltip = _characterPanel.transform.parent.GetChild(5).GetComponent<StatTooltip>();
+
+        GameController.OnMouseLeftClickGameObject += OpenShop;
 
         _inventory.SetActive(false);
     }
@@ -50,16 +52,6 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
                 _dialogueText.text = "'ello there old chap...";
                 _dialogueParent.gameObject.SetActive(true);
             }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                RaycastHit raycastHit = new RaycastHit();
-                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
-                if (raycastHit.transform.gameObject == this.gameObject)
-                {
-                    SetAllWindowsActive();
-                }
-            }
         }
         else
         {
@@ -74,6 +66,16 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
             }
         }
 
+    }
+
+    private void OpenShop(GameObject go)
+    {
+        if (this.gameObject != go) return;
+        Vector3 distToPlayer = _playerTransform.position - this.transform.position;
+
+        if (distToPlayer.magnitude > 5 && !playerIsInShop) return;
+
+        SetAllWindowsActive();
     }
 
     public void OnPointerClick(PointerEventData eventData)

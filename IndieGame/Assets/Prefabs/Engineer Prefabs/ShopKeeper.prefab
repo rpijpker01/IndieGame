@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136040288323300602}
   - component: {fileID: 23352246083347508}
   - component: {fileID: 114124132533192874}
+  - component: {fileID: 114939492950837022}
   m_Layer: 0
   m_Name: ShopKeeper
   m_TagString: Untagged
@@ -95,9 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7157007984bf8344892e07559dbd947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueParent: {fileID: 0}
-  _dialogueText: {fileID: 0}
-  _inventory: {fileID: 0}
+--- !u!114 &114939492950837022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706278310076472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffa1fc6570b2614dacfaca5b4b0d2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textAboveObject: Shop Keeper
+  _showTextBox: 1
 --- !u!136 &136040288323300602
 CapsuleCollider:
   m_ObjectHideFlags: 1
