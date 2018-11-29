@@ -46,7 +46,7 @@ public class MainCanvas : MonoBehaviour
             case FadeState.FadingOut:
                 if (_blackgroundImage.color.a > -0.01f && _blackgroundImage.color.a < 0.01f)
                 {
-                    //_blackgroundImage.enabled = false;
+                    _blackground.SetActive(false);
                     _blackgroundImage.color = new Color(_blackgroundImage.color.r, _blackgroundImage.color.g, _blackgroundImage.color.b, 0);
                     _fadeState = FadeState.None;
                 }
@@ -59,6 +59,7 @@ public class MainCanvas : MonoBehaviour
 
     public void FadeToBlack()
     {
+        _blackground.SetActive(true);
         _fadeState = FadeState.FadingIn;
     }
 
