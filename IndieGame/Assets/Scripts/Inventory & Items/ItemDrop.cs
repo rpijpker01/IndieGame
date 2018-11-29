@@ -38,7 +38,7 @@ public class ItemDrop : MonoBehaviour
         _textScript.ItemName = pItem.Name;
         _textScript.Init();
 
-        _rb.AddForce(transform.up * Random.Range(-10, 0) + transform.right * Random.Range(-5, 5) + transform.forward * Random.Range(-5, 5), ForceMode.Impulse);
+        _rb.AddForce(Vector3.up * Random.Range(-5, 5) + Vector3.right * Random.Range(-5, 5) + Vector3.forward * Random.Range(-5, 5), ForceMode.Impulse);
 
         GameController.OnMouseOverGameObjectEvent += Highlight;
         GameController.OnMouseAwayFromGameObject += Shade;
@@ -47,32 +47,39 @@ public class ItemDrop : MonoBehaviour
         GameController.OnCrtlButtonLetgoEvent += HideTooltip;
     }
 
-    private void Update()
-    {
-        Vector3 distoToPlayer = _playerTransform.position - this.transform.position;
-    }
-
     public void PickUp(GameObject go)
     {
         if (this.gameObject != go) return;
 
-        if (!_playerInventory.IsFull())
+        Vector3 distoToPlayer = _playerTransform.position - this.transform.position;
+
+        if (distoToPlayer.magnitude < 5)
         {
-            _playerInventory.AddItem(_item);
-            GameController.errorMessage.DisplayMessage(string.Format("Picked up\n{0}", _item.Name));
-            Destroy(this.gameObject);
-            Destroy(_textScript.gameObject);
+            if (!_playerInventory.IsFull())
+            {
+                _playerInventory.AddItem(_item);
+                GameController.errorMessage.AddMessage(string.Format("Picked up\n{0}", _item.Name));
+                Destroy(this.gameObject);
+                Destroy(_textScript.gameObject);
+            }
+            else
+            {
+                transform.parent.position = this.transform.position;
+                _itemFlipAnimation.Play();
+                GameController.errorMessage.AddMessage("Inventory is full!");
+            }
         }
         else
         {
-            transform.parent.position = this.transform.position;
-            _itemFlipAnimation.Play();
-            GameController.errorMessage.DisplayMessage("Inventory is full!");
+            GameController.errorMessage.AddMessage("Move closer to pick up item");
         }
     }
 
     public void ShowTooltip(GameObject go)
     {
+        if (go.GetComponent<ItemDrop>() == null)
+            _itemTooltip.HideTooltip();
+
         if (this.gameObject != go) return;
 
         if (_item is Equippable)

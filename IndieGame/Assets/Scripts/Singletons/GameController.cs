@@ -66,6 +66,8 @@ public class GameController : MonoBehaviour
         BakeNavMesh();
         if (levelGenerator != null)
             levelGenerator.doneWithGenerating += TeleportPlayerToLevel;
+
+        Physics.IgnoreLayerCollision(10, 10);
     }
 
     private void BakeNavMesh()
@@ -75,8 +77,30 @@ public class GameController : MonoBehaviour
         {
             if (gameObject.layer == 9)
             {
-                NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                obstacle.carving = true;
+                if (gameObject.GetComponent<CapsuleCollider>() != null)
+                {
+                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                    CapsuleCollider capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+                    obstacle.shape = NavMeshObstacleShape.Capsule;
+                    obstacle.center = capsuleCollider.center;
+                    obstacle.radius = capsuleCollider.radius;
+                    obstacle.height = capsuleCollider.height;
+                    obstacle.carving = true;
+                }
+                else if (gameObject.GetComponent<BoxCollider>() != null)
+                {
+                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                    BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
+                    obstacle.shape = NavMeshObstacleShape.Box;
+                    obstacle.center = boxCollider.center;
+                    obstacle.size = boxCollider.size;
+                    obstacle.carving = true;
+                }
+                else
+                {
+                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                    obstacle.carving = true;
+                }
             }
         }
     }
@@ -143,13 +167,11 @@ public class GameController : MonoBehaviour
         {
             if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                if (OnCrtlButtonLetgoEvent != null)
-                    OnCrtlButtonLetgoEvent(pNewGameObject);
                 if (OnCtrlButtonHoldEvent != null)
                     OnCtrlButtonHoldEvent(pNewGameObject);
             }
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             if (OnCrtlButtonLetgoEvent != null)
                 OnCrtlButtonLetgoEvent(pNewGameObject);
@@ -161,6 +183,7 @@ public class GameController : MonoBehaviour
         if (mainCanvas.GetBlackgroundAlpha() == 1)
         {
             levelGenerator.GenerateFullDungeonLevel(16, 16);
+            BakeNavMesh();
             _loadingLevel = false;
         }
     }
@@ -176,7 +199,7 @@ public class GameController : MonoBehaviour
 
     private void TeleportPlayerToLevel()
     {
-        player.transform.position = levelGenerator.playerSpawnPosition;
+        player.transform.position = levelGenerator.playerSpawnPosition + transform.up * 2;
         _hasToFadeOut = true;
         _fadeTime = DateTime.Now.AddMilliseconds(2000);
     }

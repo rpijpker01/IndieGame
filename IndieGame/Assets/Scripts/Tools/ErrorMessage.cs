@@ -1,46 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ErrorMessage : MonoBehaviour
 {
+    [SerializeField] private Text _text;
     [SerializeField] private float _maxFadeTime = 5;
-
-    private Text _text;
-    private float _fadeTime;
 
     private void Awake()
     {
         GameController.errorMessage = this;
-        _text = GetComponent<Text>();
-        _text.text = "";
     }
 
-    private void Update()
+    public void AddMessage(string pText, Color? pCol = null)
     {
-        if (_fadeTime <= 0) return;
-
-        _fadeTime -= Time.deltaTime;
-
-        if (_fadeTime > _maxFadeTime * 0.75f) return;
-
-        SetAlpha(_fadeTime / _maxFadeTime);
-
-        if (_fadeTime - Time.deltaTime > 0) return;
-
-        _text.text = "";
+        Text t = Instantiate(_text, this.transform);
+        t.transform.SetAsFirstSibling();
+        t.color = pCol ?? Color.red;
+        t.text = pText;
     }
 
-    public void DisplayMessage(string pText)
-    {
-        _text.text = pText;
-        SetAlpha(1);
-        _fadeTime = _maxFadeTime;
-    }
-
-    private void SetAlpha(float pAlpha)
-    {
-        Color a = _text.color;
-        a.a = pAlpha;
-        _text.color = a;
-    }
+    public float MaxFadeTime { get { return _maxFadeTime; } }
 }

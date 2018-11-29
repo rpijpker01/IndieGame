@@ -61,43 +61,48 @@ public class InventoryManager : MonoBehaviour
         _inventory.OnBeginDragEvent += BeginDrag;
         _inventory.OnBeginDragEvent += HideTooltip;
         _equipmentPanel.OnBeginDragEvent += BeginDrag;
+        _shopInventory.OnBeginDragEvent += BeginDrag;
         //End Drag
         _inventory.OnEndDragEvent += EndDrag;
         _equipmentPanel.OnEndDragEvent += EndDrag;
+        _shopInventory.OnEndDragEvent += EndDrag;
         //Drag
         _inventory.OnDragEvent += Drag;
         _equipmentPanel.OnDragEvent += Drag;
+        _shopInventory.OnDragEvent += Drag;
         //Drop
         _inventory.OnDropEvent += Drop;
-        _inventory.OnDropEvent += DragToBuy;
         _inventory.OnDropEvent += ShowTooltip;
         _equipmentPanel.OnDropEvent += Drop;
         _equipmentPanel.OnDropEvent += ShowTooltip;
         _shopInventory.OnDropEvent += Drop;
-        _shopInventory.OnDropEvent += DragToSell;
         _shopInventory.OnDropEvent += ShowTooltip;
     }
 
-    private void DragToSell(ItemSlot pItemSlot)
+    private bool DragToSell(ItemSlot pItemSlot)
     {
-        if (!(pItemSlot is ShopItemSlot)) return;
+        if (!(pItemSlot is ShopItemSlot)) return false;
 
         Item i = pItemSlot.Item as Item;
         if (i != null)
         {
-            DragToSell(i);
+            return DragToSell(i);
         }
+
+        return false;
     }
 
-    private void DragToBuy(ItemSlot pItemSlot)
+    private bool DragToBuy(ItemSlot pItemSlot)
     {
-        if (!(pItemSlot is ShopItemSlot)) return;
+        if (!(pItemSlot is ShopItemSlot)) return false;
 
         Item i = pItemSlot.Item as Item;
         if (i != null)
         {
-            DragToBuy(i);
+            return DragToBuy(i);
         }
+
+        return false;
     }
 
     private void Sell(ItemSlot pItemSlot)
@@ -199,23 +204,37 @@ public class InventoryManager : MonoBehaviour
 
             _statsPanel.UpdateStatValues();
 
-            Item di = _draggedSlot.Item;
-            _draggedSlot.Item = pDropItemSlot.Item;
-            pDropItemSlot.Item = di;
+            if (_draggedSlot is ShopItemSlot && !(pDropItemSlot is ShopItemSlot))
+            {
+                if (!(pDropItemSlot is EquipmentSlot))
+                {
+                    if (DragToBuy(_draggedSlot))
+                    {
+                        if (DragToSell(pDropItemSlot.Item))
+                        {
+                            Item di = _draggedSlot.Item;
+                            _draggedSlot.Item = pDropItemSlot.Item;
+                            pDropItemSlot.Item = di;
+                            print("sold");
+                        }
+                        print("bought");
+                    }
+                }
+            }
         }
         else
         {
             if (pDropItemSlot is EquipmentSlot)
             {
-                GameController.errorMessage.DisplayMessage("Item cannot be equipped in this slot!");
+                GameController.errorMessage.AddMessage("Item cannot be equipped in this slot!");
             }
             else if (pDropItemSlot is ShopItemSlot)
             {
-                GameController.errorMessage.DisplayMessage("Shop is full");
+                GameController.errorMessage.AddMessage("Shop is full");
             }
             else
             {
-                GameController.errorMessage.DisplayMessage("Inventory is full");
+                GameController.errorMessage.AddMessage("Inventory is full");
             }
         }
     }
@@ -260,23 +279,26 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void DragToSell(Item pItem)
+    private bool DragToSell(Item pItem)
     {
-        if (!ShopKeeper.playerIsInShop) return;
+        if (!ShopKeeper.playerIsInShop) return false;
         if (_shopInventory == null)
             _shopInventory = GameObject.Find("ShopInventory").GetComponent<ShopInventory>();
 
         Equippable e = pItem as Equippable;
         if (e != null)
         {
-            GameController.errorMessage.DisplayMessage(e.Name + "\nhas been sold!");
+            GameController.errorMessage.AddMessage(e.Name + "\nhas been sold!");
             _playerCoins.AddCoins(e.Value);
+            return true;
         }
+
+        return false;
     }
 
-    private void DragToBuy(Item pItem)
+    private bool DragToBuy(Item pItem)
     {
-        if (!ShopKeeper.playerIsInShop) return;
+        if (!ShopKeeper.playerIsInShop) return false;
         if (_shopInventory == null)
             _shopInventory = GameObject.Find("ShopInventory").GetComponent<ShopInventory>();
 
@@ -285,9 +307,17 @@ public class InventoryManager : MonoBehaviour
         {
             if (_playerCoins.TakeCoins(Mathf.RoundToInt(e.Value * 1.25f)))
             {
-                GameController.errorMessage.DisplayMessage(e.Name + "\nhas been purchased!");
+                GameController.errorMessage.AddMessage(e.Name + "\nhas been purchased!");
+                return true;
+            }
+            else
+            {
+                GameController.errorMessage.AddMessage("Not enough coin!");
+                return false;
             }
         }
+
+        return false;
     }
 
     public void Sell(Item pItem)
@@ -301,7 +331,7 @@ public class InventoryManager : MonoBehaviour
             if (!_shopInventory.AddItem(pItem))
             {
                 _inventory.AddItem(pItem);
-                GameController.errorMessage.DisplayMessage("Shop is full!");
+                GameController.errorMessage.AddMessage("Shop is full!");
             }
             else
             {
@@ -309,7 +339,7 @@ public class InventoryManager : MonoBehaviour
                 Equippable e = pItem as Equippable;
                 if (e != null)
                 {
-                    GameController.errorMessage.DisplayMessage(e.Name + "\nhas been sold!");
+                    GameController.errorMessage.AddMessage(e.Name + "\nhas been sold!");
                     _playerCoins.AddCoins(e.Value);
                 }
             }
@@ -331,11 +361,11 @@ public class InventoryManager : MonoBehaviour
                     if (!_inventory.AddItem(pItem))
                     {
                         _shopInventory.AddItem(pItem);
-                        GameController.errorMessage.DisplayMessage("Inventory is full!");
+                        GameController.errorMessage.AddMessage("Inventory is full!");
                     }
                     else
                     {
-                        GameController.errorMessage.DisplayMessage(e.Name + "\nhas been purchased!");
+                        GameController.errorMessage.AddMessage(e.Name + "\nhas been purchased!");
                     }
                 }
                 else

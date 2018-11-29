@@ -77,7 +77,6 @@ public class LevelGenerator : MonoBehaviour
             GameObject tempPiece = ((GameObject)Instantiate(_cornerPieces[0]));
             _extents = tempPiece.GetComponentInChildren<BoxCollider>().bounds.extents;
             Destroy(tempPiece);
-            Debug.Log(_extents);
         }
     }
 

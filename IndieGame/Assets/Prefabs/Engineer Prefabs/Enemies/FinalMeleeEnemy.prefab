@@ -713,7 +713,8 @@ GameObject:
   - component: {fileID: 54465413341378138}
   - component: {fileID: 136241289778258740}
   - component: {fileID: 195262816128763252}
-  - component: {fileID: 114172178794584462}
+  - component: {fileID: 114919957349621576}
+  - component: {fileID: 114409375575124848}
   m_Layer: 8
   m_Name: FinalMeleeEnemy
   m_TagString: Enemy
@@ -2660,7 +2661,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114172178794584462
+--- !u!114 &114409375575124848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2681,8 +2682,18 @@ MonoBehaviour:
   _shootingRange: 8
   _rangedDamage: 10
   _shootCooldownInMs: 1000
-  lootDropPrefab: {fileID: 1266160461775014, guid: df2d2c5892de6134d97778767b66866b,
-    type: 2}
+--- !u!114 &114919957349621576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459096705815164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33197178726daa142bec17095de9931f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxDrops: 5
 --- !u!136 &136241289778258740
 CapsuleCollider:
   m_ObjectHideFlags: 1
