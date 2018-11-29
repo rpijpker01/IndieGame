@@ -62,8 +62,7 @@ public class HighlightGameobject : MonoBehaviour
     {
         if (this.gameObject != go) return;
 
-        string[] n = this.name.Split();
-        switch (n[0].ToLower())
+        switch (this.transform.tag.ToLower())
         {
             case "enemy":
                 _mat.SetColor("_OutlineColor", Color.red);
