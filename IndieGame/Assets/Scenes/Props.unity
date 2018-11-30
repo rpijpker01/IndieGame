@@ -11588,6 +11588,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9f500340aa1c544492b877cbe142725, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &669563808
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.936
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6.832
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494787759430226, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+      propertyPath: m_RootOrder
+      value: 174
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 75e9820568e067e48929d832c1d9d031, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &670240798
 Prefab:
   m_ObjectHideFlags: 0
@@ -21438,7 +21480,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2034894755
+  randomSeed: 2125140696
   InitialModule:
     serializedVersion: 3
     enabled: 1
