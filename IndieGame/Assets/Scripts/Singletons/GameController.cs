@@ -43,7 +43,8 @@ public class GameController : MonoBehaviour
     private GameObject _playerHubSpawnPosition;
 
     //Quest stuff
-    public static int _questProgress = 0;
+    public static int questProgress = 0;
+    public static bool spawnKey = false;
 
     // Use this for initialization
     private void Awake()

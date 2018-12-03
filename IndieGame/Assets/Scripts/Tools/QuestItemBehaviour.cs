@@ -36,7 +36,8 @@ public class QuestItemBehaviour : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GameController._questProgress++;
+            GameController.questProgress++;
+            GameController.spawnKey = false;
             Destroy(this.gameObject);
         }
     }

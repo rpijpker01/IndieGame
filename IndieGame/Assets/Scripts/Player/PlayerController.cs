@@ -101,6 +101,9 @@ public class PlayerController : MonoBehaviour
 
         //Display damage number
         GameController.damageNumbersCanvas.DisplayDamageNumber(true, damage, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
+
+        //Play sound
+        GetComponent<SoundPlayer>().PlayRandomAudioClip(10, 14);
     }
 
     public float GetHealth()
