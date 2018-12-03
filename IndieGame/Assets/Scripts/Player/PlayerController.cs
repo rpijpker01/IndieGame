@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour
     private bool _isPlayingDyingAnimation = true;
 
     private ItemDrop _droppedItem;
-    public Animator animator;
+
+    public bool died = false;
 
     //Components
     private Collider _collider;
+    public Animator animator;
 
     public enum AnimationState
     {
@@ -80,7 +82,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayDyingAnimation()
     {
-        SetAnimationState(AnimationState.Dying);
+        if (died == false)
+        {
+            SetAnimationState(AnimationState.Dying);
+            GameController.GoToHub();
+            died = true;
+        }
         //_isPlayingDyingAnimation = false;
     }
 
@@ -99,6 +106,11 @@ public class PlayerController : MonoBehaviour
     public float GetHealth()
     {
         return _health;
+    }
+
+    public void SetHealth(float health)
+    {
+        _health = health;
     }
 
     public float GetMana()
