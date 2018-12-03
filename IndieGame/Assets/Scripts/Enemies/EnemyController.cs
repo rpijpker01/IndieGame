@@ -145,11 +145,14 @@ public class EnemyController : MonoBehaviour
         {
             transform.LookAt(GameController.player.transform);
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-            if (_isAttacking && DateTime.Now > _lastAttackTime.AddMilliseconds(_shootCooldownInMs))
+            if (_isAttacking)
             {
-                Instantiate(_projectilePrefab, transform.position + new Vector3(_collider.bounds.extents.x, _collider.bounds.extents.y, 0), transform.rotation, transform.parent);
-                _isAttacking = false;
-                _lastAttackTime = DateTime.Now;
+                if (DateTime.Now > _lastAttackTime.AddMilliseconds(_shootCooldownInMs))
+                {
+                    _isAttacking = false;
+                    _lastAttackTime = DateTime.Now;
+                }
+                SetAnimationState(AnimationState.Attacking);
             }
         }
     }
@@ -175,6 +178,10 @@ public class EnemyController : MonoBehaviour
                     _agent.destination = transform.position;
                     _isAttacking = true;
                 }
+            }
+            else
+            {
+                SetAnimationState(AnimationState.Idle);
             }
         }
         else
@@ -247,7 +254,7 @@ public class EnemyController : MonoBehaviour
             //Play death animation here lmao
             SetAnimationState(AnimationState.Dying);
             GetComponent<Collider>().enabled = false;
-            DropItems();
+            //DropItems();
         }
     }
 
@@ -375,5 +382,10 @@ public class EnemyController : MonoBehaviour
         if (_animator.GetBool("isAttacking") || (GameController.player.transform.position - transform.position).magnitude < 3f)
             //Deal damage to the player
             GameController.playerController.TakeDamage(_meleeDamage);
+    }
+
+    public void ShootProjectile()
+    {
+        Instantiate(_projectilePrefab, transform.position + new Vector3(_collider.bounds.extents.x, _collider.bounds.extents.y, 0), transform.rotation, transform.parent);
     }
 }

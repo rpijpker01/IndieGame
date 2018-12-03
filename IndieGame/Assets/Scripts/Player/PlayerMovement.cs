@@ -43,17 +43,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Check wether the player is attacking
-        if (!GameController.playerController.isAttacking)
+        if (GameController.playerController.GetHealth() > 0)
         {
-            Rotation();
-            Movement();
+            //Check wether the player is attacking
+            if (!GameController.playerController.isAttacking)
+            {
+                Rotation();
+                Movement();
+            }
+            else
+            {
+                _rigidBody.velocity = Vector3.zero;
+            }
         }
         else
         {
             _rigidBody.velocity = Vector3.zero;
+            _rigidBody.useGravity = false;
+            _collider.enabled = false;
         }
-
         StickCharacterToGround();
     }
 

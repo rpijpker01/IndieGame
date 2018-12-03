@@ -806,7 +806,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1622520208371846}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.480999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4825637798106310}
@@ -1390,7 +1390,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350323889061552}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: -0.481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4522449463980460}
@@ -1448,7 +1448,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578409915085952}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.3363949, y: -0.0092713535, z: 0.37685284}
+  m_LocalPosition: {x: -0.3363949, y: -0.0092713535, z: -0.10414615}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4825637798106310}
@@ -1461,7 +1461,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1434214696448260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -906.793, y: 0, z: -64.099}
+  m_LocalPosition: {x: -907.725, y: 0, z: -61.283}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4031386140677242}
@@ -1570,8 +1570,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingHealth: 10000
-  _startingMana: 10000
+  _startingMana: 100
   _manaRegenSpeed: 0.05
+  died: 0
   animator: {fileID: 0}
 --- !u!114 &114252270238405052
 MonoBehaviour:
@@ -1615,13 +1616,13 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1434214696448260}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c81036f6d2c65ce48a782eb9244f5334, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.41698396
   m_Height: 1.8656704
   m_Direction: 1
-  m_Center: {x: 0, y: 0.98, z: 0.5}
+  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!137 &137368053235417570
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
