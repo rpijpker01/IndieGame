@@ -103,7 +103,8 @@ public class EnemyController : MonoBehaviour
     {
         if (_health <= 0)
         {
-            _agent.isStopped = true;
+            if (_agent != null)
+                _agent.isStopped = true;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             if (_destroyEnemy)
@@ -209,11 +210,12 @@ public class EnemyController : MonoBehaviour
         if (GameController.player != null)
         {
             //Check if the player is in range
-            if ((GameController.player.transform.position - transform.position).magnitude < 1.5f)
+            if ((GameController.player.transform.position - transform.position).magnitude < 2f)
             {
                 if ((DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
                 {
-                    _agent.destination = transform.position;
+                    if (_agent != null)
+                        _agent.destination = transform.position;
                     transform.LookAt(GameController.player.transform);
 
                     //Play animation
@@ -370,7 +372,8 @@ public class EnemyController : MonoBehaviour
 
     public void DamagePlayer()
     {
-        //Deal damage to the player
-        GameController.playerController.TakeDamage(_meleeDamage);
+        if (_animator.GetBool("isAttacking") || (GameController.player.transform.position - transform.position).magnitude < 3f)
+            //Deal damage to the player
+            GameController.playerController.TakeDamage(_meleeDamage);
     }
 }

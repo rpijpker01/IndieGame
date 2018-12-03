@@ -28,13 +28,13 @@ public class PlayerAttacks : MonoBehaviour
 
     private DateTime _attackStartTime;
 
-    private MeshFilter _meshFilter;
+    private Collider _collider;
     private GameObject _collisionBox;
 
     // Use this for initialization
     void Start()
     {
-        _meshFilter = GetComponent<MeshFilter>();
+        _collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -51,30 +51,15 @@ public class PlayerAttacks : MonoBehaviour
         }
     }
 
-    private void RotateTowardsMouse()
-    {
-        //Raycasts towards the ground from the mouse position relative to the camera view
-        RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
-
-        //Rotates the player towards the mouse
-        Transform transformCopy = this.transform;
-        transformCopy.LookAt(raycastHit.point);
-        transformCopy.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
-
-        GameController.player.GetComponent<PlayerMovement>().rotation = transformCopy.rotation.eulerAngles;
-    }
-
     private void BasicAttack()
     {
         //Check for mouse input
         if (Input.GetMouseButton(0))
         {
-            RotateTowardsMouse();
+            PlayerMovement.RotateTowardsMouse();
             GameController.playerController.isAttacking = true;
-            _collisionBox = Instantiate(_attackCollisionBox, transform.position + transform.forward * _meshFilter.mesh.bounds.size.z, transform.rotation, transform.parent);
-            _collisionBox.GetComponent<BasicAttackBehaviour>().damageValue = _attackDamage;
-            _attackStartTime = DateTime.Now;
+            _attackStartTime = DateTime.Now.AddMilliseconds(200);
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Attacking);
         }
     }
 
@@ -83,24 +68,36 @@ public class PlayerAttacks : MonoBehaviour
         //Check for mouse input
         if (Input.GetMouseButton(1) && GameController.playerController.GetMana() > _abilityOneManaCost)
         {
-            RotateTowardsMouse();
+            PlayerMovement.RotateTowardsMouse();
             GameController.playerController.isAttacking = true;
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Abilitying);
+            _attackStartTime = DateTime.Now.AddMilliseconds(600);
+        }
+    }
 
+    public void SpawnBasicAttackCollisionBox()
+    {
+        _collisionBox = Instantiate(_attackCollisionBox, transform.position + transform.forward * _collider.bounds.size.z * 2 + transform.up * _collider.bounds.extents.y, transform.rotation, transform.parent);
+        _collisionBox.GetComponent<BasicAttackBehaviour>().damageValue = _attackDamage;
+    }
+
+    public void SpawnAbilityProjectile()
+    {
+        if (!GameController.playerController.animator.GetBool("IsRunning"))
+        {
             //Drain mana from the player
             GameController.playerController.SetMana(GameController.playerController.GetMana() - _abilityOneManaCost);
 
             //Check what ability is selected (COMING SOON tm)
-            //switch(ability) etc etc
-            GameObject projectile = Instantiate(_ability1ProjectilePrefab, transform.position + transform.forward * _meshFilter.mesh.bounds.size.z, transform.rotation, transform.parent);
+            GameObject projectile = Instantiate(_ability1ProjectilePrefab, transform.position + transform.forward * _collider.bounds.size.z + transform.up * _collider.bounds.extents.y, transform.rotation, transform.parent);
             projectile.GetComponent<Ability1ProjectileBehaviour>().damageValue = _abilityOneDamage;
-            _attackStartTime = DateTime.Now;
         }
     }
 
     private void StopAttacking()
     {
         //Check how long the player has been attacking
-        if ((DateTime.Now - _attackStartTime).TotalMilliseconds > _attackDuration * 1000)
+        if (DateTime.Now > _attackStartTime)
         {
             GameController.playerController.isAttacking = false;
             Destroy(_collisionBox);

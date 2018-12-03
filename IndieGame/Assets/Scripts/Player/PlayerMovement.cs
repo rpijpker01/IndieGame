@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    private bool _invertControls = false;
+    [SerializeField]
     [Range(0, 50)]
     private float _rotationSpeed = 0.8f;
     [SerializeField]
@@ -21,17 +23,21 @@ public class PlayerMovement : MonoBehaviour
     private float _currentSpeed;
     public Vector3 rotation;
 
-    private MeshFilter _meshFilter;
+    private Collider _collider;
     private Rigidbody _rigidBody;
     private Quaternion _surfaceRotation;
     private GameObject _rotationDummy;
 
+    private static PlayerMovement _playerMovement;
+
     // Use this for initialization
     void Start()
     {
-        _meshFilter = GetComponent<MeshFilter>();
+        _collider = GetComponent<Collider>();
         _rigidBody = GetComponent<Rigidbody>();
         _rotationDummy = GameObject.Find("RotationDummy").gameObject;
+
+        _playerMovement = this;
     }
 
     // Update is called once per frame
@@ -45,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rotation.y = transform.localRotation.eulerAngles.y;
             _rigidBody.velocity = Vector3.zero;
         }
 
@@ -55,40 +60,44 @@ public class PlayerMovement : MonoBehaviour
     //Sets the players rotation
     private void Rotation()
     {
+        int inverted = 0;
+        if (_invertControls)
+            inverted = 180;
+
         //Rotation for orthogonal directions
         if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
-            rotation.y = 0;
+            rotation.y = 0 - inverted;
         }
         if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
-            rotation.y = 90;
+            rotation.y = 90 - inverted;
         }
         if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
         {
-            rotation.y = 180;
+            rotation.y = 180 - inverted;
         }
         if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
-            rotation.y = 270;
+            rotation.y = 270 - inverted;
         }
 
         //Rotation for diagonal directions
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
-            rotation.y = 315;
+            rotation.y = 315 - inverted;
         }
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
-            rotation.y = 45;
+            rotation.y = 45 - inverted;
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
         {
-            rotation.y = 135;
+            rotation.y = 135 - inverted;
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
-            rotation.y = 225;
+            rotation.y = 225 - inverted;
         }
 
         //Slerp for setting rotation
@@ -109,11 +118,17 @@ public class PlayerMovement : MonoBehaviour
 
             //Clamp player movement speed
             if (_currentSpeed > _movementSpeed) { _currentSpeed = _movementSpeed; }
+
+            //Play running animation
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Running);
         }
         else
         {
             //Reset player movement speed when he stops moving
             _currentSpeed = 0;
+
+            //Play idle animation
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Idle);
         }
 
         //Set player position
@@ -153,6 +168,23 @@ public class PlayerMovement : MonoBehaviour
 
 
         //Set position
-        transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f)) + (transform.up * _meshFilter.mesh.bounds.extents.y);
+        transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f));// + (transform.up * _collider.bounds.extents.y);
+    }
+
+    public static void RotateTowardsMouse()
+    {
+        //Raycasts towards the ground from the mouse position relative to the camera view
+        RaycastHit raycastHit = new RaycastHit();
+        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
+
+        //Rotates the player towards the mouse
+        _playerMovement._rotationDummy.transform.position = _playerMovement.gameObject.transform.position;
+        _playerMovement._rotationDummy.transform.LookAt(raycastHit.point);
+        _playerMovement.rotation = new Vector3(0, _playerMovement._rotationDummy.transform.rotation.eulerAngles.y, 0);
+    }
+
+    public static void InvertControls()
+    {
+        _playerMovement._invertControls = !_playerMovement._invertControls;
     }
 }
