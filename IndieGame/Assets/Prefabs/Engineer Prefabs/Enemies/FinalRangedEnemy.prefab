@@ -851,6 +851,7 @@ GameObject:
   - component: {fileID: 136356626023887120}
   - component: {fileID: 114923071244176856}
   - component: {fileID: 195633922746524048}
+  - component: {fileID: 114033881119828840}
   m_Layer: 8
   m_Name: FinalRangedEnemy
   m_TagString: Enemy
@@ -2541,7 +2542,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551392744491942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -916.6151, y: 0, z: -55.872}
+  m_LocalPosition: {x: -913.2388, y: 0, z: -56.61551}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4354952738394334}
@@ -2722,6 +2723,42 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114033881119828840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551392744491942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38bac24f3a6889e42a2403de1b48f94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourceBuffer: 4
+  _audioClips:
+  - {fileID: 8300000, guid: b7e93e0d2c0207e44b20340a44dcf395, type: 3}
+  - {fileID: 8300000, guid: fc5f9ba06f1c0e849bbb7a0635ba729e, type: 3}
+  - {fileID: 8300000, guid: 07ada6f6148a5a449a5aac50584b62ee, type: 3}
+  - {fileID: 8300000, guid: 7748a0dee087079438fec5d8bbe871ed, type: 3}
+  - {fileID: 8300000, guid: 4f361aa131a32d144bb3ea547e76c91b, type: 3}
+  - {fileID: 8300000, guid: 3108168643b3e52408afaedc34e2a67c, type: 3}
+  - {fileID: 8300000, guid: d986ce688e6979940991905e1939d1fe, type: 3}
+  - {fileID: 8300000, guid: d795ff3d90723fc40a05bc21b9ad9aa9, type: 3}
+  - {fileID: 8300000, guid: 319ae0f02c1816f418b9ab99b5f69bd2, type: 3}
+  - {fileID: 8300000, guid: fbadd615d9995624282110f512b709ef, type: 3}
+  - {fileID: 8300000, guid: ef22b1c5618bc3f43b596b2f669d01a7, type: 3}
+  - {fileID: 8300000, guid: a3341fb1f0c022849839dea425845fb5, type: 3}
+  - {fileID: 8300000, guid: c58d20d69d209d74193ff88137e4521d, type: 3}
+  - {fileID: 8300000, guid: 5a06df6d9ac980847b51a4394f4d5e3d, type: 3}
+  - {fileID: 8300000, guid: a88e54ef01a8112458ff5e16e283d0c5, type: 3}
+  - {fileID: 8300000, guid: d57d63cf01311a847b4d1e4945d01a18, type: 3}
+  - {fileID: 8300000, guid: 2a07631cc36b3224182bc0e016d089d5, type: 3}
+  - {fileID: 8300000, guid: 0ce83543181a9204b890891ae39bff72, type: 3}
+  - {fileID: 8300000, guid: e0fa9e522bea33f47a3e39775b6a6642, type: 3}
+  - {fileID: 8300000, guid: 5a3aa6f44a4fbb648b5f56d765f67d48, type: 3}
+  - {fileID: 8300000, guid: 68e2394306ab75c4c98d017f09f2e563, type: 3}
+  - {fileID: 8300000, guid: 7c688f2d33bdff84aa13241fcbae6073, type: 3}
+  - {fileID: 8300000, guid: ef4e6e4c93ca7c6479500277d1831d58, type: 3}
 --- !u!114 &114923071244176856
 MonoBehaviour:
   m_ObjectHideFlags: 1

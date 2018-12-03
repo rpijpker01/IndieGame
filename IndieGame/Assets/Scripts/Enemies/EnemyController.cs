@@ -268,10 +268,21 @@ public class EnemyController : MonoBehaviour
         GameController.damageNumbersCanvas.DisplayDamageNumber(false, damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
 
         //Play sound
-        if (GetComponent<EnemySoundPlayer>() != null)
+        if (_isMeleeEnemy)
         {
-            GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
-            GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            if (GetComponent<EnemySoundPlayer>() != null)
+            {
+                GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            }
+        }
+        else
+        {
+            if (GetComponent<RangedEnemySoundPlayer>() != null)
+            {
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOrganicHitSound();
+            }
         }
     }
 
@@ -288,10 +299,21 @@ public class EnemyController : MonoBehaviour
         _rigidbody.AddExplosionForce(knockBackStrength, knockBackOrigin, knockBackRadius);
 
         //Play sound
-        if (GetComponent<EnemySoundPlayer>() != null)
+        if (_isMeleeEnemy)
         {
-            GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
-            GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            if (GetComponent<EnemySoundPlayer>() != null)
+            {
+                GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            }
+        }
+        else
+        {
+            if (GetComponent<RangedEnemySoundPlayer>() != null)
+            {
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOrganicHitSound();
+            }
         }
     }
 
