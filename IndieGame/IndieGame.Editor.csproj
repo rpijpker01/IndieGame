@@ -286,12 +286,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="IndieGame.Plugins.csproj">
+      <Project>{089D8323-6702-FC31-80D5-0DC1A3BC39E6}</Project>
+      <Name>IndieGame.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="IndieGame.csproj">
       <Project>{3C0F0456-C787-7F3F-062A-232FA0953B9C}</Project>
       <Name>IndieGame</Name>
     </ProjectReference>
+    <ProjectReference Include="IndieGame.Editor.Plugins.csproj">
+      <Project>{D1816B38-D3D0-2C04-3672-3E990BC3A006}</Project>
+      <Name>IndieGame.Editor.Plugins</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\FMODMigrationUtil.cs" />
+    <Compile Include="Assets\GoogleVR\Editor\FmodGvrAudioRoomEditor.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />
@@ -326,9 +336,11 @@
     <Compile Include="Assets\PostProcessing\Editor\Utils\EditorResources.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Utils\FxStyles.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Utils\ReflectionUtils.cs" />
+    <Compile Include="Assets\ResonanceAudio\Editor\FmodResonanceAudioRoomEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Models\textFile.txt" />
+    <None Include="Assets\Plugins\FMOD\LICENSE.TXT" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
