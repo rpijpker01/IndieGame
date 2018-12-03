@@ -43,11 +43,14 @@ public class PlayerAttacks : MonoBehaviour
         //Stops the players attack
         StopAttacking();
 
-        //Checks if the player isn't already attacking
-        if (!GameController.playerController.isAttacking)
+        if (GameController.playerController.GetHealth() > 0)
         {
-            BasicAttack();
-            Abilities();
+            //Checks if the player isn't already attacking
+            if (!GameController.playerController.isAttacking)
+            {
+                BasicAttack();
+                Abilities();
+            }
         }
     }
 

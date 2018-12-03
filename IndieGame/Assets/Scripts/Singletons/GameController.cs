@@ -206,6 +206,7 @@ public class GameController : MonoBehaviour
             TeleportPlayerToHub();
             CameraFollowPlayer.InvertCamera();
             PlayerMovement.InvertControls();
+            player.GetComponent<PlayerMovement>().rotation = new Vector3(0, 0, 0);
             _loadingHub = false;
         }
     }
