@@ -42,6 +42,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject _playerHubSpawnPosition;
 
+    //Quest stuff
+    public static int _questProgress = 0;
+
     // Use this for initialization
     private void Awake()
     {

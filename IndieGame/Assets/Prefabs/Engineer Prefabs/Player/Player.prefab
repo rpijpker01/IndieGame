@@ -310,6 +310,8 @@ GameObject:
   - component: {fileID: 114595604710303522}
   - component: {fileID: 114252270238405052}
   - component: {fileID: 114076558285598122}
+  - component: {fileID: 114331393398395000}
+  - component: {fileID: 81662558602652852}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1461,7 +1463,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1434214696448260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -907.725, y: 0, z: -61.283}
+  m_LocalPosition: {x: -903.58, y: 0, z: -69.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4031386140677242}
@@ -1541,6 +1543,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!81 &81662558602652852
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434214696448260}
+  m_Enabled: 1
 --- !u!95 &95311162294659688
 Animator:
   serializedVersion: 3
@@ -1569,7 +1578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306f1e96b9600464d94e25035bbf8eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 10000
+  _startingHealth: 100000
   _startingMana: 100
   _manaRegenSpeed: 0.05
   died: 0
@@ -1590,6 +1599,29 @@ MonoBehaviour:
   _movementSpeed: 500
   _accelerationSpeed: 100
   rotation: {x: 0, y: 0, z: 0}
+--- !u!114 &114331393398395000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434214696448260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941bdcac5a2a7314c93c39f28e0349b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourceBuffer: 4
+  _audioClips:
+  - {fileID: 8300000, guid: 243cd5c43cf68dd4d8a1b91d44d5595b, type: 3}
+  - {fileID: 8300000, guid: e05701de11484fd47b27192ba9ac8b49, type: 3}
+  - {fileID: 8300000, guid: fc998f7588e291342921673119ae6ad4, type: 3}
+  - {fileID: 8300000, guid: c5c203dcb99788f4cadbd845c0ccb6e1, type: 3}
+  - {fileID: 8300000, guid: 604c5515caf31984e97e2bc017e23e23, type: 3}
+  - {fileID: 8300000, guid: f38fac3fdb915284b96da1a95afa0eb9, type: 3}
+  - {fileID: 8300000, guid: 0598a4d2011e434408cc0dc2e8078a39, type: 3}
+  - {fileID: 8300000, guid: e3191d1d6f7db5b41901e0a311b98e58, type: 3}
+  - {fileID: 8300000, guid: f0a43fb9271c82f4a930137c3715d8c2, type: 3}
+  - {fileID: 8300000, guid: 5dc22299c4d89b54cb7789d65e592cb8, type: 3}
 --- !u!114 &114595604710303522
 MonoBehaviour:
   m_ObjectHideFlags: 1

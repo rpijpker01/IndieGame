@@ -40,7 +40,7 @@ public class TransparencyCast : MonoBehaviour
         {
             if (_obstructingTransforms[i] != GameController.player.transform)
             {
-                if (_obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 1.5f)
+                if (_obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 2.5f)
                 {
                     Material[] materials = _obstructingTransforms[i].GetComponent<Renderer>().materials;
                     foreach (Material material in materials)
@@ -55,7 +55,7 @@ public class TransparencyCast : MonoBehaviour
 
         foreach (Transform _transform in _obstructingTransforms)
         {
-            if (_transform.GetComponent<Renderer>() != null && _transform.GetComponent<Renderer>().bounds.size.y > 1.5f)
+            if (_transform.GetComponent<Renderer>() != null && _transform.GetComponent<Renderer>().bounds.size.y > 2.5f)
             {
                 Material[] materials = _transform.GetComponent<Renderer>().materials;
                 foreach (Material material in materials)
