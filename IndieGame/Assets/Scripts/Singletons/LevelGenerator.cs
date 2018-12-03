@@ -80,7 +80,6 @@ public class LevelGenerator : MonoBehaviour
             GameObject tempPiece = ((GameObject)Instantiate(_cornerPieces[0]));
             _extents = tempPiece.GetComponentInChildren<BoxCollider>().bounds.extents;
             Destroy(tempPiece);
-            Debug.Log(_extents);
         }
     }
 
@@ -119,9 +118,9 @@ public class LevelGenerator : MonoBehaviour
     private void GenerateQuestItems()
     {
         Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
-        if (GameController._questProgress < _questItems.Count)
+        if (GameController.questProgress < _questItems.Count)
         {
-            Instantiate(_questItems[GameController._questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+            Instantiate(_questItems[GameController.questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
         }
     }
 

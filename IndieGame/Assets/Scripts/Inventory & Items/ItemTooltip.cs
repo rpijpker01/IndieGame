@@ -7,6 +7,7 @@ public class ItemTooltip : MonoBehaviour
     private Text _name;
     private Text _type;
     private Text _stats;
+    private Text _itemValue;
     private RectTransform _statsTransform;
     private Text _positiveStat;
     private RectTransform _positiveTransform;
@@ -27,6 +28,7 @@ public class ItemTooltip : MonoBehaviour
         _name = t[0];
         _type = t[1];
         _stats = t[2];
+        _itemValue = t[5];
 
         Text[] stats = _stats.GetComponentsInChildren<Text>();
         _positiveStat = stats[1];
@@ -62,10 +64,50 @@ public class ItemTooltip : MonoBehaviour
         _negativeTransform.sizeDelta = _rSize;
     }
 
-    public void ShowTooltip(Equippable pItem)
+    public void ShowTooltip(Item pItem)
+    {
+        if (pItem is Equippable)
+            ShowTooltip((Equippable)pItem);
+        else if (pItem is Consumable)
+            ShowTooltip((Consumable)pItem);
+    }
+
+    private void ShowTooltip(Consumable pItem)
+    {
+        _name.text = pItem.Name;
+        if (pItem.ItemType == ConsumableType.HealthPotion || pItem.ItemType == ConsumableType.ManaPotion)
+            _type.text = "Potion";
+
+        _stringBuilder.Length = 0;
+        _negative.Length = 0;
+        _positive.Length = 0;
+
+        AddStat(pItem.HealthRecovery, "Health recovery", true);
+        AddStat(pItem.ManaRecovery, "Mana recovery", true);
+
+        _stats.text = _stringBuilder.ToString();
+        _positiveStat.text = _positive.ToString();
+        _negativeStat.text = _negative.ToString();
+
+        if (pItem.IsInShop)
+            _itemValue.text = string.Format("buy price:\t\t{0}", pItem.Value);
+        else
+            _itemValue.text = string.Format("sell price:\t\t{0}", pItem.Value);
+
+        _tooltipTransform.position = Input.mousePosition;
+
+        gameObject.SetActive(true);
+    }
+
+    private void ShowTooltip(Equippable pItem)
     {
         _name.text = pItem.Name;
         _type.text = pItem.ItemType.ToString();
+
+        if (pItem.IsInShop)
+            _itemValue.text = string.Format("buy price:\t\t{0}", pItem.Value);
+        else
+            _itemValue.text = string.Format("sell price:\t\t{0}", pItem.Value);
 
         _stringBuilder.Length = 0;
         _positive.Length = 0;

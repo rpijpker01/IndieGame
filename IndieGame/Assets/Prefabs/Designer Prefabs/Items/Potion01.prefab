@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33405507217773676}
   - component: {fileID: 23533999129887294}
   - component: {fileID: 95050343280688206}
+  - component: {fileID: 65234856186216924}
   m_Layer: 0
   m_Name: Potion01
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020725051240732}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.68, y: 0, z: -8.76}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.65856993, y: 0.65856993, z: 0.65856993}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020725051240732}
   m_Mesh: {fileID: 4300000, guid: 0fd4001327f529f4dbe24a77cb8b92f9, type: 3}
+--- !u!65 &65234856186216924
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1020725051240732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.49511835, y: 0.4, z: 0.49511775}
+  m_Center: {x: -0.00000024586913, y: 0.4870919, z: -0.00000011920928}
 --- !u!95 &95050343280688206
 Animator:
   serializedVersion: 3

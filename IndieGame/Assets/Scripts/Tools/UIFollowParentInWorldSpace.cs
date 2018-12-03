@@ -25,6 +25,6 @@ public class UIFollowParentInWorldSpace : MonoBehaviour
             _playerTransform = GameController.playerController.gameObject.transform;
 
         Vector3 pos = _playerTransform.position - _target.position;
-        transform.position = Camera.main.WorldToScreenPoint(_playerTransform.position - new Vector3(pos.x, -pos.y, pos.z) + Vector3.up * _bounds.y);
+        transform.position = Camera.main.WorldToScreenPoint(_playerTransform.position - new Vector3(pos.x, 0, pos.z) + Vector3.up * _bounds.y);
     }
 }

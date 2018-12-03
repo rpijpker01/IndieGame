@@ -197,69 +197,6 @@
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
-    <Reference Include="Vuforia.UnityExtensions.Editor">
-      <HintPath>D:/UnityOld/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Vuforia.UnityExtensions">
-      <HintPath>D:/UnityOld/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Networking">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TestRunner">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Timeline">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Timeline">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TreeEditor">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIAutomation">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UIAutomation">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UIAutomation/Editor/UnityEditor.UIAutomation.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.GoogleAudioSpatializer">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GoogleAudioSpatializer">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.HoloLens">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.VR">
-      <HintPath>D:/UnityOld/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>D:/UnityOld/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
@@ -378,9 +315,11 @@
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemDrop.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemTooltip.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\LootableChest.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopInventory.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopItemSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopKeeper.cs" />
+    <Compile Include="Assets\Scripts\NPC\OlChapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\Ability1ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\BasicAttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttacks.cs" />
@@ -393,12 +332,15 @@
     <Compile Include="Assets\Scripts\Singletons\UICanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableOnStart.cs" />
+    <Compile Include="Assets\Scripts\Tools\DropLoot.cs" />
     <Compile Include="Assets\Scripts\Tools\EnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorMessage.cs" />
+    <Compile Include="Assets\Scripts\Tools\FadeText.cs" />
     <Compile Include="Assets\Scripts\Tools\FollowItemPosition.cs" />
     <Compile Include="Assets\Scripts\Tools\HighlightGameobject.cs" />
     <Compile Include="Assets\Scripts\Tools\Portal.cs" />
     <Compile Include="Assets\Scripts\Tools\QuestItemBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Tools\RangedEnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\SoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\TransparencyCast.cs" />
     <Compile Include="Assets\Scripts\Tools\UIFollowParentInWorldSpace.cs" />

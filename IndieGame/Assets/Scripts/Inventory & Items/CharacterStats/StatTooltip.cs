@@ -123,7 +123,7 @@ public class StatTooltip : MonoBehaviour
         }
 
         //Sort the list so items are sorter alphabetically in the tooltip
-        sm.Sort();
+        //sm.Sort();
         foreach (EquipmentType type in sm)
         {
             if (_sbStats.Length > 0)

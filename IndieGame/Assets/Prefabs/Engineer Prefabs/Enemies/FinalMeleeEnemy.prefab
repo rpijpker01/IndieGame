@@ -713,8 +713,9 @@ GameObject:
   - component: {fileID: 54465413341378138}
   - component: {fileID: 136241289778258740}
   - component: {fileID: 195262816128763252}
-  - component: {fileID: 114172178794584462}
+  - component: {fileID: 114409375575124848}
   - component: {fileID: 114576108292085624}
+  - component: {fileID: 114004002617215026}
   m_Layer: 8
   m_Name: FinalMeleeEnemy
   m_TagString: Enemy
@@ -2009,7 +2010,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1459096705815164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -896.7284, y: 0, z: -56.434692}
+  m_LocalPosition: {x: -905.96387, y: 0, z: -54.91587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4225010300292198}
@@ -2661,30 +2662,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114172178794584462
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1459096705815164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c0c0a62ec1bc2458e150004a81f4c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startingHealth: 100
-  _detectRange: 30
-  _isMeleeEnemy: 1
-  _isDummy: 0
-  _meleeDamage: 15
-  _attackDelayInMs: 1000
-  _projectilePrefab: {fileID: 0}
-  _shootingRange: 8
-  _rangedDamage: 10
-  _shootCooldownInMs: 1000
-  lootDropPrefab: {fileID: 1266160461775014, guid: df2d2c5892de6134d97778767b66866b,
-    type: 2}
---- !u!114 &114576108292085624
+--- !u!114 &114004002617215026
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2714,6 +2692,39 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f15ce6c48ce450e4eb9dc5f14e8d3745, type: 3}
   - {fileID: 8300000, guid: 44b81c5fa07cfb34da2a24e834111bdb, type: 3}
   - {fileID: 8300000, guid: f3643118993270b42a388f03cbe07ef9, type: 3}
+--- !u!114 &114409375575124848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459096705815164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c0c0a62ec1bc2458e150004a81f4c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 100
+  _detectRange: 30
+  _isMeleeEnemy: 1
+  _isDummy: 0
+  _meleeDamage: 15
+  _attackDelayInMs: 1000
+  _projectilePrefab: {fileID: 0}
+  _shootingRange: 8
+  _rangedDamage: 10
+  _shootCooldownInMs: 1000
+--- !u!114 &114576108292085624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459096705815164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33197178726daa142bec17095de9931f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxDrops: 20
 --- !u!136 &136241289778258740
 CapsuleCollider:
   m_ObjectHideFlags: 1

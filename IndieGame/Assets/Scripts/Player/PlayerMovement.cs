@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Check where the ground is
         RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(transform.position, -Vector3.up, out raycastHit);
+        Physics.Raycast(transform.position, -Vector3.up, out raycastHit, 1000, ~(1 << 10));
 
         if (_rotationDummy != null)
         {
@@ -173,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(_surfaceRotation.eulerAngles.x, _surfaceRotation.eulerAngles.y, _surfaceRotation.eulerAngles.z);
             transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
         }
-
 
         //Set position
         transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f));// + (transform.up * _collider.bounds.extents.y);

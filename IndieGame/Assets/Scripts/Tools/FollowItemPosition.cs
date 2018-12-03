@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class FollowItemPosition : MonoBehaviour
@@ -11,6 +10,7 @@ public class FollowItemPosition : MonoBehaviour
     private ItemDrop _itemScript;
     private string _itemName;
     private int _oldIndex;
+    private bool _showAll;
 
     private void Update()
     {
@@ -24,8 +24,17 @@ public class FollowItemPosition : MonoBehaviour
         _textObject.text = _itemName;
         _itemScript = _item.GetComponent<ItemDrop>();
 
+        GameController.OnAltKeyDownEvent += ShowAll;
+        GameController.OnAltKeyUpEvent += HideAll;
+
         _background.enabled = false;
         _textObject.enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        GameController.OnAltKeyDownEvent -= ShowAll;
+        GameController.OnAltKeyUpEvent -= HideAll;
     }
 
     public void Highlight()
@@ -36,6 +45,21 @@ public class FollowItemPosition : MonoBehaviour
 
     public void Shade()
     {
+        if (_showAll) return;
+        _background.enabled = false;
+        _textObject.enabled = false;
+    }
+
+    private void ShowAll()
+    {
+        _showAll = true;
+        _background.enabled = true;
+        _textObject.enabled = true;
+    }
+
+    private void HideAll()
+    {
+        _showAll = false;
         _background.enabled = false;
         _textObject.enabled = false;
     }
