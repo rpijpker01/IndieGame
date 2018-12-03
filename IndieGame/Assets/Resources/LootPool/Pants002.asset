@@ -11,11 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
   m_Name: Pants002
   m_EditorClassIdentifier: 
-  _id: ccbc6935dc01cfd4c8f709cd94db7d4e
+  _id: 8ecc54bc17ba53647918f3aeb2b5238f
   _name: 
   _iconInInventory: {fileID: 21300000, guid: 36ad8112cc04a0548a57413545ad999d, type: 3}
-  _iconWhenEquipped: {fileID: 0}
-  _equipmentType: 4
+  _iconWhenEquipped: {fileID: 21300000, guid: 669e412bbc83c8d4a92f540af38a7504, type: 3}
+  _prefabWhenDropped: {fileID: 1541978006065352, guid: 3eb9438419ceea240b5a5df59063915e,
+    type: 2}
+  _itemValue: 60
+  _dropChancePercent: 100
+  _dropsFrom: 1
   _healthValue: {x: 0, y: 100}
   _manaValue: {x: 0, y: 100}
   _armorValue: {x: 0, y: 100}
@@ -26,11 +30,3 @@ MonoBehaviour:
   _armorValuePercent: {x: 0, y: 100}
   _strengthValuePercent: {x: 0, y: 100}
   _intelligenceValuePercent: {x: 0, y: 100}
-  _itemValue: 0
-  _dropChancePercent: 100
-  _zoneOne: 0
-  _zoneTwo: 0
-  _zoneThree: 0
-  _zoneFour: 0
-  _zoneFive: 0
-  _allZones: 1

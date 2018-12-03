@@ -35,7 +35,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private int _shootCooldownInMs = 1000;
 
-
     //Components
     private Rigidbody _rigidbody;
     private Collider _collider;
@@ -201,7 +200,7 @@ public class EnemyController : MonoBehaviour
         if (GameController.player != null)
         {
             //Check if the player is in range
-            if ((GameController.player.transform.position - transform.position).magnitude < 2f)
+            if ((GameController.player.transform.position - transform.position).magnitude < 1.5f)
             {
                 if ((DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
                 {
@@ -237,7 +236,7 @@ public class EnemyController : MonoBehaviour
             //Play death animation here lmao
             SetAnimationState(AnimationState.Dying);
             GetComponent<Collider>().enabled = false;
-            GetComponent<DropLoot>().enabled = false;
+            GetComponent<DropLoot>().DropItems(this.transform);
         }
     }
 

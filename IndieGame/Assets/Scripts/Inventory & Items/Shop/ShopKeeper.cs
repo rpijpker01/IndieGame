@@ -43,7 +43,7 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
     {
         Vector3 distToPlayer = _playerTransform.position - this.transform.position;
 
-        if (distToPlayer.magnitude <= 5)
+        if (distToPlayer.magnitude < 5)
         {
             _dialogueParent.position = Camera.main.WorldToScreenPoint(transform.position) + Vector3.up * 100;
 
@@ -71,9 +71,6 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
     private void OpenShop(GameObject go)
     {
         if (this.gameObject != go) return;
-        Vector3 distToPlayer = _playerTransform.position - this.transform.position;
-
-        if (distToPlayer.magnitude > 5 && !playerIsInShop) return;
 
         SetAllWindowsActive();
     }

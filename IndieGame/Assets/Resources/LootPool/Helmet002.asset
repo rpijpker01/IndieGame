@@ -11,11 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
   m_Name: Helmet002
   m_EditorClassIdentifier: 
-  _id: 2aad3578d43a63e46a6faefdac3edbb6
+  _id: a1c6623c0dd2aaa4da41ed8ffd8f20a2
   _name: h-h-h-hELMEEET
-  _iconInInventory: {fileID: 21300000, guid: e83c334f9500a9e45995c8ce680bf9af, type: 3}
-  _iconWhenEquipped: {fileID: 0}
-  _equipmentType: 0
+  _iconInInventory: {fileID: 21300000, guid: 2254e0ae112cd394f821e3948b303995, type: 3}
+  _iconWhenEquipped: {fileID: 21300000, guid: bfba510c9b6124e4fba44ec982786e91, type: 3}
+  _prefabWhenDropped: {fileID: 1674249897787788, guid: 4ce99a6f751fc554291b112861cf0862,
+    type: 2}
+  _itemValue: 40
+  _dropChancePercent: 100
+  _dropsFrom: 1
   _healthValue: {x: 0, y: 100}
   _manaValue: {x: 0, y: 100}
   _armorValue: {x: 0, y: 100}
@@ -26,11 +30,3 @@ MonoBehaviour:
   _armorValuePercent: {x: 0, y: 100}
   _strengthValuePercent: {x: 0, y: 100}
   _intelligenceValuePercent: {x: 0, y: 100}
-  _itemValue: 0
-  _dropChancePercent: 100
-  _zoneOne: 0
-  _zoneTwo: 0
-  _zoneThree: 0
-  _zoneFour: 0
-  _zoneFive: 0
-  _allZones: 1

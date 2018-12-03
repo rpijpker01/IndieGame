@@ -15,63 +15,59 @@ public class ItemDrop : MonoBehaviour
     private Inventory _playerInventory;
     private Animation _itemFlipAnimation;
 
-    public void Init(Item pItem)
+    public void Init(Item pItem, Transform pPos, bool pAddForce = true)
     {
         _playerTransform = GameController.player.GetComponent<Transform>();
         _itemTooltip = GameObject.Find("InGameUICanvas").transform.GetChild(4).GetComponent<ItemTooltip>();
         _playerInventory = GameObject.Find("InGameUICanvas").transform.GetChild(2).transform.GetChild(1).GetComponent<Inventory>();
         _itemFlipAnimation = GetComponent<Animation>();
-
-        _sr = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody>();
+        _sr = GetComponent<SpriteRenderer>();
 
         //Ignore collision with player
-        Physics.IgnoreCollision(GetComponent<BoxCollider>(), _playerTransform.GetComponent<Collider>());
-
-        _item = Instantiate(pItem);
-        _sr.sprite = pItem.IconInInv;
+        GameObject itemGo = Instantiate(pItem.PrefabWhenDropped, this.transform);
+        _item = pItem;
+        itemGo.transform.tag = "LootDrop";
+        itemGo.layer = 10;
+        GetComponent<HighlightGameobject>().enabled = false;
+        GetComponent<HighlightGameobject>().enabled = true;
 
         GameObject _itemName = Resources.Load<GameObject>("DroppedItemDisplayParent");
         GameObject go = Instantiate(_itemName, Camera.main.WorldToScreenPoint(this.transform.position), Quaternion.identity);
         _textScript = go.GetComponent<FollowItemPosition>();
-        _textScript.Item = this.transform;
+        _textScript.Item = itemGo.transform;
         _textScript.ItemName = pItem.Name;
         _textScript.Init();
 
-        _rb.AddForce(Vector3.up * Random.Range(-5, 5) + Vector3.right * Random.Range(-5, 5) + Vector3.forward * Random.Range(-5, 5), ForceMode.Impulse);
+        if (pAddForce)
+            _rb.AddForce(Vector3.up * Random.Range(0, 5) + pPos.right * Random.Range(-2, 2) + pPos.forward * Random.Range(2, 6), ForceMode.Impulse);
+        else
+            _itemFlipAnimation.Play();
 
         GameController.OnMouseOverGameObjectEvent += Highlight;
         GameController.OnMouseAwayFromGameObject += Shade;
         GameController.OnMouseLeftClickGameObject += PickUp;
-        GameController.OnCtrlButtonHoldEvent += ShowTooltip;
-        GameController.OnCrtlButtonLetgoEvent += HideTooltip;
+        GameController.OnCtrlKeyHoldEvent += ShowTooltip;
+        GameController.OnCrtlKeyUpEvent += HideTooltip;
     }
 
     public void PickUp(GameObject go)
     {
         if (this.gameObject != go) return;
 
-        Vector3 distoToPlayer = _playerTransform.position - this.transform.position;
-
-        if (distoToPlayer.magnitude < 5)
+        if (!_playerInventory.IsFull())
         {
-            if (!_playerInventory.IsFull())
-            {
-                _playerInventory.AddItem(_item);
-                GameController.errorMessage.AddMessage(string.Format("Picked up\n{0}", _item.Name));
-                Destroy(this.gameObject);
-                Destroy(_textScript.gameObject);
-            }
-            else
-            {
-                transform.parent.position = this.transform.position;
-                _itemFlipAnimation.Play();
-                GameController.errorMessage.AddMessage("Inventory is full!");
-            }
+            Item itemCopy = Instantiate(_item);
+            _playerInventory.AddItem(itemCopy);
+            GameController.errorMessage.AddMessage(string.Format("Picked up {0}", itemCopy.Name, Color.white));
+            Destroy(this.gameObject);
+            Destroy(_textScript.gameObject);
         }
         else
         {
-            GameController.errorMessage.AddMessage("Move closer to pick up item");
+            transform.parent.position = this.transform.position;
+            _itemFlipAnimation.Play();
+            GameController.errorMessage.AddMessage("Inventory is full!");
         }
     }
 
@@ -82,8 +78,7 @@ public class ItemDrop : MonoBehaviour
 
         if (this.gameObject != go) return;
 
-        if (_item is Equippable)
-            _itemTooltip.ShowTooltip((Equippable)_item);
+        _itemTooltip.ShowTooltip(_item);
     }
 
     public void HideTooltip(GameObject go)
@@ -112,8 +107,8 @@ public class ItemDrop : MonoBehaviour
         GameController.OnMouseOverGameObjectEvent -= Highlight;
         GameController.OnMouseAwayFromGameObject -= Shade;
         GameController.OnMouseLeftClickGameObject -= PickUp;
-        GameController.OnCtrlButtonHoldEvent -= ShowTooltip;
-        GameController.OnCrtlButtonLetgoEvent -= HideTooltip;
+        GameController.OnCtrlKeyHoldEvent -= ShowTooltip;
+        GameController.OnCrtlKeyUpEvent -= HideTooltip;
     }
 
     public Item Item { get { return _item; } }

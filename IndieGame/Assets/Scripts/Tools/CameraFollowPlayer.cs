@@ -31,9 +31,12 @@ public class CameraFollowPlayer : MonoBehaviour
     public delegate void CameraShake(float intensity, int durationInMs);
     public static CameraShake cameraShake;
 
+    private static CameraFollowPlayer cam;
+
     private void Awake()
     {
         cameraShake = ShakeCamera;
+        cam = this;
     }
 
     private void Start()
@@ -71,6 +74,12 @@ public class CameraFollowPlayer : MonoBehaviour
         _shakeMagnitude /= 1.2f;
 
         if (_shakeMagnitude < 0.05f) { _shakeMagnitude = 1; _shaking = false; }
+    }
+
+    public static void InvertCamera()
+    {
+        cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y + 180, cam.transform.rotation.eulerAngles.z);
+        cam._offset = new Vector3(-cam._offset.x, cam._offset.y, -cam._offset.z);
     }
 
     public bool Paused { get { return _paused; } set { _paused = value; } }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.UI;
 
 public class EquipmentSlot : ItemSlot
 {
@@ -8,7 +6,7 @@ public class EquipmentSlot : ItemSlot
 
     protected override void Awake()
     {
-        base.Awake();
+        _image = GetComponent<Image>();
 
         //Assign each equippable slot with the type it can hold
         AssignSlotType();
@@ -102,7 +100,10 @@ public class EquipmentSlot : ItemSlot
             return true;
 
         Equippable eq = pItem as Equippable;
-        return eq != null && eq.ItemType == _slotType;
+        if (eq != null && eq.ItemType == EquipmentType.Gloves && _slotType == EquipmentType.Gloves1)
+            return true;
+        else
+            return eq != null && eq.ItemType == _slotType;
     }
 
     public EquipmentType EquipmentType { get { return _slotType; } }

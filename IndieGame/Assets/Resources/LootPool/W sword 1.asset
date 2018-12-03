@@ -11,11 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
   m_Name: W sword 1
   m_EditorClassIdentifier: 
-  _id: 41a4322a1cdf90e4c8f97ffd8a7a8caf
+  _id: 4ccb72aa2826b0549a3111ebb7ee9d44
   _name: SLAPPER
-  _iconInInventory: {fileID: 21300000, guid: 387abf73b270ff342b15ed0f519dac8d, type: 3}
-  _iconWhenEquipped: {fileID: 0}
-  _equipmentType: 6
+  _iconInInventory: {fileID: 21300000, guid: b0039ad2eaffa754ba0d912a3c896654, type: 3}
+  _iconWhenEquipped: {fileID: 21300000, guid: 61c86a004e5ee7f43b50fdf2c96ddd62, type: 3}
+  _prefabWhenDropped: {fileID: 1020725051240732, guid: f09720f5c3a0e6d46971bcf914affcdd,
+    type: 2}
+  _itemValue: 70
+  _dropChancePercent: 100
+  _dropsFrom: 1
   _healthValue: {x: 0, y: 100}
   _manaValue: {x: 0, y: 100}
   _armorValue: {x: 0, y: 100}
@@ -26,11 +30,3 @@ MonoBehaviour:
   _armorValuePercent: {x: 0, y: 100}
   _strengthValuePercent: {x: 0, y: 100}
   _intelligenceValuePercent: {x: 0, y: 100}
-  _itemValue: 243
-  _dropChancePercent: 100
-  _zoneOne: 0
-  _zoneTwo: 0
-  _zoneThree: 0
-  _zoneFour: 0
-  _zoneFive: 0
-  _allZones: 1

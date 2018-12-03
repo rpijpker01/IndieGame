@@ -11,6 +11,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     protected Color _normalCol = Color.white;
     protected Color _noAlphaCol = new Color(1, 1, 1, 0);
 
+    protected Text _amountText;
+    protected int _amount;
+
     public event Action<ItemSlot> OnRightClickEvent;
     public event Action<ItemSlot> OnBeginDragEvent;
     public event Action<ItemSlot> OnEndDragEvent;
@@ -19,10 +22,25 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public event Action<ItemSlot> OnDragEvent;
     public event Action<ItemSlot> OnDropEvent;
 
-
     protected virtual void Awake()
     {
         _image = GetComponent<Image>();
+        _amountText = this.GetComponentInChildren<Text>();
+    }
+
+    public int Amount
+    {
+        get { return _amount; }
+        set
+        {
+            _amount = value;
+
+            Consumable c = _item as Consumable;
+            _amountText.enabled = c != null && _amount > 0;
+
+            if (_amountText.enabled)
+                _amountText.text = _amount.ToString();
+        }
     }
 
     public virtual Item Item
@@ -70,6 +88,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                         e.ItemType = EquipmentType.OffHand;
                         break;
                 }
+            }
+            else if (_item is Consumable)
+            {
+                Consumable c = (Consumable)_item;
+
+                switch (c.name.ToLower().ToCharArray()[0])
+                {
+                    case 'h':
+                        c.ItemType = ConsumableType.HealthPotion;
+                        break;
+                    case 'm':
+                        c.ItemType = ConsumableType.ManaPotion;
+                        break;
+                }
+
+                c.SetEffectiveness();
             }
         }
     }

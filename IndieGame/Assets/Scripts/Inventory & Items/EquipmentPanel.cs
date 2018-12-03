@@ -76,4 +76,6 @@ public class EquipmentPanel : MonoBehaviour
 
         return false;
     }
+
+    public EquipmentSlot[] EquipmentSlots { get { return _equipmentSlots; } }
 }

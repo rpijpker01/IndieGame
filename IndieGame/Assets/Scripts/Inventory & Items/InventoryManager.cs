@@ -4,6 +4,8 @@ using F.CharacterStats;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _lootDropPrefab;
+
     public CharacterStats _health;
     public CharacterStats _mana;
     public CharacterStats _armor;
@@ -86,7 +88,7 @@ public class InventoryManager : MonoBehaviour
         Item i = pItemSlot.Item as Item;
         if (i != null)
         {
-            return DragToSell(i);
+            return DragToSell(i, pItemSlot);
         }
 
         return false;
@@ -99,7 +101,7 @@ public class InventoryManager : MonoBehaviour
         Item i = pItemSlot.Item as Item;
         if (i != null)
         {
-            return DragToBuy(i);
+            return DragToBuy(i, pItemSlot);
         }
 
         return false;
@@ -145,11 +147,7 @@ public class InventoryManager : MonoBehaviour
 
     private void ShowTooltip(ItemSlot pItemSlot)
     {
-        Equippable eq = pItemSlot.Item as Equippable;
-        if (eq != null)
-        {
-            _itemTooltip.ShowTooltip(eq);
-        }
+        _itemTooltip.ShowTooltip(pItemSlot.Item);
     }
 
     private void HideTooltip(ItemSlot pItemSlot)
@@ -171,6 +169,10 @@ public class InventoryManager : MonoBehaviour
 
     private void EndDrag(ItemSlot pItemSlot)
     {
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            if (_draggedSlot != null)
+                DropItemOnGround(_draggedSlot.Item);
+
         _draggedSlot = null;
         _draggedItem.enabled = false;
     }
@@ -189,37 +191,104 @@ public class InventoryManager : MonoBehaviour
         {
             Equippable dragItem = _draggedSlot.Item as Equippable;
             Equippable dropItem = pDropItemSlot.Item as Equippable;
+            EquipmentSlot esDrag = _draggedSlot as EquipmentSlot;
+            EquipmentSlot esDrop = pDropItemSlot as EquipmentSlot;
 
             if (_draggedSlot is EquipmentSlot)
             {
-                if (dragItem != null) dragItem.Unequip(this);
-                if (dropItem != null) dropItem.Equip(this);
+                if (dragItem != null)
+                {
+                    dragItem.Unequip(this);
+
+                    if (esDrag.EquipmentType == EquipmentType.Gloves)
+                        _equipmentPanel.EquipmentSlots[3].Item = null;
+                    else if (esDrag.EquipmentType == EquipmentType.Gloves1)
+                        _equipmentPanel.EquipmentSlots[2].Item = null;
+                }
+                if (dropItem != null)
+                {
+                    dropItem.Equip(this);
+
+                    if (dropItem.ItemType == EquipmentType.Gloves)
+                        if (esDrag.EquipmentType == EquipmentType.Gloves)
+                            _equipmentPanel.EquipmentSlots[3].Item = dropItem;
+                        else if (esDrag.EquipmentType == EquipmentType.Gloves1)
+                            _equipmentPanel.EquipmentSlots[2].Item = dropItem;
+                }
             }
 
             if (pDropItemSlot is EquipmentSlot)
             {
-                if (dropItem != null) dropItem.Unequip(this);
-                if (dragItem != null) dragItem.Equip(this);
+                if (dropItem != null)
+                {
+                    dropItem.Unequip(this);
+
+                    if (esDrop.EquipmentType == EquipmentType.Gloves)
+                        _equipmentPanel.EquipmentSlots[3].Item = null;
+                    else if (esDrop.EquipmentType == EquipmentType.Gloves1)
+                        _equipmentPanel.EquipmentSlots[2].Item = null;
+                }
+                if (dragItem != null)
+                {
+                    dragItem.Equip(this);
+
+                    if (dragItem.ItemType == EquipmentType.Gloves)
+                        if (esDrop.EquipmentType == EquipmentType.Gloves)
+                            _equipmentPanel.EquipmentSlots[3].Item = dragItem;
+                        else if (esDrop.EquipmentType == EquipmentType.Gloves1)
+                            _equipmentPanel.EquipmentSlots[2].Item = dragItem;
+                }
             }
 
             _statsPanel.UpdateStatValues();
 
-            if (_draggedSlot is ShopItemSlot && !(pDropItemSlot is ShopItemSlot))
+            if (_draggedSlot is ShopItemSlot)
             {
-                if (!(pDropItemSlot is EquipmentSlot))
+                if (!(pDropItemSlot is ShopItemSlot))
                 {
-                    if (DragToBuy(_draggedSlot))
+                    if (!(pDropItemSlot is EquipmentSlot))
                     {
-                        if (DragToSell(pDropItemSlot.Item))
+                        if (!_shopInventory.IsFull())
                         {
-                            Item di = _draggedSlot.Item;
-                            _draggedSlot.Item = pDropItemSlot.Item;
-                            pDropItemSlot.Item = di;
-                            print("sold");
+                            if (DragToBuy(_draggedSlot))
+                            {
+                                if (DragToSell(pDropItemSlot.Item, pDropItemSlot))
+                                {
+                                    SwapItemes(pDropItemSlot);
+                                }
+                            }
                         }
-                        print("bought");
+                        else
+                        {
+                            if (pDropItemSlot.Item == null && DragToBuy(_draggedSlot))
+                            {
+                                SwapItemes(pDropItemSlot);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    SwapItemes(pDropItemSlot);
+                }
+            }
+            else if (pDropItemSlot is ShopItemSlot)
+            {
+                if (DragToSell(_draggedSlot.Item, _draggedSlot))
+                {
+                    if (DragToBuy(pDropItemSlot))
+                    {
+                        SwapItemes(pDropItemSlot);
+                    }
+                    else if (pDropItemSlot.Item == null)
+                    {
+                        SwapItemes(pDropItemSlot);
+                    }
+                }
+            }
+            else
+            {
+                SwapItemes(pDropItemSlot);
             }
         }
         else
@@ -236,6 +305,28 @@ public class InventoryManager : MonoBehaviour
             {
                 GameController.errorMessage.AddMessage("Inventory is full");
             }
+        }
+    }
+
+    private void SwapItemes(ItemSlot pDropItemSlot)
+    {
+        Item di = _draggedSlot.Item;
+        int diAmmount = _draggedSlot.Amount;
+
+        _draggedSlot.Item = pDropItemSlot.Item;
+        _draggedSlot.Amount = pDropItemSlot.Amount;
+
+        pDropItemSlot.Item = di;
+        pDropItemSlot.Amount = diAmmount;
+    }
+
+    private void DropItemOnGround(Item pItem)
+    {
+        //Drop Items Here
+        if (_inventory.RemoveItem(pItem))
+        {
+            GameObject go = Instantiate(_lootDropPrefab, GameController.player.transform.position + GameController.player.transform.forward, Quaternion.identity);
+            go.GetComponentInChildren<ItemDrop>().Init(pItem, GameController.player.transform, false);
         }
     }
 
@@ -279,43 +370,42 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private bool DragToSell(Item pItem)
+    private bool DragToSell(Item pItem, ItemSlot pSlot)
     {
         if (!ShopKeeper.playerIsInShop) return false;
         if (_shopInventory == null)
             _shopInventory = GameObject.Find("ShopInventory").GetComponent<ShopInventory>();
 
-        Equippable e = pItem as Equippable;
-        if (e != null)
+        if (_shopInventory.IsFull())
         {
-            GameController.errorMessage.AddMessage(e.Name + "\nhas been sold!");
-            _playerCoins.AddCoins(e.Value);
+            GameController.errorMessage.AddMessage("Shop is Full!");
+            return false;
+        }
+
+        if (pItem != null)
+        {
+            _playerCoins.AddCoins(pItem.Value * pSlot.Amount);
+            pItem.IsInShop = true;
+            GameController.errorMessage.AddMessage(pItem.Name + " has been sold for " + pItem.Value + " Coins!", Color.green);
+        }
+
+        return true;
+    }
+
+    private bool DragToBuy(Item pItem, ItemSlot pSlot)
+    {
+        if (!ShopKeeper.playerIsInShop) return false;
+        if (_shopInventory == null)
+            _shopInventory = GameObject.Find("ShopInventory").GetComponent<ShopInventory>();
+
+        if (_playerCoins.TakeCoins(Mathf.RoundToInt(pItem.Value * pSlot.Amount)))
+        {
+            pItem.IsInShop = false;
+            GameController.errorMessage.AddMessage(pItem.Name + " has been purchased for " + Mathf.RoundToInt(pItem.Value * 1.25f) + " Coins!", Color.blue);
             return true;
         }
 
-        return false;
-    }
-
-    private bool DragToBuy(Item pItem)
-    {
-        if (!ShopKeeper.playerIsInShop) return false;
-        if (_shopInventory == null)
-            _shopInventory = GameObject.Find("ShopInventory").GetComponent<ShopInventory>();
-
-        Equippable e = pItem as Equippable;
-        if (e != null)
-        {
-            if (_playerCoins.TakeCoins(Mathf.RoundToInt(e.Value * 1.25f)))
-            {
-                GameController.errorMessage.AddMessage(e.Name + "\nhas been purchased!");
-                return true;
-            }
-            else
-            {
-                GameController.errorMessage.AddMessage("Not enough coin!");
-                return false;
-            }
-        }
+        GameController.errorMessage.AddMessage("Not enough Coins!");
 
         return false;
     }
@@ -339,8 +429,9 @@ public class InventoryManager : MonoBehaviour
                 Equippable e = pItem as Equippable;
                 if (e != null)
                 {
-                    GameController.errorMessage.AddMessage(e.Name + "\nhas been sold!");
                     _playerCoins.AddCoins(e.Value);
+                    e.IsInShop = true;
+                    GameController.errorMessage.AddMessage(e.Name + " has been sold!", Color.green);
                 }
             }
         }
@@ -353,25 +444,22 @@ public class InventoryManager : MonoBehaviour
 
         if (_shopInventory.RemoveItem(pItem))
         {
-            Equippable e = pItem as Equippable;
-            if (e != null)
+            if (_playerCoins.TakeCoins(Mathf.RoundToInt(pItem.Value)))
             {
-                if (_playerCoins.TakeCoins(Mathf.RoundToInt(e.Value * 1.25f)))
+                if (!_inventory.AddItem(pItem))
                 {
-                    if (!_inventory.AddItem(pItem))
-                    {
-                        _shopInventory.AddItem(pItem);
-                        GameController.errorMessage.AddMessage("Inventory is full!");
-                    }
-                    else
-                    {
-                        GameController.errorMessage.AddMessage(e.Name + "\nhas been purchased!");
-                    }
+                    _shopInventory.AddItem(pItem);
+                    GameController.errorMessage.AddMessage("Inventory is full!");
                 }
                 else
                 {
-                    _shopInventory.AddItem(pItem);
+                    pItem.IsInShop = false;
+                    GameController.errorMessage.AddMessage(pItem.Name + " has been purchased!", Color.blue);
                 }
+            }
+            else
+            {
+                _shopInventory.AddItem(pItem);
             }
         }
     }

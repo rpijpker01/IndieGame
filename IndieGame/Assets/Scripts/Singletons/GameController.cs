@@ -25,8 +25,10 @@ public class GameController : MonoBehaviour
     public static event Action<GameObject> OnMouseOverGameObjectEvent;
     public static event Action<GameObject> OnMouseAwayFromGameObject;
     public static event Action<GameObject> OnMouseLeftClickGameObject;
-    public static event Action<GameObject> OnCtrlButtonHoldEvent;
-    public static event Action<GameObject> OnCrtlButtonLetgoEvent;
+    public static event Action<GameObject> OnCtrlKeyHoldEvent;
+    public static event Action<GameObject> OnCrtlKeyUpEvent;
+    public static event Action OnAltKeyDownEvent;
+    public static event Action OnAltKeyUpEvent;
 
     public static bool mouseIsOnScreen;
 
@@ -68,6 +70,7 @@ public class GameController : MonoBehaviour
             levelGenerator.doneWithGenerating += TeleportPlayerToLevel;
 
         Physics.IgnoreLayerCollision(10, 10);
+        Physics.IgnoreLayerCollision(10, 11);
     }
 
     private void BakeNavMesh()
@@ -79,27 +82,36 @@ public class GameController : MonoBehaviour
             {
                 if (gameObject.GetComponent<CapsuleCollider>() != null)
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    CapsuleCollider capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
-                    obstacle.shape = NavMeshObstacleShape.Capsule;
-                    obstacle.center = capsuleCollider.center;
-                    obstacle.radius = capsuleCollider.radius;
-                    obstacle.height = capsuleCollider.height;
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        CapsuleCollider capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+                        obstacle.shape = NavMeshObstacleShape.Capsule;
+                        obstacle.center = capsuleCollider.center;
+                        obstacle.radius = capsuleCollider.radius;
+                        obstacle.height = capsuleCollider.height;
+                        obstacle.carving = true;
+                    }
                 }
                 else if (gameObject.GetComponent<BoxCollider>() != null)
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
-                    obstacle.shape = NavMeshObstacleShape.Box;
-                    obstacle.center = boxCollider.center;
-                    obstacle.size = boxCollider.size;
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
+                        obstacle.shape = NavMeshObstacleShape.Box;
+                        obstacle.center = boxCollider.center;
+                        obstacle.size = boxCollider.size;
+                        obstacle.carving = true;
+                    }
                 }
                 else
                 {
-                    NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
-                    obstacle.carving = true;
+                    if (gameObject.GetComponent<NavMeshObstacle>() == null)
+                    {
+                        NavMeshObstacle obstacle = gameObject.AddComponent<NavMeshObstacle>();
+                        obstacle.carving = true;
+                    }
                 }
             }
         }
@@ -156,10 +168,19 @@ public class GameController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() &&
+                (pNewGameObject.GetComponent<HighlightGameobject>() != null || pNewGameObject.GetComponent<ItemDrop>() != null))
             {
-                if (OnMouseLeftClickGameObject != null)
-                    OnMouseLeftClickGameObject(pNewGameObject);
+                Vector3 distToPlayer = player.transform.position - pNewGameObject.transform.position;
+                if (distToPlayer.magnitude < 3)
+                {
+                    if (OnMouseLeftClickGameObject != null)
+                        OnMouseLeftClickGameObject(pNewGameObject);
+                }
+                else
+                {
+                    errorMessage.AddMessage("Move closer to interact with target");
+                }
             }
         }
 
@@ -167,14 +188,25 @@ public class GameController : MonoBehaviour
         {
             if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                if (OnCtrlButtonHoldEvent != null)
-                    OnCtrlButtonHoldEvent(pNewGameObject);
+                if (OnCtrlKeyHoldEvent != null)
+                    OnCtrlKeyHoldEvent(pNewGameObject);
             }
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            if (OnCrtlButtonLetgoEvent != null)
-                OnCrtlButtonLetgoEvent(pNewGameObject);
+            if (OnCrtlKeyUpEvent != null)
+                OnCrtlKeyUpEvent(pNewGameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (OnAltKeyDownEvent != null)
+                OnAltKeyDownEvent();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            if (OnAltKeyUpEvent != null)
+                OnAltKeyUpEvent();
         }
     }
 
@@ -184,6 +216,8 @@ public class GameController : MonoBehaviour
         {
             levelGenerator.GenerateFullDungeonLevel(16, 16);
             BakeNavMesh();
+            CameraFollowPlayer.InvertCamera();
+            PlayerMovement.InvertControls();
             _loadingLevel = false;
         }
     }
@@ -193,6 +227,8 @@ public class GameController : MonoBehaviour
         if (mainCanvas.GetBlackgroundAlpha() == 1)
         {
             TeleportPlayerToHub();
+            CameraFollowPlayer.InvertCamera();
+            PlayerMovement.InvertControls();
             _loadingHub = false;
         }
     }

@@ -16,7 +16,7 @@ public enum EquipmentType
 [CreateAssetMenu]
 public class Equippable : Item
 {
-    [SerializeField] private EquipmentType _equipmentType;
+    private EquipmentType _equipmentType;
 
     [Header("Flat Stats:\t\tMin\t\tMax")]
     [SerializeField] private Vector2 _healthValue;
@@ -31,17 +31,6 @@ public class Equippable : Item
     [SerializeField] private Vector2 _armorValuePercent;
     [SerializeField] private Vector2 _strengthValuePercent;
     [SerializeField] private Vector2 _intelligenceValuePercent;
-    [Space]
-    [SerializeField] private int _itemValue;
-    [Space]
-    [SerializeField] [Range(0, 100)] private float _dropChancePercent;
-    [Header("Drops in:")]
-    [SerializeField] private bool _zoneOne;
-    [SerializeField] private bool _zoneTwo;
-    [SerializeField] private bool _zoneThree;
-    [SerializeField] private bool _zoneFour;
-    [SerializeField] private bool _zoneFive;
-    [SerializeField] private bool _allZones;
 
     private float _health;
     private float _healthPercent;
@@ -72,54 +61,59 @@ public class Equippable : Item
         _intelligencePercent = (int)Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
     }
 
+    public override Item GetCopy()
+    {
+        return Instantiate(this);
+    }
+
     public void Equip(InventoryManager pInv)
     {
         //Health & %Health
-        if (_healthValue.x != 0 && _healthValue.x <= _healthValue.y)
+        if (_health != 0)
         {
             pInv.Health.AddModifier(new StatModifier(_health, StatModifierType.Flat, this));
         }
-        if (_healthValuePercent.x != 0 && _healthValuePercent.x <= _healthValuePercent.y)
+        if (_healthPercent != 0)
         {
             pInv.Health.AddModifier(new StatModifier(_healthPercent, StatModifierType.PercentAdd, this));
         }
 
         //Mana & %Mana
-        if (_manaValue.x != 0 && _manaValue.x <= _manaValue.y)
+        if (_mana != 0)
         {
             pInv.Mana.AddModifier(new StatModifier(_mana, StatModifierType.Flat, this));
         }
-        if (_manaValuePercent.x != 0 && _manaValuePercent.x <= _manaValuePercent.y)
+        if (_manaPercent != 0)
         {
             pInv.Mana.AddModifier(new StatModifier(_manaPercent, StatModifierType.PercentAdd, this));
         }
 
         //Armor & %Armor
-        if (_armorValue.x != 0 && _armorValue.x <= _armorValue.y)
+        if (_armor != 0)
         {
             pInv.Armor.AddModifier(new StatModifier(_armor, StatModifierType.Flat, this));
         }
-        if (_armorValuePercent.x != 0 && _armorValuePercent.x <= _armorValuePercent.y)
+        if (_armorPercent != 0)
         {
             pInv.Armor.AddModifier(new StatModifier(_armorPercent, StatModifierType.PercentAdd, this));
         }
 
         //StrengthMana & %Strength
-        if (_strengthValue.x != 0 && _strengthValue.x <= _strengthValue.y)
+        if (_strength != 0)
         {
             pInv.Strength.AddModifier(new StatModifier(_strength, StatModifierType.Flat, this));
         }
-        if (_strengthValuePercent.x != 0 && _strengthValuePercent.x <= _strengthValuePercent.y)
+        if (_strengthPercent != 0)
         {
             pInv.Strength.AddModifier(new StatModifier(_strengthPercent, StatModifierType.PercentAdd, this));
         }
 
         //Intelligence & %Intelligence
-        if (_intelligenceValue.x != 0 && _intelligenceValue.x <= _intelligenceValue.y)
+        if (_intelligence != 0)
         {
             pInv.Intelligence.AddModifier(new StatModifier(_intelligence, StatModifierType.Flat, this));
         }
-        if (_intelligenceValuePercent.x != 0 && _intelligenceValuePercent.x <= _intelligenceValuePercent.y)
+        if (_intelligencePercent != 0)
         {
             pInv.Intelligence.AddModifier(new StatModifier(_intelligencePercent, StatModifierType.PercentAdd, this));
         }
@@ -146,14 +140,4 @@ public class Equippable : Item
     public float ArmorPercent { get { return _armorPercent; } }
     public float StrengthPercent { get { return _strengthPercent; } }
     public float IntelligencePercent { get { return _intelligencePercent; } }
-
-    public bool ZoneOne { get { return _zoneOne; } }
-    public bool ZoneTwo { get { return _zoneTwo; } }
-    public bool ZoneThree { get { return _zoneThree; } }
-    public bool ZoneFour { get { return _zoneFour; } }
-    public bool ZoneFive { get { return _zoneFive; } }
-    public bool AllZone { get { return _allZones; } }
-
-    public float DropChance { get { return _dropChancePercent; } }
-    public int Value { get { return _itemValue; } }
 }
