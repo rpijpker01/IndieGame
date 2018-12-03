@@ -266,6 +266,13 @@ public class EnemyController : MonoBehaviour
 
         //Display damage number on canvas
         GameController.damageNumbersCanvas.DisplayDamageNumber(false, damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
+
+        //Play sound
+        if (GetComponent<EnemySoundPlayer>() != null)
+        {
+            GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+            GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+        }
     }
 
     public void TakeDamage(float damage, Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
@@ -279,6 +286,13 @@ public class EnemyController : MonoBehaviour
 
         //Knock the enemy back
         _rigidbody.AddExplosionForce(knockBackStrength, knockBackOrigin, knockBackRadius);
+
+        //Play sound
+        if (GetComponent<EnemySoundPlayer>() != null)
+        {
+            GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+            GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+        }
     }
 
     private void DropItems()

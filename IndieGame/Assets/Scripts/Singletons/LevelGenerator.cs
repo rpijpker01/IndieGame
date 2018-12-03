@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [SerializeField]
+    private List<GameObject> _questItems = new List<GameObject>();
+
     private Object[] _cornerPieces;
     private Object[] _edgePieces;
     private Object[] _middlePieces;
@@ -81,11 +84,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void GenerateFullDungeonLevel(int width, int height)
     {
         //Level Generation
@@ -103,6 +101,7 @@ public class LevelGenerator : MonoBehaviour
         System.DateTime startGeneratingBorder = System.DateTime.Now;
         GenerateBorderAroundLevel();
         Debug.Log("Border around level generation time: " + (System.DateTime.Now - startGeneratingBorder));
+        GenerateQuestItems();
         Debug.Log("Total Time: " + (System.DateTime.Now - startGeneratingLevel) + " / " + (System.DateTime.Now - startGeneratingLevel).TotalMilliseconds + "ms");
         doneWithGenerating();
     }
@@ -115,6 +114,15 @@ public class LevelGenerator : MonoBehaviour
             _spawnedPathPieces.RemoveAt(i);
         }
         GenerateDungeonLevel(width, width);
+    }
+
+    private void GenerateQuestItems()
+    {
+        Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
+        if (GameController._questProgress < _questItems.Count)
+        {
+            Instantiate(_questItems[GameController._questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+        }
     }
 
     public void GenerateSquareLevel(int width = 3, int height = 3)
