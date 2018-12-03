@@ -286,6 +286,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="IndieGame.Plugins.csproj">
+      <Project>{089D8323-6702-FC31-80D5-0DC1A3BC39E6}</Project>
+      <Name>IndieGame.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\GoogleVR\Scripts\Audio\FmodGvrAudio.cs" />
+    <Compile Include="Assets\GoogleVR\Scripts\Audio\FmodGvrAudioRoom.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -331,6 +339,8 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\ResonanceAudio\Scripts\FmodResonanceAudio.cs" />
+    <Compile Include="Assets\ResonanceAudio\Scripts\FmodResonanceAudioRoom.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\CharacterStats\CharacterStats.cs" />
@@ -354,6 +364,7 @@
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopInventory.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopItemSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopKeeper.cs" />
+    <Compile Include="Assets\Scripts\NPC\OlChapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\Ability1ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\BasicAttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttacks.cs" />
@@ -367,12 +378,16 @@
     <Compile Include="Assets\Scripts\Tools\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\DropLoot.cs" />
+    <Compile Include="Assets\Scripts\Tools\EnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\Tools\FadeText.cs" />
     <Compile Include="Assets\Scripts\Tools\FollowItemPosition.cs" />
     <Compile Include="Assets\Scripts\Tools\HighlightGameobject.cs" />
     <Compile Include="Assets\Scripts\Tools\Portal.cs" />
+    <Compile Include="Assets\Scripts\Tools\QuestItemBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Tools\RangedEnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\SoundPlayer.cs" />
+    <Compile Include="Assets\Scripts\Tools\TransparencyCast.cs" />
     <Compile Include="Assets\Scripts\Tools\UIFollowParentInWorldSpace.cs" />
     <Compile Include="Assets\Scripts\UI\DamageTextBehaviour.cs" />
     <Compile Include="Assets\Scripts\Wobble.cs" />
@@ -380,6 +395,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Models\textFile.txt" />
+    <None Include="Assets\Plugins\FMOD\LICENSE.TXT" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
@@ -425,12 +441,17 @@
     <None Include="Assets\Scenes\textFile.txt" />
     <None Include="Assets\Scripts\textFile.txt" />
     <None Include="Assets\Shaders\Bottle.shader" />
+    <None Include="Assets\Shaders\Portal.shader" />
     <None Include="Assets\Shaders\WaterfallShader.shader" />
     <None Include="Assets\Sounds\textFile.txt" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutlineAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutlineAlpha.shader" />
     <None Include="Assets\Textures\textFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

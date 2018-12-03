@@ -45,10 +45,18 @@ public class EquipmentPanel : MonoBehaviour
                 pPrevioursItem = (Equippable)_equipmentSlots[i].Item;
 
                 if (pItem.ItemType == EquipmentType.Gloves)
+                {
                     _equipmentSlots[i + 1].Item = pItem;
+                    _equipmentSlots[i + 1].Amount++;
+                }
                 else if (pItem.ItemType == EquipmentType.Gloves1)
+                {
                     _equipmentSlots[i - 1].Item = pItem;
+                    _equipmentSlots[i - 1].Amount++;
+                }
+
                 _equipmentSlots[i].Item = pItem;
+                _equipmentSlots[i].Amount++;
                 return true;
             }
         }
@@ -64,12 +72,26 @@ public class EquipmentPanel : MonoBehaviour
         {
             if (_equipmentSlots[i].Item == pItem)
             {
-                if (pItem.ItemType == EquipmentType.Gloves)
-                    _equipmentSlots[i + 1].Item = null;
-                else if (pItem.ItemType == EquipmentType.Gloves1)
-                    _equipmentSlots[i - 1].Item = null;
+                _equipmentSlots[i].Amount--;
 
-                _equipmentSlots[i].Item = null;
+                if (_equipmentSlots[i].Amount == 0)
+                {
+                    if (pItem.ItemType == EquipmentType.Gloves)
+                    {
+                        _equipmentSlots[i + 1].Amount--;
+                        if (_equipmentSlots[i + 1].Amount == 0)
+                            _equipmentSlots[i + 1].Item = null;
+                    }
+                    else if (pItem.ItemType == EquipmentType.Gloves1)
+                    {
+                        _equipmentSlots[i - 1].Amount--;
+                        if (_equipmentSlots[i - 1].Amount == 0)
+                            _equipmentSlots[i - 1].Item = null;
+                    }
+
+                    _equipmentSlots[i].Item = null;
+                }
+
                 return true;
             }
         }

@@ -7,7 +7,7 @@ public class EquipmentSlot : ItemSlot
     protected override void Awake()
     {
         _image = GetComponent<Image>();
-
+        _amountText = GetComponentInChildren<Text>();
         //Assign each equippable slot with the type it can hold
         AssignSlotType();
     }

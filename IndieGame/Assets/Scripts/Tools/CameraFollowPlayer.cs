@@ -26,7 +26,7 @@ public class CameraFollowPlayer : MonoBehaviour
     private DateTime _stopShakeTime = DateTime.MinValue;
     private float _defaultCameraSpeed;
 
-    private float _intensity = 1;
+    private float _intensity = 0.5f;
 
     public delegate void CameraShake(float intensity, int durationInMs);
     public static CameraShake cameraShake;
@@ -41,7 +41,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+        _playerTransform = GameController.player.transform;
         transform.position = _playerTransform.transform.position + _offset;
 
         _defaultCameraSpeed = cameraSpeed;
@@ -73,7 +73,7 @@ public class CameraFollowPlayer : MonoBehaviour
         transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-_intensity, _intensity) * _shakeMagnitude, transform.position.y + UnityEngine.Random.Range(-_intensity, _intensity) * _shakeMagnitude, transform.position.z);
         _shakeMagnitude /= 1.2f;
 
-        if (_shakeMagnitude < 0.05f) { _shakeMagnitude = 1; _shaking = false; }
+        if (_shakeMagnitude < 0.05f) { _shakeMagnitude = 0.3f; _shaking = false; }
     }
 
     public static void InvertCamera()

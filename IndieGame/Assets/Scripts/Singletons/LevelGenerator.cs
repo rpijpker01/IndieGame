@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [SerializeField]
+    private List<GameObject> _questItems = new List<GameObject>();
+
     private Object[] _cornerPieces;
     private Object[] _edgePieces;
     private Object[] _middlePieces;
@@ -80,50 +83,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GenerateSquareLevel(8, 8);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            System.DateTime startGeneratingLevel = System.DateTime.Now;
-            StartGeneratingLevel(16, 16);
-            Debug.Log("Level generation time: " + (System.DateTime.Now - startGeneratingLevel));
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            System.DateTime startGeneratingMainPath = System.DateTime.Now;
-            GenerateMainPath();
-            Debug.Log("Main path generation time: " + (System.DateTime.Now - startGeneratingMainPath));
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            System.DateTime startFillingInLeftOverArea = System.DateTime.Now;
-            GenerateLeftOverArea(_startNode, _endNode);
-            Debug.Log("Filling in left over area time: " + (System.DateTime.Now - startFillingInLeftOverArea));
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Level Generation
-            System.DateTime startGeneratingLevel = System.DateTime.Now;
-            StartGeneratingLevel(16, 16);
-            Debug.Log("Level generation time: " + (System.DateTime.Now - startGeneratingLevel));
-            //Main path
-            System.DateTime startGeneratingMainPath = System.DateTime.Now;
-            GenerateMainPath();
-            Debug.Log("Main path generation time: " + (System.DateTime.Now - startGeneratingMainPath));
-            //Fill in left over area
-            System.DateTime startFillingInLeftOverArea = System.DateTime.Now;
-            GenerateLeftOverArea(_startNode, _endNode);
-            Debug.Log("Filling in left over area time: " + (System.DateTime.Now - startFillingInLeftOverArea));
-            Debug.Log("Total Time: " + (System.DateTime.Now - startGeneratingLevel) + " / " + (System.DateTime.Now - startGeneratingLevel).TotalMilliseconds + "ms");
-            doneWithGenerating();
-        }
-    }
-
     public void GenerateFullDungeonLevel(int width, int height)
     {
         //Level Generation
@@ -138,6 +97,10 @@ public class LevelGenerator : MonoBehaviour
         System.DateTime startFillingInLeftOverArea = System.DateTime.Now;
         GenerateLeftOverArea(_startNode, _endNode);
         Debug.Log("Filling in left over area time: " + (System.DateTime.Now - startFillingInLeftOverArea));
+        System.DateTime startGeneratingBorder = System.DateTime.Now;
+        GenerateBorderAroundLevel();
+        Debug.Log("Border around level generation time: " + (System.DateTime.Now - startGeneratingBorder));
+        GenerateQuestItems();
         Debug.Log("Total Time: " + (System.DateTime.Now - startGeneratingLevel) + " / " + (System.DateTime.Now - startGeneratingLevel).TotalMilliseconds + "ms");
         doneWithGenerating();
     }
@@ -150,6 +113,15 @@ public class LevelGenerator : MonoBehaviour
             _spawnedPathPieces.RemoveAt(i);
         }
         GenerateDungeonLevel(width, width);
+    }
+
+    private void GenerateQuestItems()
+    {
+        Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
+        if (GameController.questProgress < _questItems.Count)
+        {
+            Instantiate(_questItems[GameController.questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+        }
     }
 
     public void GenerateSquareLevel(int width = 3, int height = 3)
@@ -888,6 +860,44 @@ public class LevelGenerator : MonoBehaviour
                     _dungeonPieces[i, j].roadPiece = RoadPiece.None;
                     _spawnedPathPieces.Add(Instantiate(_noRoadPieces[Random.Range(0, _noRoadPieces.Length)], piecePosition, pieceRotation, transform.parent));
                 }
+            }
+        }
+    }
+
+    private void GenerateBorderAroundLevel()
+    {
+        Vector3 piecePosition = transform.position;
+        Quaternion pieceRotation = Quaternion.Euler(0, 0, 0);
+
+        int maxWidth = _roadObjects.GetLength(0);
+        int maxHeight = _roadObjects.GetLength(1);
+
+        int amountOfLayers = 3;
+        for (int i = 0; i < amountOfLayers; i++)
+        {
+            for (int w = 0; w < maxWidth + amountOfLayers; w++)
+            {
+                pieceRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90, 0);
+                piecePosition = transform.position - new Vector3(_extents.x * maxWidth - _extents.x, 0, _extents.z * maxHeight - _extents.z) + new Vector3(_extents.x * 2 * w, 0, _extents.z * 2 * (maxHeight + i));
+                _spawnedPathPieces.Add(Instantiate(_edgePieces[Random.Range(0, _edgePieces.Length)], piecePosition, pieceRotation, transform.parent));
+            }
+            for (int w = 0; w < maxWidth + amountOfLayers; w++)
+            {
+                pieceRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90, 0);
+                piecePosition = transform.position - new Vector3(_extents.x * maxWidth - _extents.x, 0, _extents.z * maxHeight - _extents.z) + new Vector3(_extents.x * 2 * (w - amountOfLayers), 0, _extents.z * 2 * (-1 - i));
+                _spawnedPathPieces.Add(Instantiate(_edgePieces[Random.Range(0, _edgePieces.Length)], piecePosition, pieceRotation, transform.parent));
+            }
+            for (int h = 0; h < maxHeight + amountOfLayers; h++)
+            {
+                pieceRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90, 0);
+                piecePosition = transform.position - new Vector3(_extents.x * maxWidth - _extents.x, 0, _extents.z * maxHeight - _extents.z) + new Vector3(_extents.x * 2 * (maxWidth + i), 0, _extents.z * 2 * (h - amountOfLayers));
+                _spawnedPathPieces.Add(Instantiate(_edgePieces[Random.Range(0, _edgePieces.Length)], piecePosition, pieceRotation, transform.parent));
+            }
+            for (int h = 0; h < maxHeight + amountOfLayers; h++)
+            {
+                pieceRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90, 0);
+                piecePosition = transform.position - new Vector3(_extents.x * maxWidth - _extents.x, 0, _extents.z * maxHeight - _extents.z) + new Vector3(_extents.x * 2 * (-1 - i), 0, _extents.z * 2 * h);
+                _spawnedPathPieces.Add(Instantiate(_edgePieces[Random.Range(0, _edgePieces.Length)], piecePosition, pieceRotation, transform.parent));
             }
         }
     }

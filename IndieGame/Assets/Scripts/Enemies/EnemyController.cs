@@ -94,7 +94,8 @@ public class EnemyController : MonoBehaviour
     {
         if (_health <= 0)
         {
-            _agent.isStopped = true;
+            if (_agent != null)
+                _agent.isStopped = true;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             if (_destroyEnemy)
@@ -135,11 +136,14 @@ public class EnemyController : MonoBehaviour
         {
             transform.LookAt(GameController.player.transform);
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-            if (_isAttacking && DateTime.Now > _lastAttackTime.AddMilliseconds(_shootCooldownInMs))
+            if (_isAttacking)
             {
-                Instantiate(_projectilePrefab, transform.position + new Vector3(_collider.bounds.extents.x, _collider.bounds.extents.y, 0), transform.rotation, transform.parent);
-                _isAttacking = false;
-                _lastAttackTime = DateTime.Now;
+                if (DateTime.Now > _lastAttackTime.AddMilliseconds(_shootCooldownInMs))
+                {
+                    _isAttacking = false;
+                    _lastAttackTime = DateTime.Now;
+                }
+                SetAnimationState(AnimationState.Attacking);
             }
         }
     }
@@ -165,6 +169,10 @@ public class EnemyController : MonoBehaviour
                     _agent.destination = transform.position;
                     _isAttacking = true;
                 }
+            }
+            else
+            {
+                SetAnimationState(AnimationState.Idle);
             }
         }
         else
@@ -200,11 +208,12 @@ public class EnemyController : MonoBehaviour
         if (GameController.player != null)
         {
             //Check if the player is in range
-            if ((GameController.player.transform.position - transform.position).magnitude < 1.5f)
+            if ((GameController.player.transform.position - transform.position).magnitude < 2f)
             {
                 if ((DateTime.Now - _lastAttackTime).TotalMilliseconds > _attackDelayInMs)
                 {
-                    _agent.destination = transform.position;
+                    if (_agent != null)
+                        _agent.destination = transform.position;
                     transform.LookAt(GameController.player.transform);
 
                     //Play animation
@@ -248,6 +257,24 @@ public class EnemyController : MonoBehaviour
 
         //Display damage number on canvas
         GameController.damageNumbersCanvas.DisplayDamageNumber(false, damage, this.transform.position + this.transform.up * _collider.bounds.extents.y);
+
+        //Play sound
+        if (_isMeleeEnemy)
+        {
+            if (GetComponent<EnemySoundPlayer>() != null)
+            {
+                GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            }
+        }
+        else
+        {
+            if (GetComponent<RangedEnemySoundPlayer>() != null)
+            {
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOrganicHitSound();
+            }
+        }
     }
 
     public void TakeDamage(float damage, Vector3 knockBackOrigin, float knockBackStrength, float knockBackRadius)
@@ -261,6 +288,24 @@ public class EnemyController : MonoBehaviour
 
         //Knock the enemy back
         _rigidbody.AddExplosionForce(knockBackStrength, knockBackOrigin, knockBackRadius);
+
+        //Play sound
+        if (_isMeleeEnemy)
+        {
+            if (GetComponent<EnemySoundPlayer>() != null)
+            {
+                GetComponent<EnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<EnemySoundPlayer>().PlayRandomStoneHitSound();
+            }
+        }
+        else
+        {
+            if (GetComponent<RangedEnemySoundPlayer>() != null)
+            {
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOofSound();
+                GetComponent<RangedEnemySoundPlayer>().PlayRandomOrganicHitSound();
+            }
+        }
     }
 
     public void PlayStepSound()
@@ -295,7 +340,13 @@ public class EnemyController : MonoBehaviour
 
     public void DamagePlayer()
     {
-        //Deal damage to the player
-        GameController.playerController.TakeDamage(_meleeDamage);
+        if (_animator.GetBool("isAttacking") || (GameController.player.transform.position - transform.position).magnitude < 3f)
+            //Deal damage to the player
+            GameController.playerController.TakeDamage(_meleeDamage);
+    }
+
+    public void ShootProjectile()
+    {
+        Instantiate(_projectilePrefab, transform.position + new Vector3(_collider.bounds.extents.x, _collider.bounds.extents.y, 0), transform.rotation, transform.parent);
     }
 }

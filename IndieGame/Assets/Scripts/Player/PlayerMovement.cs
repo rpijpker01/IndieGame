@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float _currentSpeed;
     public Vector3 rotation;
 
-    private MeshFilter _meshFilter;
+    private Collider _collider;
     private Rigidbody _rigidBody;
     private Quaternion _surfaceRotation;
     private GameObject _rotationDummy;
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _meshFilter = GetComponent<MeshFilter>();
+        _collider = GetComponent<Collider>();
         _rigidBody = GetComponent<Rigidbody>();
         _rotationDummy = GameObject.Find("RotationDummy").gameObject;
 
@@ -43,18 +43,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Check wether the player is attacking
-        if (!GameController.playerController.isAttacking)
+        if (GameController.playerController.GetHealth() > 0)
         {
-            Rotation();
-            Movement();
+            //Check wether the player is attacking
+            if (!GameController.playerController.isAttacking)
+            {
+                Rotation();
+                Movement();
+            }
+            else
+            {
+                _rigidBody.velocity = Vector3.zero;
+            }
         }
         else
         {
-            rotation.y = transform.localRotation.eulerAngles.y;
             _rigidBody.velocity = Vector3.zero;
+            _rigidBody.useGravity = false;
+            _collider.enabled = false;
         }
-
         StickCharacterToGround();
     }
 
@@ -119,11 +126,17 @@ public class PlayerMovement : MonoBehaviour
 
             //Clamp player movement speed
             if (_currentSpeed > _movementSpeed) { _currentSpeed = _movementSpeed; }
+
+            //Play running animation
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Running);
         }
         else
         {
             //Reset player movement speed when he stops moving
             _currentSpeed = 0;
+
+            //Play idle animation
+            PlayerController.SetAnimationState(PlayerController.AnimationState.Idle);
         }
 
         //Set player position
@@ -162,7 +175,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Set position
-        transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f)) + (transform.up * _meshFilter.mesh.bounds.extents.y);
+        transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f));// + (transform.up * _collider.bounds.extents.y);
+    }
+
+    public static void RotateTowardsMouse()
+    {
+        //Raycasts towards the ground from the mouse position relative to the camera view
+        RaycastHit raycastHit = new RaycastHit();
+        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
+
+        //Rotates the player towards the mouse
+        _playerMovement._rotationDummy.transform.position = _playerMovement.gameObject.transform.position;
+        _playerMovement._rotationDummy.transform.LookAt(raycastHit.point);
+        _playerMovement.rotation = new Vector3(0, _playerMovement._rotationDummy.transform.rotation.eulerAngles.y, 0);
     }
 
     public static void InvertControls()

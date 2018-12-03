@@ -30,7 +30,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public int Amount
     {
-        get { return _amount; }
+        get
+        {
+            return _amount;
+        }
         set
         {
             _amount = value;

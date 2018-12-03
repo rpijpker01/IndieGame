@@ -18,7 +18,6 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         _characterPanel = GameObject.Find("CharacterPanel");
 
         GameObject dialogue = _characterPanel.transform.parent.GetChild(3).transform.GetChild(0).gameObject;
@@ -32,6 +31,11 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
         GameController.OnMouseLeftClickGameObject += OpenShop;
 
         _inventory.SetActive(false);
+    }
+
+    private void Start()
+    {
+        _playerTransform = GameController.player.transform;
     }
 
     public void Update()

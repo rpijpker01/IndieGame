@@ -20,8 +20,21 @@ public class PlayerController : MonoBehaviour
 
     private ItemDrop _droppedItem;
 
+    public bool died = false;
+
     //Components
     private Collider _collider;
+    public Animator animator;
+
+    public enum AnimationState
+    {
+        Idle,
+        Attacking,
+        Running,
+        Dying,
+        Abilitying
+    }
+    public static AnimationState _animationState;
 
     // Use this for initialization
     private void Start()
@@ -30,6 +43,7 @@ public class PlayerController : MonoBehaviour
         _mana = _startingMana;
 
         _collider = GetComponent<Collider>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -68,7 +82,13 @@ public class PlayerController : MonoBehaviour
 
     private void PlayDyingAnimation()
     {
-        _isPlayingDyingAnimation = false;
+        if (died == false)
+        {
+            SetAnimationState(AnimationState.Dying);
+            GameController.GoToHub();
+            died = true;
+        }
+        //_isPlayingDyingAnimation = false;
     }
 
     public void TakeDamage(float damage)
@@ -81,11 +101,19 @@ public class PlayerController : MonoBehaviour
 
         //Display damage number
         GameController.damageNumbersCanvas.DisplayDamageNumber(true, damage, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
+
+        //Play sound
+        GetComponent<SoundPlayer>().PlayRandomAudioClip(10, 14);
     }
 
     public float GetHealth()
     {
         return _health;
+    }
+
+    public void SetHealth(float health)
+    {
+        _health = health;
     }
 
     public float GetMana()
@@ -95,5 +123,32 @@ public class PlayerController : MonoBehaviour
     public void SetMana(float mana)
     {
         _mana = mana;
+    }
+
+    public static void SetAnimationState(AnimationState animationState)
+    {
+        GameController.playerController.animator.SetBool("IsRunning", false);
+        GameController.playerController.animator.SetBool("IsDeathing", false);
+        GameController.playerController.animator.SetBool("IsIdling", false);
+        GameController.playerController.animator.SetBool("IsSwording", false);
+        GameController.playerController.animator.SetBool("IsAbilitying", false);
+        switch (animationState)
+        {
+            case AnimationState.Idle:
+                GameController.playerController.animator.SetBool("IsIdling", true);
+                break;
+            case AnimationState.Attacking:
+                GameController.playerController.animator.SetBool("IsSwording", true);
+                break;
+            case AnimationState.Running:
+                GameController.playerController.animator.SetBool("IsRunning", true);
+                break;
+            case AnimationState.Dying:
+                GameController.playerController.animator.SetBool("IsDeathing", true);
+                break;
+            case AnimationState.Abilitying:
+                GameController.playerController.animator.SetBool("IsAbilitying", true);
+                break;
+        }
     }
 }

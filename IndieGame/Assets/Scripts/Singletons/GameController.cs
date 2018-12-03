@@ -44,6 +44,10 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject _playerHubSpawnPosition;
 
+    //Quest stuff
+    public static int questProgress = 0;
+    public static bool spawnKey = false;
+
     // Use this for initialization
     private void Awake()
     {
@@ -229,6 +233,7 @@ public class GameController : MonoBehaviour
             TeleportPlayerToHub();
             CameraFollowPlayer.InvertCamera();
             PlayerMovement.InvertControls();
+            player.GetComponent<PlayerMovement>().rotation = new Vector3(0, 0, 0);
             _loadingHub = false;
         }
     }
