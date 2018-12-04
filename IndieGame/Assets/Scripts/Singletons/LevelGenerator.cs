@@ -117,10 +117,13 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateQuestItems()
     {
-        Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
-        if (GameController.questProgress < _questItems.Count)
+        if (GameController.spawnKey)
         {
-            Instantiate(_questItems[GameController.questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+            Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
+            if (GameController.questProgress < _questItems.Count)
+            {
+                Instantiate(_questItems[GameController.questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+            }
         }
     }
 

@@ -7385,9 +7385,9 @@ GameObject:
   - component: {fileID: 65852355702032442}
   - component: {fileID: 54862427027639252}
   - component: {fileID: 114548445225083838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dummy01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10162,7 +10162,7 @@ GameObject:
   - component: {fileID: 33478015328849182}
   - component: {fileID: 23161311751115228}
   - component: {fileID: 95697375342004456}
-  - component: {fileID: 136166627294813708}
+  - component: {fileID: 64775192497004612}
   m_Layer: 2
   m_Name: Fountain02
   m_TagString: Untagged
@@ -39762,6 +39762,20 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: c47c3115237e96747b3a2bbbd7a35149, type: 3}
+--- !u!64 &64775192497004612
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945481458384628}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 020e17f58e976064280ca031493efd73, type: 3}
 --- !u!64 &64801475696185352
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -50749,19 +50763,6 @@ CapsuleCollider:
   m_Height: 8.600575
   m_Direction: 1
   m_Center: {x: 0.00006186962, y: 4.093369, z: 0.00006043911}
---- !u!136 &136166627294813708
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1945481458384628}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 4.755283
-  m_Height: 2.7465558
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136173795184940900
 CapsuleCollider:
   m_ObjectHideFlags: 1

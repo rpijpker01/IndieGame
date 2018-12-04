@@ -105,22 +105,26 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        float dmgTaken = damage / _damageResistance;
         //Subtract damage from current health
-        _currentHealth -= damage;
+        _currentHealth -= dmgTaken;
 
         //Camera shake
-        CameraFollowPlayer.cameraShake(1 + ((damage / 100) * 2), 750);
+        CameraFollowPlayer.cameraShake(1 + ((dmgTaken / 100) * 2), 750);
 
         //Display damage number
-        GameController.damageNumbersCanvas.DisplayDamageNumber(true, damage, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
+        GameController.damageNumbersCanvas.DisplayDamageNumber(true, dmgTaken, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
 
         //Play sound
         GetComponent<SoundPlayer>().PlayRandomAudioClip(10, 14);
     }
 
-    public float GetHealth()
+    public float GetHealth(bool pToInt = false)
     {
-        return _currentHealth;
+        if (pToInt)
+            return Mathf.Round(_currentHealth);
+        else
+            return _currentHealth;
     }
     public void SetHealth(float health)
     {
@@ -133,13 +137,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float GetMana()
+    public float GetMana(bool pToInt = false)
     {
-        return _currentMana;
+        if (pToInt)
+            return Mathf.Round(_currentMana);
+        else
+            return _currentMana;
     }
     public void SetMana(float mana)
     {
-        _currentMana = mana;
+        if (isAttacking)
+            _currentMana = mana;
+        else
+        {
+            float manaPercent = _currentMana / mana;
+            _currentMana = mana * manaPercent;
+        }
     }
 
     public void SetArmor(float pArmor)
@@ -151,13 +164,13 @@ public class PlayerController : MonoBehaviour
     public void SetStrength(float pStrength)
     {
         _strength = pStrength;
-        _healthRegenSpeed = _strength * 0.1f;
+        _healthRegenSpeed = GameController.maxHealth * _strength * 0.05f;
     }
 
     public void SetIntelligence(float pIntelligence)
     {
         _intelligence = pIntelligence;
-        _manaRegenSpeed = _intelligence * 0.1f;
+        _manaRegenSpeed = GameController.maxMana * _intelligence * 0.05f;
     }
 
     public static void SetAnimationState(AnimationState animationState)

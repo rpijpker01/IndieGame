@@ -21,10 +21,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 713, y: 492}
-  m_MaxSize: {x: 18008, y: 14042}
+  m_MinSize: {x: 713, y: 471}
+  m_MaxSize: {x: 18008, y: 14021}
   vertical: 0
-  controlID: 4052
+  controlID: 4648
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 421}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 3937
+  controlID: 4602
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,8 +144,8 @@ MonoBehaviour:
     y: 0
     width: 1003
     height: 527
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -179,14 +179,14 @@ MonoBehaviour:
     height: 506
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 14458.432283537502
+  lastFramingTime: 10807.6737717012
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1084.9397, y: 285.05618, z: -103.67952}
+    m_Target: {x: 1035.6896, y: 22.487534, z: 6.25}
     speed: 2
-    m_Value: {x: 1084.9397, y: 285.05618, z: -103.67952}
+    m_Value: {x: 1035.6896, y: 22.487534, z: 6.25}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -214,9 +214,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 171.21945
+    m_Target: 235.9654
     speed: 2
-    m_Value: 171.21945
+    m_Value: 235.9654
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -273,10 +273,10 @@ MonoBehaviour:
     y: 0
     width: 420
     height: 987
-  m_MinSize: {x: 234, y: 492}
-  m_MaxSize: {x: 10004, y: 14042}
+  m_MinSize: {x: 234, y: 471}
+  m_MaxSize: {x: 10004, y: 14021}
   vertical: 1
-  controlID: 3984
+  controlID: 4545
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -331,23 +331,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7c30feff
-    m_LastClickedID: -118660
-    m_ExpandedIDs: 7c30feff7a66ffff9666ffff6e67ffffa667ffffa867ffffb267ffff3a69ffff8cf8ffffa6faffff9afbffff9cfbffff9efbffff00000000507800007c780000
+    m_SelectedIDs: 905fffff
+    m_LastClickedID: -41072
+    m_ExpandedIDs: ae37faff4e40faff7c30feff5e5fffff8e5fffff905fffff925fffffa65fffffa85fffff7a66ffff9666ffff6e67ffff3a69ffff8cf8ffffa6faffff9afbffff9cfbffff9efbffff000000003c780000507800007c780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: HealthBar
+      m_OriginalName: HealthBar
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -41070
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -420,18 +420,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/UI/Equipment & Inventory
+    - Assets/UI
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/UI/Equipment & Inventory
+  - Assets/UI
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\Development\2.2 Indie Game\IndieGame
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 456}
-    m_SelectedIDs: 06740000
-    m_LastClickedID: 29702
+    scrollPos: {x: 0, y: 295}
+    m_SelectedIDs: 0a770000
+    m_LastClickedID: 30474
     m_ExpandedIDs: 00000000e46100008e630000a6630000ae63000026650000b0670000fe670000026800007c680000f26800004c6a0000a46c00004a6e0000e26e0000c672000006740000347600000a770000f0770000f277000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -485,24 +485,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 7c30feff
-    m_LastClickedInstanceID: -118660
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 905fffff
+    m_LastClickedInstanceID: -41072
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: manaBar001
+      m_OriginalName: manaBar001
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 27664
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 192}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 4053
+  controlID: 4649
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -557,8 +557,8 @@ MonoBehaviour:
     y: 0
     width: 497
     height: 658
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -616,8 +616,8 @@ MonoBehaviour:
     y: 658
     width: 497
     height: 329
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
