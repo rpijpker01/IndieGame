@@ -75,7 +75,7 @@ namespace F.CharacterStats
             return didRemove;
         }
 
-        public virtual float CalculateFinalValue()
+        public virtual float CalculateFinalValue(bool pPositive = true, int pRoundToDecimals = 0)
         {
             //Add up all different modifiers to base value
             float finalValue = _baseValue;
@@ -103,8 +103,12 @@ namespace F.CharacterStats
                     finalValue *= 1 + m.Value / 100;
             }
 
+
             //Round it to avoid calculation error
-            return (float)Math.Round(finalValue, 0);
+            if (pPositive)
+                return (float)Math.Round(ExtensionMethods.Clamp<float>(finalValue, 0, float.MaxValue), pRoundToDecimals);
+            else
+                return (float)Math.Round(finalValue, pRoundToDecimals);
         }
 
         public virtual float Value
@@ -120,6 +124,7 @@ namespace F.CharacterStats
                 return _finalValue;
             }
         }
+
         public float BaseValue { get { return _baseValue; } set { _baseValue = value; } }
     }
 }

@@ -43,17 +43,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Check wether the player is attacking
-        if (!GameController.playerController.isAttacking)
+        if (GameController.playerController.GetHealth() > 0)
         {
-            Rotation();
-            Movement();
+            //Check wether the player is attacking
+            if (!GameController.playerController.isAttacking)
+            {
+                Rotation();
+                Movement();
+            }
+            else
+            {
+                _rigidBody.velocity = Vector3.zero;
+            }
         }
         else
         {
             _rigidBody.velocity = Vector3.zero;
+            _rigidBody.useGravity = false;
+            _collider.enabled = false;
         }
-
         StickCharacterToGround();
     }
 
@@ -149,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Check where the ground is
         RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(transform.position, -Vector3.up, out raycastHit);
+        Physics.Raycast(transform.position, -Vector3.up, out raycastHit, 1000, ~(1 << 10));
 
         if (_rotationDummy != null)
         {
@@ -166,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
             transform.RotateAround(transform.up, rotation.y * Mathf.Deg2Rad);
         }
 
-
         //Set position
         transform.position = transform.position - (transform.up * (raycastHit.distance - 0.1f));// + (transform.up * _collider.bounds.extents.y);
     }
@@ -175,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Raycasts towards the ground from the mouse position relative to the camera view
         RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
+        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit, 50, 9);
 
         //Rotates the player towards the mouse
         _playerMovement._rotationDummy.transform.position = _playerMovement.gameObject.transform.position;

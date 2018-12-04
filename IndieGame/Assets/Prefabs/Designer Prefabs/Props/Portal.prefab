@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 33970633672417670}
   - component: {fileID: 23423835528837972}
   - component: {fileID: 95957412952829020}
+  - component: {fileID: 64290903669852544}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -107,6 +108,7 @@ GameObject:
   - component: {fileID: 33738717118731292}
   - component: {fileID: 136358287395271336}
   - component: {fileID: 23941350806089024}
+  - component: {fileID: 114747262272099394}
   m_Layer: 0
   m_Name: PortalFX
   m_TagString: Untagged
@@ -340,7 +342,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339177062054874}
   m_LocalRotation: {x: -0, y: -0.14030702, z: -0, w: 0.9901081}
-  m_LocalPosition: {x: 16.56, y: 0, z: -7.99}
+  m_LocalPosition: {x: -886.05676, y: 0, z: -104.15207}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4546010496655228}
@@ -640,6 +642,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339177062054874}
   m_Mesh: {fileID: 4300000, guid: 5cab1e3fcf7d1264b9d1b0a099e788ce, type: 3}
+--- !u!64 &64290903669852544
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339177062054874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 5cab1e3fcf7d1264b9d1b0a099e788ce, type: 3}
 --- !u!95 &95957412952829020
 Animator:
   serializedVersion: 3
@@ -693,6 +709,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114747262272099394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548720731751946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63766b5206322f043885730a37a5c95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoToHubPortal: 0
 --- !u!136 &136358287395271336
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -700,8 +728,8 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548720731751946}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -766,7 +794,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1610787705
+  randomSeed: -289648285
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4127,7 +4155,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1362739772
+  randomSeed: 1117926832
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7488,7 +7516,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 851047837
+  randomSeed: -1150747013
   InitialModule:
     serializedVersion: 3
     enabled: 1

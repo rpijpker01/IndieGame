@@ -7,22 +7,27 @@ public class PlayerController : MonoBehaviour
 {
     public bool isAttacking { get; set; }
 
-    [SerializeField]
-    private float _startingHealth = 10000;
-    [SerializeField]
-    private float _startingMana = 10000;
-    [SerializeField]
-    [Range(0, 1)]
-    private float _manaRegenSpeed = 0.05f;
-    private float _health;
-    private float _mana;
+    //Player Stats
+    private float _currentHealth;
+    private float _healthRegenSpeed;
+    private float _currentMana;
+    private float _manaRegenSpeed;
+    private float _armor;
+    private float _damageResistance;
+    private float _strength;
+    private float _physicalDamage;
+    private float _intelligence;
+    private float _spellDamage;
+
     private bool _isPlayingDyingAnimation = true;
 
     private ItemDrop _droppedItem;
-    public Animator animator;
+
+    public bool died = false;
 
     //Components
     private Collider _collider;
+    public Animator animator;
 
     public enum AnimationState
     {
@@ -37,8 +42,8 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        _health = _startingHealth;
-        _mana = _startingMana;
+        _currentHealth = GameController.maxHealth;
+        _currentMana = GameController.maxMana;
 
         _collider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -48,12 +53,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Dying();
-        UpdateMana();
+        UpdateManaAndHealth();
     }
 
     private void Dying()
     {
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
             if (_isPlayingDyingAnimation)
             {
@@ -66,48 +71,106 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdateMana()
+    private void UpdateManaAndHealth()
     {
-        if (_mana < _startingMana)
+        if (_currentMana < GameController.maxMana)
         {
-            _mana += _manaRegenSpeed;
+            _currentMana += _manaRegenSpeed * Time.deltaTime;
         }
-        else if (_mana > _startingMana)
+        else if (_currentMana > GameController.maxMana)
         {
-            _mana = _startingMana;
+            _currentMana = GameController.maxMana;
+        }
+
+        if (_currentHealth < GameController.maxHealth)
+        {
+            _currentHealth += _healthRegenSpeed * Time.deltaTime;
+        }
+        else if (_currentHealth > GameController.maxHealth)
+        {
+            _currentHealth = GameController.maxHealth;
         }
     }
 
     private void PlayDyingAnimation()
     {
-        SetAnimationState(AnimationState.Dying);
+        if (died == false)
+        {
+            SetAnimationState(AnimationState.Dying);
+            GameController.GoToHub();
+            died = true;
+        }
         //_isPlayingDyingAnimation = false;
     }
 
     public void TakeDamage(float damage)
     {
+        float dmgTaken = damage / _damageResistance;
         //Subtract damage from current health
-        _health -= damage;
+        _currentHealth -= dmgTaken;
 
         //Camera shake
-        CameraFollowPlayer.cameraShake(1 + ((damage / 100) * 2), 750);
+        CameraFollowPlayer.cameraShake(1 + ((dmgTaken / 100) * 2), 750);
 
         //Display damage number
-        GameController.damageNumbersCanvas.DisplayDamageNumber(true, damage, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
+        GameController.damageNumbersCanvas.DisplayDamageNumber(true, dmgTaken, new Vector3(transform.position.x, transform.position.y + _collider.bounds.extents.y, transform.position.z));
+
+        //Play sound
+        GetComponent<SoundPlayer>().PlayRandomAudioClip(10, 14);
     }
 
-    public float GetHealth()
+    public float GetHealth(bool pToInt = false)
     {
-        return _health;
+        if (pToInt)
+            return Mathf.Round(_currentHealth);
+        else
+            return _currentHealth;
+    }
+    public void SetHealth(float health)
+    {
+        if (died)
+            _currentHealth = health;
+        else
+        {
+            float hpPercent = _currentHealth / health;
+            _currentHealth = health * hpPercent;
+        }
     }
 
-    public float GetMana()
+    public float GetMana(bool pToInt = false)
     {
-        return _mana;
+        if (pToInt)
+            return Mathf.Round(_currentMana);
+        else
+            return _currentMana;
     }
     public void SetMana(float mana)
     {
-        _mana = mana;
+        if (isAttacking)
+            _currentMana = mana;
+        else
+        {
+            float manaPercent = _currentMana / mana;
+            _currentMana = mana * manaPercent;
+        }
+    }
+
+    public void SetArmor(float pArmor)
+    {
+        _armor = pArmor;
+        _damageResistance = _armor * 0.1f;
+    }
+
+    public void SetStrength(float pStrength)
+    {
+        _strength = pStrength;
+        _healthRegenSpeed = GameController.maxHealth * _strength * 0.05f;
+    }
+
+    public void SetIntelligence(float pIntelligence)
+    {
+        _intelligence = pIntelligence;
+        _manaRegenSpeed = GameController.maxMana * _intelligence * 0.05f;
     }
 
     public static void SetAnimationState(AnimationState animationState)
@@ -136,4 +199,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    public float PhysicalDamage { get { return _physicalDamage; } }
+    public float SpellDamage { get { return _spellDamage; } }
 }

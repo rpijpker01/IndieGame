@@ -9,7 +9,7 @@ public class Portal : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameController.questProgress >= 1)
         {
             RaycastHit raycastHit = new RaycastHit();
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
@@ -23,6 +23,18 @@ public class Portal : MonoBehaviour
                 {
                     GameController.GoToLevel();
                 }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (GoToHubPortal)
+            {
+                GameController.GoToHub();
+            }
+            else
+            {
+                GameController.GoToLevel();
             }
         }
     }

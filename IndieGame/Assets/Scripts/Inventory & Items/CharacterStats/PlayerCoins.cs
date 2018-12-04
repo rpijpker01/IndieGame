@@ -29,7 +29,7 @@ public class PlayerCoins : MonoBehaviour
     {
         if (pAmount > _coins)
         {
-            GameController.errorMessage.DisplayMessage("Not enough coins");
+            GameController.errorMessage.AddMessage("Not enough coins");
             return false;
         }
 

@@ -239,12 +239,6 @@
     <Reference Include="UnityEngine.GoogleAudioSpatializer">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.HoloLens">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
@@ -360,9 +354,11 @@
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemDrop.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\ItemTooltip.cs" />
+    <Compile Include="Assets\Scripts\Inventory &amp; Items\LootableChest.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopInventory.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopItemSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory &amp; Items\Shop\ShopKeeper.cs" />
+    <Compile Include="Assets\Scripts\NPC\OlChapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\Ability1ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\Attacks\BasicAttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttacks.cs" />
@@ -376,11 +372,19 @@
     <Compile Include="Assets\Scripts\Sounds\Footsteps.cs" />
     <Compile Include="Assets\Scripts\Tools\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableOnStart.cs" />
+    <Compile Include="Assets\Scripts\Tools\DropLoot.cs" />
+    <Compile Include="Assets\Scripts\Tools\EnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorMessage.cs" />
+    <Compile Include="Assets\Scripts\Tools\ExtensionMethods.cs" />
+    <Compile Include="Assets\Scripts\Tools\FadeText.cs" />
+    <Compile Include="Assets\Scripts\Tools\FirstQuestTrigger.cs" />
     <Compile Include="Assets\Scripts\Tools\FollowItemPosition.cs" />
     <Compile Include="Assets\Scripts\Tools\HighlightGameobject.cs" />
     <Compile Include="Assets\Scripts\Tools\Portal.cs" />
+    <Compile Include="Assets\Scripts\Tools\QuestItemBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Tools\RangedEnemySoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Tools\SoundPlayer.cs" />
+    <Compile Include="Assets\Scripts\Tools\TransparencyCast.cs" />
     <Compile Include="Assets\Scripts\Tools\UIFollowParentInWorldSpace.cs" />
     <Compile Include="Assets\Scripts\UI\DamageTextBehaviour.cs" />
     <Compile Include="Assets\Scripts\Wobble.cs" />
@@ -438,9 +442,13 @@
     <None Include="Assets\Shaders\WaterfallShader.shader" />
     <None Include="Assets\Sounds\textFile.txt" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutlineAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitAlpha.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutlineAlpha.shader" />
     <None Include="Assets\Textures\textFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

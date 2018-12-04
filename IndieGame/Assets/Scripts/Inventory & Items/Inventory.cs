@@ -40,9 +40,11 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
-            if (_itemSlots[i].Item == null)
+            Consumable c = _itemSlots[i].Item as Consumable;
+            if (_itemSlots[i].Item == null || (c != null && c.ID == pItem.ID && _itemSlots[i].Amount < c.MaxStacks))
             {
                 _itemSlots[i].Item = pItem;
+                _itemSlots[i].Amount++;
                 return true;
             }
         }
@@ -56,27 +58,14 @@ public class Inventory : MonoBehaviour
         {
             if (_itemSlots[i].Item == pItem)
             {
-                _itemSlots[i].Item = null;
+                _itemSlots[i].Amount--;
+                if (_itemSlots[i].Amount == 0)
+                    _itemSlots[i].Item = null;
                 return true;
             }
         }
 
         return false;
-    }
-
-    public Item RemoveItem(string pID)
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            Item item = _itemSlots[i].Item;
-            if (item != null && item.ID == pID)
-            {
-                _itemSlots[i].Item = null;
-                return item;
-            }
-        }
-
-        return null;
     }
 
     public bool IsFull()
@@ -99,10 +88,22 @@ public class Inventory : MonoBehaviour
         if (_startingItems != null)
         {
             for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
-                _itemSlots[i].Item = Instantiate(_startingItems[i]);
+            {
+                _itemSlots[i].Item = _startingItems[i].GetCopy();
+                _itemSlots[i].Amount = 1;
+
+                if (_startingItems[i] is Consumable)
+                {
+                    Consumable c = _startingItems[i] as Consumable;
+                    _itemSlots[i].Amount = c.StartCount;
+                }
+            }
         }
 
         for (; i < _itemSlots.Length; i++)
+        {
             _itemSlots[i].Item = null;
+            _itemSlots[i].Amount = 0;
+        }
     }
 }

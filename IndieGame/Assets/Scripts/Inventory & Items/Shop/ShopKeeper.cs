@@ -18,7 +18,6 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         _characterPanel = GameObject.Find("CharacterPanel");
 
         GameObject dialogue = _characterPanel.transform.parent.GetChild(3).transform.GetChild(0).gameObject;
@@ -34,6 +33,11 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
         _inventory.SetActive(false);
     }
 
+    private void Start()
+    {
+        _playerTransform = GameController.player.transform;
+    }
+
     public void Update()
     {
         ShopKeeperHandler();
@@ -43,7 +47,7 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
     {
         Vector3 distToPlayer = _playerTransform.position - this.transform.position;
 
-        if (distToPlayer.magnitude <= 5)
+        if (distToPlayer.magnitude < 5)
         {
             _dialogueParent.position = Camera.main.WorldToScreenPoint(transform.position) + Vector3.up * 100;
 
@@ -71,9 +75,6 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
     private void OpenShop(GameObject go)
     {
         if (this.gameObject != go) return;
-        Vector3 distToPlayer = _playerTransform.position - this.transform.position;
-
-        if (distToPlayer.magnitude > 5 && !playerIsInShop) return;
 
         SetAllWindowsActive();
     }

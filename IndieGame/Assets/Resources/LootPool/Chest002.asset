@@ -15,22 +15,18 @@ MonoBehaviour:
   _name: Yer
   _iconInInventory: {fileID: 21300000, guid: 935fae50853726e44bee681f7d9bed37, type: 3}
   _iconWhenEquipped: {fileID: 21300000, guid: 42576b26a458cf74c9b9e23dde70d44e, type: 3}
-  _equipmentType: 1
-  _healthValue: {x: -100, y: 100}
-  _manaValue: {x: -100, y: 100}
-  _armorValue: {x: -100, y: 100}
-  _strengthValue: {x: -100, y: 100}
-  _intelligenceValue: {x: -100, y: 100}
-  _healthValuePercent: {x: -100, y: 100}
-  _manaValuePercent: {x: -100, y: 100}
-  _armorValuePercent: {x: -100, y: 100}
-  _strengthValuePercent: {x: -100, y: 100}
-  _intelligenceValuePercent: {x: -100, y: 100}
-  _itemValue: 50
+  _prefabWhenDropped: {fileID: 1020725051240732, guid: f09720f5c3a0e6d46971bcf914affcdd,
+    type: 2}
+  _itemValue: 20
   _dropChancePercent: 100
-  _zoneOne: 0
-  _zoneTwo: 0
-  _zoneThree: 0
-  _zoneFour: 0
-  _zoneFive: 0
-  _allZones: 1
+  _dropsFrom: 1
+  _healthValue: {x: 0, y: 100}
+  _manaValue: {x: 0, y: 100}
+  _armorValue: {x: 0, y: 100}
+  _strengthValue: {x: 0, y: 100}
+  _intelligenceValue: {x: 0, y: 100}
+  _healthValuePercent: {x: 0, y: 100}
+  _manaValuePercent: {x: 0, y: 100}
+  _armorValuePercent: {x: 0, y: 100}
+  _strengthValuePercent: {x: 0, y: 100}
+  _intelligenceValuePercent: {x: 0, y: 100}

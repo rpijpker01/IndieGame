@@ -49,6 +49,9 @@ public class MainCanvas : MonoBehaviour
                     _blackground.SetActive(false);
                     _blackgroundImage.color = new Color(_blackgroundImage.color.r, _blackgroundImage.color.g, _blackgroundImage.color.b, 0);
                     _fadeState = FadeState.None;
+                    GameController.playerController.SetHealth(GameController.maxHealth);
+                    GameController.playerController.died = false;
+                    GameController.player.GetComponent<Collider>().enabled = true;
                 }
                 _blackgroundImage.color = new Color(_blackgroundImage.color.r, _blackgroundImage.color.g, _blackgroundImage.color.b, Mathf.Lerp(_blackgroundImage.color.a, 0, Time.deltaTime * _fadeSpeed));
                 break;

@@ -41,7 +41,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+        _playerTransform = GameController.player.transform;
         transform.position = _playerTransform.transform.position + _offset;
 
         _defaultCameraSpeed = cameraSpeed;
