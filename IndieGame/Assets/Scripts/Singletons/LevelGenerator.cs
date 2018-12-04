@@ -120,10 +120,7 @@ public class LevelGenerator : MonoBehaviour
         if (GameController.spawnKey)
         {
             Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
-            if (GameController.questProgress < _questItems.Count)
-            {
-                Instantiate(_questItems[GameController.questProgress], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
-            }
+            Instantiate(_questItems[0], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
         }
     }
 
@@ -833,15 +830,15 @@ public class LevelGenerator : MonoBehaviour
         Quaternion pieceRotation = Quaternion.Euler(0, 0, 0);
         Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, 0, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * startNode.x, 0, _extents.z * 2 * startNode.y);
         //Spawn start node
-        Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[startNode.x, startNode.y].position)).gameObject);
-        _spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
-        _dungeonPieces[startNode.x, startNode.y].roadPiece = RoadPiece.CrossSection;
+        //Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[startNode.x, startNode.y].position)).gameObject);
+        //_spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
+        //_dungeonPieces[startNode.x, startNode.y].roadPiece = RoadPiece.CrossSection;
         playerSpawnPosition = piecePosition + transform.up * GameController.player.GetComponent<Collider>().bounds.extents.y;
         //Spawn end node
-        piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, 0, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * endNode.x, 0, _extents.z * 2 * endNode.y);
-        Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[endNode.x, endNode.y].position)).gameObject);
-        _spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
-        _dungeonPieces[endNode.x, endNode.y].roadPiece = RoadPiece.CrossSection;
+        //piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, 0, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * endNode.x, 0, _extents.z * 2 * endNode.y);
+        //Destroy(((GameObject)_spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == _dungeonPieces[endNode.x, endNode.y].position)).gameObject);
+        //_spawnedPathPieces.Add(Instantiate(_crossSectionPieces[Random.Range(0, _crossSectionPieces.Length)], piecePosition, pieceRotation, transform.parent));
+        //_dungeonPieces[endNode.x, endNode.y].roadPiece = RoadPiece.CrossSection;
 
         for (int i = 0; i < _roadObjects.GetLength(0); i++)
         {

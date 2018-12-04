@@ -48,7 +48,7 @@ public class Ability1ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player" && other.tag != "LootDrop" && other.gameObject.layer != 2)
+        if (other.tag != "Player" && other.tag != "LootDrop" && other.name != "FirstQuestTrigger")
         {
             DamageEnemiesInRange();
 
