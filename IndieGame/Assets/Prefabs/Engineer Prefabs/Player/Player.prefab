@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 114076558285598122}
   - component: {fileID: 114331393398395000}
   - component: {fileID: 81662558602652852}
+  - component: {fileID: 114806104926579932}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1609,9 +1610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306f1e96b9600464d94e25035bbf8eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 100000
-  _startingMana: 100
-  _manaRegenSpeed: 0.05
   died: 0
   animator: {fileID: 0}
 --- !u!114 &114252270238405052
@@ -1679,6 +1677,18 @@ MonoBehaviour:
   _ability1ProjectilePrefab: {fileID: 1356032743537510, guid: e820323bf9ce85642ac9b83d9ae9fdce,
     type: 2}
   _ability1ManaCost: 25
+--- !u!114 &114806104926579932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434214696448260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!136 &136500378150691894
 CapsuleCollider:
   m_ObjectHideFlags: 1

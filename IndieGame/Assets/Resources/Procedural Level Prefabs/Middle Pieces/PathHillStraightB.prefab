@@ -1245,9 +1245,20 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD
+  - component: {fileID: 4145827975225322}
+  - component: {fileID: 33068095758138254}
+  - component: {fileID: 23620593990133892}
+  - component: {fileID: 95743976982972200}
+  - component: {fileID: 136752297776189926}
+  - component: {fileID: 114126159868391136}
+  m_Layer: 9
+  m_Name: TreeLeafyForest03 (1)
+=======
   - component: {fileID: 4049044260714256}
   m_Layer: 0
   m_Name: QuickRigCharacter_RightForeArm
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3386,11 +3397,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+<<<<<<< HEAD
+--- !u!114 &114126159868391136
+=======
 --- !u!114 &114588190044619972
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 1839378818537014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CreepyAmbience/CrowSquawk
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114930113359757774
+=======
   m_GameObject: {fileID: 1461387948539082}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3429,6 +3464,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 44b81c5fa07cfb34da2a24e834111bdb, type: 3}
   - {fileID: 8300000, guid: f3643118993270b42a388f03cbe07ef9, type: 3}
 --- !u!114 &114841633279166766
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

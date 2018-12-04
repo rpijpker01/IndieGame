@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23031918139908424}
   - component: {fileID: 95448321931255998}
   - component: {fileID: 136460660635728782}
+  - component: {fileID: 114272528372118734}
   m_Layer: 0
   m_Name: Fountain02
   m_TagString: Untagged
@@ -206,6 +207,28 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114272528372118734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274752656687444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Objects/Fountain
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!136 &136460660635728782
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -23,7 +23,12 @@ GameObject:
   - component: {fileID: 23928619724824648}
   - component: {fileID: 95477532264016346}
   - component: {fileID: 136504131558918788}
+<<<<<<< HEAD
+  - component: {fileID: 114479663000320100}
+  m_Layer: 0
+=======
   m_Layer: 9
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
   m_Name: TreeLeafyForest01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +118,12 @@ GameObject:
   - component: {fileID: 23900854773271034}
   - component: {fileID: 95554214928090930}
   - component: {fileID: 136901966633896268}
+<<<<<<< HEAD
+  - component: {fileID: 114909542656587190}
+  m_Layer: 0
+=======
   m_Layer: 9
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
   m_Name: TreeFirForest01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +160,7 @@ GameObject:
   - component: {fileID: 23340650654885684}
   - component: {fileID: 95361054619293732}
   - component: {fileID: 64452503753627890}
+  - component: {fileID: 114958434386799266}
   m_Layer: 9
   m_Name: Fountain (1)
   m_TagString: Untagged
@@ -169,6 +180,7 @@ GameObject:
   - component: {fileID: 23399060190538050}
   - component: {fileID: 95679075875184988}
   - component: {fileID: 136888266614079396}
+  - component: {fileID: 114330084877118490}
   m_Layer: 9
   m_Name: TreeLeafyForest03 (2)
   m_TagString: Untagged
@@ -805,6 +817,94 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114330084877118490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980680111928292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CreepyAmbience/CrowSquawk
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114479663000320100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135349130733548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CreepyAmbience/CrowSquawk
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114909542656587190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645982804331446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/ForestAmbience/Owl
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114958434386799266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956554819120950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Objects/Fountain
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!136 &136504131558918788
 CapsuleCollider:
   m_ObjectHideFlags: 1

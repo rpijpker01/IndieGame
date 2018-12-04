@@ -243,9 +243,20 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD
+  - component: {fileID: 4860571622222272}
+  - component: {fileID: 33591078800854622}
+  - component: {fileID: 23013867570050364}
+  - component: {fileID: 95847050253142180}
+  - component: {fileID: 136965586840199896}
+  - component: {fileID: 114146826923686742}
+  m_Layer: 9
+  m_Name: TreeFirForest01 (1)
+=======
   - component: {fileID: 4509883806015832}
   m_Layer: 0
   m_Name: QuickRigCharacter_Ctrl_LeftLeg
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3615,11 +3626,34 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+<<<<<<< HEAD
+--- !u!114 &114146826923686742
+=======
 --- !u!114 &114400707421198598
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 1269163483736236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CreepyAmbience/CrowSquawk
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+=======
   m_GameObject: {fileID: 1675778693501694}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3691,6 +3725,7 @@ CapsuleCollider:
   m_Height: 2.7144387
   m_Direction: 1
   m_Center: {x: 0, y: 1.3591257, z: 0}
+>>>>>>> e0cd628fbbb2085b5dc89a5a0a81b3fe270c8961
 --- !u!136 &136965586840199896
 CapsuleCollider:
   m_ObjectHideFlags: 1
