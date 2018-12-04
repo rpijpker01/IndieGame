@@ -26,10 +26,7 @@ public class OlChapBehaviour : MonoBehaviour
         {
             Debug.Log(_playerObjective);
             _playerObjective++;
-            if (_playerObjective > 1)
-            {
-                GameController.spawnKey = true;
-            }
+            GameController.spawnKey = true;
         }
         DisplayQuestObjective();
     }

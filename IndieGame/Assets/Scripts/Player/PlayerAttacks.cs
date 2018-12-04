@@ -9,6 +9,8 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField]
     [Range(0, 3)]
     private float _attackDuration = 1;
+    [SerializeField]
+    private GameObject _weaponTrail;
     [Header("Basic Attack")]
     [SerializeField]
     private float _attackDamage;
@@ -46,7 +48,7 @@ public class PlayerAttacks : MonoBehaviour
         if (GameController.playerController.GetHealth() > 0)
         {
             //Checks if the player isn't already attacking
-            if (!GameController.playerController.isAttacking)
+            if (!GameController.playerController.isAttacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 BasicAttack();
                 Abilities();
@@ -63,6 +65,15 @@ public class PlayerAttacks : MonoBehaviour
             GameController.playerController.isAttacking = true;
             _attackStartTime = DateTime.Now.AddMilliseconds(200);
             PlayerController.SetAnimationState(PlayerController.AnimationState.Attacking);
+
+            if (_weaponTrail != null)
+            {
+                _weaponTrail.SetActive(true);
+            }
+        }
+        else if (_weaponTrail != null)
+        {
+            _weaponTrail.SetActive(false);
         }
     }
 
