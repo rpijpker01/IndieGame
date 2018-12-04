@@ -11,7 +11,7 @@ public class SoundPlayer : MonoBehaviour
     private AudioSource[] _audioSources;
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < _audioSourceBuffer; i++)
         {
@@ -55,5 +55,19 @@ public class SoundPlayer : MonoBehaviour
         }
         _audioSources[0].clip = _audioClips[clipIndex];
         _audioSources[0].Play();
+    }
+
+    public AudioSource[] GetAudioSources()
+    {
+        return _audioSources;
+    }
+
+    public void StopAll()
+    {
+        foreach (AudioSource source in _audioSources)
+        {
+            source.Stop();
+            source.clip = null;
+        }
     }
 }

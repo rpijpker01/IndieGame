@@ -536,6 +536,8 @@ GameObject:
   - component: {fileID: 136705331044441652}
   - component: {fileID: 114492465803833500}
   - component: {fileID: 114118282288880972}
+  - component: {fileID: 114573601952298344}
+  - component: {fileID: 82917733667293454}
   m_Layer: 0
   m_Name: villageElder
   m_TagString: Untagged
@@ -2697,6 +2699,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274247386048302}
   m_Mesh: {fileID: 4300000, guid: ea4161a755ad0bf469012c974167bd58, type: 3}
+--- !u!82 &82917733667293454
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410830834110726}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95533354371938888
 Animator:
   serializedVersion: 3
@@ -2736,9 +2818,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffa1fc6570b2614dacfaca5b4b0d2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _offset: 0
   _textAboveObject: Old chap
   _showTextBox: 1
   _fontSize: 0
+--- !u!114 &114573601952298344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410830834110726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941bdcac5a2a7314c93c39f28e0349b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourceBuffer: 0
+  _audioClips:
+  - {fileID: 8300000, guid: 3fb393228b5aac94da9589b2ab39db88, type: 3}
+  - {fileID: 8300000, guid: d3e4156c31e5ecb4da5422113d3ffd9f, type: 3}
+  - {fileID: 8300000, guid: 71cf8e77f88c5b648bd1de0730ce8aa5, type: 3}
+  - {fileID: 8300000, guid: f75ec368d4b45c843929276c0cff67d4, type: 3}
+  - {fileID: 8300000, guid: 67974dfc7ae9926428e8f46995fd0951, type: 3}
+  - {fileID: 8300000, guid: aafd57801456a644288c20074d84bb2b, type: 3}
+  - {fileID: 8300000, guid: a9f233f5d44335845aee9ee68de02606, type: 3}
+  - {fileID: 8300000, guid: d586a4458d9ef294d8db031073173147, type: 3}
 --- !u!136 &136705331044441652
 CapsuleCollider:
   m_ObjectHideFlags: 1
