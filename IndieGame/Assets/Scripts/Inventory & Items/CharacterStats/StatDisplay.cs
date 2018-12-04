@@ -55,6 +55,7 @@ public class StatDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 if (GameController.maxMana == _stats.Value) break;
 
                 GameController.maxMana = _stats.Value;
+                GameController.playerController.SetMana(_stats.Value);
                 break;
             case "armor":
                 if (GameController.armor == _stats.Value) break;

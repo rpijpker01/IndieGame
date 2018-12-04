@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        float dmgTaken = damage / _damageResistance;
+        float dmgTaken = damage * (1 - (_damageResistance * 0.01f));
         //Subtract damage from current health
         _currentHealth -= dmgTaken;
 
@@ -136,6 +136,17 @@ public class PlayerController : MonoBehaviour
             _currentHealth = health * hpPercent;
         }
     }
+    public void Heal(float pHealthPercent, float pTime)
+    {
+        float healAmount = GameController.maxHealth * (pHealthPercent * 0.01f);
+        _healthRegenSpeed += healAmount / (pTime * Time.deltaTime);
+        NormalizeHealthRegen(pTime);
+    }
+    private IEnumerable NormalizeHealthRegen(float pTime)
+    {
+        yield return new WaitForSeconds(pTime);
+        _healthRegenSpeed = 1 + (_strength * 0.1f);
+    }
 
     public float GetMana(bool pToInt = false)
     {
@@ -154,6 +165,17 @@ public class PlayerController : MonoBehaviour
             _currentMana = mana * manaPercent;
         }
     }
+    public void Drink(float pManaPercent, float pTime)
+    {
+        float drinkAmount = GameController.maxMana * (pManaPercent * 0.01f);
+        _manaRegenSpeed += drinkAmount / (pTime * Time.deltaTime);
+        NormalizeManaRegen(pTime);
+    }
+    private IEnumerable NormalizeManaRegen(float pTime)
+    {
+        yield return new WaitForSeconds(pTime);
+        _manaRegenSpeed = 1 + (_intelligence * 0.1f);
+    }
 
     public void SetArmor(float pArmor)
     {
@@ -164,13 +186,13 @@ public class PlayerController : MonoBehaviour
     public void SetStrength(float pStrength)
     {
         _strength = pStrength;
-        _healthRegenSpeed = GameController.maxHealth * _strength * 0.05f;
+        _healthRegenSpeed = 1 + (_strength * 0.1f);
     }
 
     public void SetIntelligence(float pIntelligence)
     {
         _intelligence = pIntelligence;
-        _manaRegenSpeed = GameController.maxMana * _intelligence * 0.05f;
+        _manaRegenSpeed = 1 + (_intelligence * 0.1f);
     }
 
     public static void SetAnimationState(AnimationState animationState)
