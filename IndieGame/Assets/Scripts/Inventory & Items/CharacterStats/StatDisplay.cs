@@ -46,19 +46,33 @@ public class StatDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         switch (_statName.text.ToLower())
         {
             case "max health":
+                if (GameController.maxHealth == _stats.Value) break;
+
                 GameController.maxHealth = _stats.Value;
+                GameController.playerController.SetHealth(_stats.Value);
                 break;
             case "max mana":
+                if (GameController.maxMana == _stats.Value) break;
+
                 GameController.maxMana = _stats.Value;
                 break;
             case "armor":
+                if (GameController.armor == _stats.Value) break;
+
                 GameController.armor = _stats.Value;
+                GameController.playerController.SetArmor(_stats.Value);
                 break;
             case "strength":
+                if (GameController.strength == _stats.Value) break;
+
                 GameController.strength = _stats.Value;
+                GameController.playerController.SetStrength(_stats.Value);
                 break;
             case "intelligence":
+                if (GameController.intelligence == _stats.Value) break;
+
                 GameController.intelligence = _stats.Value;
+                GameController.playerController.SetIntelligence(_stats.Value);
                 break;
         }
     }

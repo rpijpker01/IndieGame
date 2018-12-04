@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class HighlightGameobject : MonoBehaviour
 {
+    [SerializeField] private float _offset = 0;
     [SerializeField] private string _textAboveObject;
     [SerializeField] private bool _showTextBox = false;
     [Header("Font Size is 24 by defult")]
@@ -100,6 +101,7 @@ public class HighlightGameobject : MonoBehaviour
             _textBox = Instantiate(Resources.Load<GameObject>("TextAboveHighlightedObjectCanvas"), this.transform);
             _textBox.GetComponentInChildren<Text>().text = _textAboveObject;
             _textBox.GetComponentInChildren<Text>().fontSize = _fontSize;
+            _textBox.GetComponentInChildren<UIFollowParentInWorldSpace>().offset = -_offset;
             _textBox.SetActive(false);
 
             GameController.OnMouseOverGameObjectEvent += ShowText;

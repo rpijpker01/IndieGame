@@ -7,15 +7,18 @@ public class PlayerController : MonoBehaviour
 {
     public bool isAttacking { get; set; }
 
-    [SerializeField]
-    private float _startingHealth = 10000;
-    [SerializeField]
-    private float _startingMana = 10000;
-    [SerializeField]
-    [Range(0, 1)]
-    private float _manaRegenSpeed = 0.05f;
-    private float _health;
-    private float _mana;
+    //Player Stats
+    private float _currentHealth;
+    private float _healthRegenSpeed;
+    private float _currentMana;
+    private float _manaRegenSpeed;
+    private float _armor;
+    private float _damageResistance;
+    private float _strength;
+    private float _physicalDamage;
+    private float _intelligence;
+    private float _spellDamage;
+
     private bool _isPlayingDyingAnimation = true;
 
     private ItemDrop _droppedItem;
@@ -39,8 +42,8 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        _health = _startingHealth;
-        _mana = _startingMana;
+        _currentHealth = GameController.maxHealth;
+        _currentMana = GameController.maxMana;
 
         _collider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -50,12 +53,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Dying();
-        UpdateMana();
+        UpdateManaAndHealth();
     }
 
     private void Dying()
     {
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
             if (_isPlayingDyingAnimation)
             {
@@ -68,15 +71,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdateMana()
+    private void UpdateManaAndHealth()
     {
-        if (_mana < _startingMana)
+        if (_currentMana < GameController.maxMana)
         {
-            _mana += _manaRegenSpeed;
+            _currentMana += _manaRegenSpeed * Time.deltaTime;
         }
-        else if (_mana > _startingMana)
+        else if (_currentMana > GameController.maxMana)
         {
-            _mana = _startingMana;
+            _currentMana = GameController.maxMana;
+        }
+
+        if (_currentHealth < GameController.maxHealth)
+        {
+            _currentHealth += _healthRegenSpeed * Time.deltaTime;
+        }
+        else if (_currentHealth > GameController.maxHealth)
+        {
+            _currentHealth = GameController.maxHealth;
         }
     }
 
@@ -94,7 +106,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         //Subtract damage from current health
-        _health -= damage;
+        _currentHealth -= damage;
 
         //Camera shake
         CameraFollowPlayer.cameraShake(1 + ((damage / 100) * 2), 750);
@@ -108,21 +120,44 @@ public class PlayerController : MonoBehaviour
 
     public float GetHealth()
     {
-        return _health;
+        return _currentHealth;
     }
-
     public void SetHealth(float health)
     {
-        _health = health;
+        if (died)
+            _currentHealth = health;
+        else
+        {
+            float hpPercent = _currentHealth / health;
+            _currentHealth = health * hpPercent;
+        }
     }
 
     public float GetMana()
     {
-        return _mana;
+        return _currentMana;
     }
     public void SetMana(float mana)
     {
-        _mana = mana;
+        _currentMana = mana;
+    }
+
+    public void SetArmor(float pArmor)
+    {
+        _armor = pArmor;
+        _damageResistance = _armor * 0.1f;
+    }
+
+    public void SetStrength(float pStrength)
+    {
+        _strength = pStrength;
+        _healthRegenSpeed = _strength * 0.1f;
+    }
+
+    public void SetIntelligence(float pIntelligence)
+    {
+        _intelligence = pIntelligence;
+        _manaRegenSpeed = _intelligence * 0.1f;
     }
 
     public static void SetAnimationState(AnimationState animationState)
@@ -151,4 +186,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    public float PhysicalDamage { get { return _physicalDamage; } }
+    public float SpellDamage { get { return _spellDamage; } }
 }

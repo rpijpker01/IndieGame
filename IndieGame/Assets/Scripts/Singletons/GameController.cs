@@ -62,8 +62,7 @@ public class GameController : MonoBehaviour
         gameController = this;
         cameraObj = GameObject.FindGameObjectWithTag("MainCamera");
         player = GameObject.FindGameObjectWithTag("Player");
-        if (null != player)
-            playerController = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<PlayerController>();
         camera = cameraObj.GetComponent<Camera>();
 
 
