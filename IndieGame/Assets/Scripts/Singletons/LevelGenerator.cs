@@ -574,6 +574,8 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
+
+
             Object obj1 = _spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == piecePosition + new Vector3(_extents.x * 2, 0, 0));
             Object obj2 = _spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == piecePosition + new Vector3(_extents.x * -2, 0, 0));
             Object obj3 = _spawnedPathPieces.Find(obj => ((GameObject)obj).transform.position == piecePosition + new Vector3(0, 0, _extents.z * 2));
