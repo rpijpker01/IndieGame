@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 114595604710303522}
   - component: {fileID: 114252270238405052}
   - component: {fileID: 114076558285598122}
+  - component: {fileID: 114806104926579932}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1609,6 +1610,18 @@ MonoBehaviour:
   _ability1ProjectilePrefab: {fileID: 1357944461158180, guid: 6b931510e3433d541887bd48da467af4,
     type: 2}
   _ability1ManaCost: 25
+--- !u!114 &114806104926579932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434214696448260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!136 &136500378150691894
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 23318054583172770}
   - component: {fileID: 95878760210577614}
   - component: {fileID: 136978131453001170}
+  - component: {fileID: 114306123547271036}
   m_Layer: 9
   m_Name: TreeLeafyForest02 (1)
   m_TagString: Untagged
@@ -237,6 +238,7 @@ GameObject:
   - component: {fileID: 23943013598696104}
   - component: {fileID: 95120889500638764}
   - component: {fileID: 136038154087209396}
+  - component: {fileID: 114278546533540912}
   m_Layer: 9
   m_Name: TreeFir02 (1)
   m_TagString: Untagged
@@ -256,6 +258,7 @@ GameObject:
   - component: {fileID: 23062894611994412}
   - component: {fileID: 95439264077211846}
   - component: {fileID: 136286818958176868}
+  - component: {fileID: 114265107828637158}
   m_Layer: 9
   m_Name: TreeLeafyForest03 (1)
   m_TagString: Untagged
@@ -1851,6 +1854,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoToHubPortal: 1
+--- !u!114 &114265107828637158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1604769842742962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/CreepyAmbience/CrowSquawk
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114278546533540912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540765781266200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/ForestAmbience/Owl
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114306123547271036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116223769641268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Ambience/ForestAmbience/Owl
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!136 &136038154087209396
 CapsuleCollider:
   m_ObjectHideFlags: 1
