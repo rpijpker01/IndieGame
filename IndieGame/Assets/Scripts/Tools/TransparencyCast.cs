@@ -40,14 +40,17 @@ public class TransparencyCast : MonoBehaviour
         {
             if (_obstructingTransforms[i] != GameController.player.transform)
             {
-                if (_obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 2.5f)
+                if (_obstructingTransforms[i] != null)
                 {
-                    Material[] materials = _obstructingTransforms[i].GetComponent<Renderer>().materials;
-                    foreach (Material material in materials)
+                    if (_obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 2.5f)
                     {
-                        material.shader = _transparentShader;
-                        material.SetFloat("_AlphaMultiplier", 0.8f);
-                        material.SetColor("_OutlineColor", new Color(0, 0, 0, 0));
+                        Material[] materials = _obstructingTransforms[i].GetComponent<Renderer>().materials;
+                        foreach (Material material in materials)
+                        {
+                            material.shader = _transparentShader;
+                            material.SetFloat("_AlphaMultiplier", 0.8f);
+                            material.SetColor("_OutlineColor", new Color(0, 0, 0, 0));
+                        }
                     }
                 }
             }
