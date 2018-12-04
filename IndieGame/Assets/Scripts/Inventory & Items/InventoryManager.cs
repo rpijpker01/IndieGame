@@ -41,6 +41,11 @@ public class InventoryManager : MonoBehaviour
 
         _statsPanel = GameObject.Find("Stats").GetComponent<StatPanel>();
         _statsPanel.SetStats(_health, _mana, _armor, _strength, _intelligence);
+        GameController.maxHealth = _health.Value;
+        GameController.maxMana = _mana.Value;
+        GameController.armor = _armor.Value;
+        GameController.strength = _strength.Value;
+        GameController.intelligence = _intelligence.Value;
         _statsPanel.UpdateStatValues();
 
         //Setup Events:

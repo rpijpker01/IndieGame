@@ -42,6 +42,25 @@ public class StatDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void UpdateStatValue()
     {
         _statValue.text = _stats.Value.ToString();
+
+        switch (_statName.text.ToLower())
+        {
+            case "max health":
+                GameController.maxHealth = _stats.Value;
+                break;
+            case "max mana":
+                GameController.maxMana = _stats.Value;
+                break;
+            case "armor":
+                GameController.armor = _stats.Value;
+                break;
+            case "strength":
+                GameController.strength = _stats.Value;
+                break;
+            case "intelligence":
+                GameController.intelligence = _stats.Value;
+                break;
+        }
     }
 
     public Text Name { get { return _statName; } set { _statName = value; } }

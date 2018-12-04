@@ -19,17 +19,27 @@ public class Equippable : Item
     private EquipmentType _equipmentType;
 
     [Header("Flat Stats:\t\tMin\t\tMax")]
+    [Tooltip("Increases the Player's maximum Health (allowing them to take more damage)")]
     [SerializeField] private Vector2 _healthValue;
+    [Tooltip("Increases the Player's maximum Mana (allowing them to cast more abilities)")]
     [SerializeField] private Vector2 _manaValue;
+    [Tooltip("Increases the Player's maximum Armor (for every 10 Armor the Player mitigates 1 damage taken from enemies)")]
     [SerializeField] private Vector2 _armorValue;
+    [Tooltip("Increases the Player's Strength (for every 10 Strength the Player deals 1 additional damage with physical attacks)")]
     [SerializeField] private Vector2 _strengthValue;
+    [Tooltip("Increases the Player's Intelligence (for every 10 Ingellignce the Player deals 1 additional damage with magic attacks)")]
     [SerializeField] private Vector2 _intelligenceValue;
     [Space]
     [Header("Percent Stats:\t\tMin\t\tMax")]
+    [Tooltip("Increases the Player's maximum Health (allowing them to take more damage)")]
     [SerializeField] private Vector2 _healthValuePercent;
+    [Tooltip("Increases the Player's maximum Mana (allowing them to cast more abilities)")]
     [SerializeField] private Vector2 _manaValuePercent;
+    [Tooltip("Increases the Player's maximum Armor (for every 10 Armor the Player mitigates 1 damage taken from enemies)")]
     [SerializeField] private Vector2 _armorValuePercent;
+    [Tooltip("Increases the Player's Strength (for every 10 Strength the Player deals 1 additional damage with physical attacks)")]
     [SerializeField] private Vector2 _strengthValuePercent;
+    [Tooltip("Increases the Player's Intelligence (for every 10 Ingellignce the Player deals 1 additional damage with magic attacks)")]
     [SerializeField] private Vector2 _intelligenceValuePercent;
 
     private float _health;

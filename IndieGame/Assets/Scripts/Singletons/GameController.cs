@@ -29,6 +29,14 @@ public class GameController : MonoBehaviour
     public static event Action<GameObject> OnCrtlKeyUpEvent;
     public static event Action OnAltKeyDownEvent;
     public static event Action OnAltKeyUpEvent;
+    public static event Action OnEKeyDown;
+    public static event Action OnQKeyDown;
+
+    public static float maxHealth;
+    public static float maxMana;
+    public static float armor;
+    public static float strength;
+    public static float intelligence;
 
     public static bool mouseIsOnScreen;
 
@@ -133,6 +141,8 @@ public class GameController : MonoBehaviour
             mainCanvas.FadeOutBlack();
         }
 
+        ManageInputEvents();
+
         if (_screenSize.Contains(Input.mousePosition))
         {
             RaycastHit hit = new RaycastHit();
@@ -152,7 +162,18 @@ public class GameController : MonoBehaviour
         if (_loadingHub) { LoadHub(); }
     }
 
-    public void ManageGameObjectOnMouse(GameObject pNewGameObject)
+    private void ManageInputEvents()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+            if (OnEKeyDown != null)
+                OnEKeyDown();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            if (OnQKeyDown != null)
+                OnQKeyDown();
+    }
+
+    private void ManageGameObjectOnMouse(GameObject pNewGameObject)
     {
         if (_gameObjectToCompare == null || _gameObjectToCompare != pNewGameObject && _mouseOverAnotherObject)
         {

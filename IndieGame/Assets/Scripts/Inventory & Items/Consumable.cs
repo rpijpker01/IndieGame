@@ -20,16 +20,6 @@ public class Consumable : Item
     private float _manaRecovery;
     private int _maxStacks;
 
-    private void Awake()
-    {
-        _maxStacks = 20;
-
-        if (_consumableType == ConsumableType.HealthPotion)
-            _healthRecovery = _effectivenessPercent;
-        if (_consumableType == ConsumableType.ManaPotion)
-            _manaRecovery = _effectivenessPercent;
-    }
-
     public void Use(InventoryManager pInv)
     {
         _cooldownTimeLeft = _potionCooldown;
