@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Raycasts towards the ground from the mouse position relative to the camera view
         RaycastHit raycastHit = new RaycastHit();
-        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit);
+        Physics.Raycast(GameController.camera.ScreenPointToRay(Input.mousePosition), out raycastHit, 50, 9);
 
         //Rotates the player towards the mouse
         _playerMovement._rotationDummy.transform.position = _playerMovement.gameObject.transform.position;

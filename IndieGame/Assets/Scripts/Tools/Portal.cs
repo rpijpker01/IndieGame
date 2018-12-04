@@ -25,5 +25,17 @@ public class Portal : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (GoToHubPortal)
+            {
+                GameController.GoToHub();
+            }
+            else
+            {
+                GameController.GoToLevel();
+            }
+        }
     }
 }
