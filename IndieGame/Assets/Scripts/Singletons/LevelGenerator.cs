@@ -136,7 +136,7 @@ public class LevelGenerator : MonoBehaviour
         if (GameController.spawnKey)
         {
             Vector3 piecePosition = transform.position - new Vector3(_extents.x * _roadObjects.GetLength(0) - _extents.x, -2.75f, _extents.z * _roadObjects.GetLength(1) - _extents.z) + new Vector3(_extents.x * 2 * _endNode.x, 0, _extents.z * 2 * _endNode.y);
-            Instantiate(_questItems[0], piecePosition, Quaternion.Euler(0, 0, 0), this.transform);
+            Instantiate(_questItems[0], piecePosition + -transform.forward * 2, Quaternion.Euler(0, 0, 0), this.transform);
         }
     }
 

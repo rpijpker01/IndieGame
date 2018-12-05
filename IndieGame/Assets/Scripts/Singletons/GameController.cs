@@ -261,6 +261,14 @@ public class GameController : MonoBehaviour
     private void TeleportPlayerToLevel()
     {
         player.transform.position = levelGenerator.playerSpawnPosition + transform.up * 2;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            if ((enemy.transform.position - player.transform.position).magnitude < 16f)
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
         _hasToFadeOut = true;
         _fadeTime = DateTime.Now.AddMilliseconds(2000);
     }

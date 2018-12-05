@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         {
             SetAnimationState(AnimationState.Dying);
             GameController.GoToHub();
+            GameController.player.GetComponent<PlayerMovement>().enabled = false;
+            GameController.player.GetComponent<PlayerAttacks>().enabled = false;
             died = true;
         }
         //_isPlayingDyingAnimation = false;
