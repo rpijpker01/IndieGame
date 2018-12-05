@@ -21,10 +21,10 @@ public class FirstQuestTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (GameController.questProgress == 0 && GameController.spawnKey == true)
+            if (OlChapBehaviour.GetQuestProgression() == 1)
             {
-                GameController.questProgress++;
-                GameController.spawnKey = false;
+                OlChapBehaviour.ContinuePorgression();
+                ObjectiveText.SetObjectiveText("- Go back to the old man");
                 Destroy(this.gameObject);
             }
         }
