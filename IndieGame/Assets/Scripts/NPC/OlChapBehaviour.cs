@@ -15,9 +15,14 @@ public class OlChapBehaviour : MonoBehaviour
         _soundPlayer = GetComponent<SoundPlayer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (!_soundPlayer.GetAudioSources()[0].isPlaying || Input.GetKeyDown(KeyCode.Escape) || (GameController.player.transform.position - transform.position).magnitude > 4.9999f)
+        {
+            GameController.uiCanvas.CloseDialogBox();
+            GameController.player.GetComponent<PlayerMovement>().enabled = true;
+            GameController.player.GetComponent<PlayerAttacks>().enabled = true;
+        }
     }
 
     private void InteractWithOlChap(GameObject gameObject)
@@ -29,11 +34,20 @@ public class OlChapBehaviour : MonoBehaviour
             GameController.spawnKey = true;
         }
         DisplayQuestObjective();
+        GameController.player.transform.LookAt(this.transform);
+        GameController.player.GetComponent<PlayerMovement>().rotation.y = GameController.player.transform.rotation.eulerAngles.y;
     }
 
     private void DisplayQuestObjective()
     {
         Debug.Log(_playerObjective);
         _soundPlayer.PlayAudioClip(_playerObjective - 1);
+
+        switch (_playerObjective)
+        {
+            default:
+                GameController.uiCanvas.OpenDialogBox("Insert hardcoded string here :-)");
+                break;
+        }
     }
 }
