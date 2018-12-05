@@ -84,6 +84,10 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
         if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
         {
             SetAllWindowsActive();
+            if (OlChapBehaviour.GetQuestProgression() == 3)
+            {
+                OlChapBehaviour.ContinuePorgression();
+            }
         }
     }
 

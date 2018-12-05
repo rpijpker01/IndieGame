@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         {
             SetAnimationState(AnimationState.Dying);
             GameController.GoToHub();
+            GameController.player.GetComponent<PlayerMovement>().enabled = false;
+            GameController.player.GetComponent<PlayerAttacks>().enabled = false;
             died = true;
         }
         //_isPlayingDyingAnimation = false;
@@ -139,7 +141,7 @@ public class PlayerController : MonoBehaviour
     public void Heal(float pHealthPercent, float pTime)
     {
         float healAmount = GameController.maxHealth * (pHealthPercent * 0.01f);
-        _healthRegenSpeed += healAmount / (pTime);
+        _healthRegenSpeed += healAmount / pTime;
         StartCoroutine(NormalizeHealthRegen(pTime));
     }
     private IEnumerator NormalizeHealthRegen(float pTime)
@@ -168,7 +170,7 @@ public class PlayerController : MonoBehaviour
     public void Drink(float pManaPercent, float pTime)
     {
         float drinkAmount = GameController.maxMana * (pManaPercent * 0.01f);
-        _manaRegenSpeed += drinkAmount / (pTime * Time.deltaTime);
+        _manaRegenSpeed += drinkAmount / pTime;
         StartCoroutine(NormalizeManaRegen(pTime));
     }
     private IEnumerator NormalizeManaRegen(float pTime)

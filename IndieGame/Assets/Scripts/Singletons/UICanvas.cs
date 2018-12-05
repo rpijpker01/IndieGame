@@ -26,6 +26,8 @@ public class UICanvas : MonoBehaviour
     private Text _manaStacks;
     private Image _manaCooldown;
     private Inventory _playerInventory;
+    [SerializeField]
+    private GameObject _dialogBoxText;
 
     private RectTransform _healthBarTransform;
     private Text _healthValue;
@@ -34,6 +36,8 @@ public class UICanvas : MonoBehaviour
 
     private float _healthBarTargetScale;
     private float _manaBarTargetScale;
+
+    private static UICanvas uiCanvas;
 
     // Use this for initialization
     private void Awake()
@@ -56,6 +60,7 @@ public class UICanvas : MonoBehaviour
         _manaCooldown.enabled = false;
 
         _playerInventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        uiCanvas = this;
     }
 
     // Update is called once per frame
@@ -126,5 +131,16 @@ public class UICanvas : MonoBehaviour
 
         _healthValue.text = string.Format("{0} / {1} ( {2}% )", hp, maxHp, System.Math.Round(_healthBarTargetScale * 100, 1));
         _manaValue.text = string.Format("{0} / {1} ( {2}% )", mana, maxMana, System.Math.Round(_manaBarTargetScale * 100, 1));
+    }
+
+    public void CloseDialogBox()
+    {
+        uiCanvas._dialogBoxText.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void OpenDialogBox(string text)
+    {
+        uiCanvas._dialogBoxText.transform.parent.gameObject.SetActive(true);
+        uiCanvas._dialogBoxText.GetComponent<Text>().text = text;
     }
 }
