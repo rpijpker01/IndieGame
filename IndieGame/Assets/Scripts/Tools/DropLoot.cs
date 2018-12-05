@@ -37,7 +37,7 @@ public class DropLoot : MonoBehaviour
         for (int i = 0; i < _maxDrops; i++)
         {
             int rnd = UnityEngine.Random.Range(0, drops.Count);
-            GameObject go = Instantiate(_lootDropPrefab, this.transform.position + Vector3.up * 2, Quaternion.identity);
+            GameObject go = Instantiate(_lootDropPrefab, this.transform.position + Vector3.up * 2, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
             if (go == null) continue;
 
             go.GetComponentInChildren<ItemDrop>().Init(drops[rnd], pObjectTransform);

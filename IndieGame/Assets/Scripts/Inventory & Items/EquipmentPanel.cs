@@ -47,16 +47,14 @@ public class EquipmentPanel : MonoBehaviour
                 if (pItem.ItemType == EquipmentType.Gloves)
                 {
                     _equipmentSlots[i + 1].Item = pItem;
-                    _equipmentSlots[i + 1].Amount++;
                 }
                 else if (pItem.ItemType == EquipmentType.Gloves1)
                 {
                     _equipmentSlots[i - 1].Item = pItem;
-                    _equipmentSlots[i - 1].Amount++;
                 }
 
                 _equipmentSlots[i].Item = pItem;
-                _equipmentSlots[i].Amount++;
+                _equipmentSlots[i].Amount = 1;
                 return true;
             }
         }
@@ -72,7 +70,7 @@ public class EquipmentPanel : MonoBehaviour
         {
             if (_equipmentSlots[i].Item == pItem)
             {
-                _equipmentSlots[i].Amount--;
+                _equipmentSlots[i].Amount = 0;
 
                 if (_equipmentSlots[i].Amount == 0)
                 {

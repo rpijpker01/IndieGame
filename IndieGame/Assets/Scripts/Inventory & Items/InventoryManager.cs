@@ -49,9 +49,11 @@ public class InventoryManager : MonoBehaviour
         _statsPanel.UpdateStatValues();
 
         //Setup Events:
+        GameController.OnUseConsumableEvent += UseConsumable;
         //Right Click
         _inventory.OnRightClickEvent += Equip;
         _inventory.OnRightClickEvent += Sell;
+        _inventory.OnRightClickEvent += UseConsumable;
         _inventory.OnRightClickEvent += HideTooltip;
         _equipmentPanel.OnRightClickEvent += Unequip;
         _shopInventory.OnRightClickEvent += Buy;
@@ -84,6 +86,50 @@ public class InventoryManager : MonoBehaviour
         _equipmentPanel.OnDropEvent += ShowTooltip;
         _shopInventory.OnDropEvent += Drop;
         _shopInventory.OnDropEvent += ShowTooltip;
+    }
+
+    private void Update()
+    {
+        if (Consumable.healthPotionCooldown > 0)
+            Consumable.healthPotionCooldown -= Time.deltaTime;
+
+        if (Consumable.manaPotionCooldown > 0)
+            Consumable.manaPotionCooldown -= Time.deltaTime;
+    }
+
+    private void UseConsumable(ItemSlot pItemSlot)
+    {
+        if (ShopKeeper.playerIsInShop || !(pItemSlot.Item is Consumable)) return;
+
+        Consumable c = pItemSlot.Item as Consumable;
+
+        if (c.Use())
+            _inventory.RemoveItem(c);
+    }
+
+    private void UseConsumable(KeyCode pKey)
+    {
+        foreach (ItemSlot itemSlot in _inventory.ConsumablesInInventory)
+        {
+            Consumable c = itemSlot.Item as Consumable;
+
+            if (pKey == KeyCode.E && c.ItemType == ConsumableType.ManaPotion)
+            {
+                if (c.Use())
+                {
+                    _inventory.RemoveItem(c);
+                    return;
+                }
+            }
+            else if (pKey == KeyCode.Q && c.ItemType == ConsumableType.HealthPotion)
+            {
+                if (c.Use())
+                {
+                    _inventory.RemoveItem(c);
+                    return;
+                }
+            }
+        }
     }
 
     private bool DragToSell(ItemSlot pItemSlot)
@@ -206,9 +252,15 @@ public class InventoryManager : MonoBehaviour
                     dragItem.Unequip(this);
 
                     if (esDrag.EquipmentType == EquipmentType.Gloves)
+                    {
                         _equipmentPanel.EquipmentSlots[3].Item = null;
+                        _equipmentPanel.EquipmentSlots[3].Amount = 0;
+                    }
                     else if (esDrag.EquipmentType == EquipmentType.Gloves1)
+                    {
                         _equipmentPanel.EquipmentSlots[2].Item = null;
+                        _equipmentPanel.EquipmentSlots[2].Amount = 0;
+                    }
                 }
                 if (dropItem != null)
                 {
@@ -216,9 +268,16 @@ public class InventoryManager : MonoBehaviour
 
                     if (dropItem.ItemType == EquipmentType.Gloves)
                         if (esDrag.EquipmentType == EquipmentType.Gloves)
+                        {
                             _equipmentPanel.EquipmentSlots[3].Item = dropItem;
+                            _equipmentPanel.EquipmentSlots[3].Amount = 1;
+
+                        }
                         else if (esDrag.EquipmentType == EquipmentType.Gloves1)
+                        {
                             _equipmentPanel.EquipmentSlots[2].Item = dropItem;
+                            _equipmentPanel.EquipmentSlots[2].Amount = 1;
+                        }
                 }
             }
 
@@ -229,9 +288,16 @@ public class InventoryManager : MonoBehaviour
                     dropItem.Unequip(this);
 
                     if (esDrop.EquipmentType == EquipmentType.Gloves)
+                    {
                         _equipmentPanel.EquipmentSlots[3].Item = null;
+                        _equipmentPanel.EquipmentSlots[3].Amount = 0;
+
+                    }
                     else if (esDrop.EquipmentType == EquipmentType.Gloves1)
+                    {
                         _equipmentPanel.EquipmentSlots[2].Item = null;
+                        _equipmentPanel.EquipmentSlots[2].Amount = 0;
+                    }
                 }
                 if (dragItem != null)
                 {
@@ -239,9 +305,15 @@ public class InventoryManager : MonoBehaviour
 
                     if (dragItem.ItemType == EquipmentType.Gloves)
                         if (esDrop.EquipmentType == EquipmentType.Gloves)
+                        {
                             _equipmentPanel.EquipmentSlots[3].Item = dragItem;
+                            _equipmentPanel.EquipmentSlots[3].Amount = 1;
+                        }
                         else if (esDrop.EquipmentType == EquipmentType.Gloves1)
+                        {
                             _equipmentPanel.EquipmentSlots[2].Item = dragItem;
+                            _equipmentPanel.EquipmentSlots[2].Amount = 1;
+                        }
                 }
             }
 

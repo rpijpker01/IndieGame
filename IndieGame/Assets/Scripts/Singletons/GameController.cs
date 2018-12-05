@@ -29,8 +29,7 @@ public class GameController : MonoBehaviour
     public static event Action<GameObject> OnCrtlKeyUpEvent;
     public static event Action OnAltKeyDownEvent;
     public static event Action OnAltKeyUpEvent;
-    public static event Action OnEKeyDown;
-    public static event Action OnQKeyDown;
+    public static event Action<KeyCode> OnUseConsumableEvent;
 
     public static float maxHealth;
     public static float maxMana;
@@ -81,7 +80,7 @@ public class GameController : MonoBehaviour
             levelGenerator.doneWithGenerating += TeleportPlayerToLevel;
 
         Physics.IgnoreLayerCollision(10, 10);
-        Physics.IgnoreLayerCollision(10, 11);
+        //Physics.IgnoreLayerCollision(10, 11);
     }
 
     private void BakeNavMesh()
@@ -163,13 +162,23 @@ public class GameController : MonoBehaviour
 
     private void ManageInputEvents()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-            if (OnEKeyDown != null)
-                OnEKeyDown();
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Q))
+        {
+            KeyCode lastKey = Input.GetKeyDown(KeyCode.E) ? KeyCode.E : KeyCode.Q;
+            if (OnUseConsumableEvent != null)
+                OnUseConsumableEvent(lastKey);
+        }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-            if (OnQKeyDown != null)
-                OnQKeyDown();
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (OnAltKeyDownEvent != null)
+                OnAltKeyDownEvent();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            if (OnAltKeyUpEvent != null)
+                OnAltKeyUpEvent();
+        }
     }
 
     private void ManageGameObjectOnMouse(GameObject pNewGameObject)
@@ -220,17 +229,6 @@ public class GameController : MonoBehaviour
         {
             if (OnCrtlKeyUpEvent != null)
                 OnCrtlKeyUpEvent(pNewGameObject);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            if (OnAltKeyDownEvent != null)
-                OnAltKeyDownEvent();
-        }
-        if (Input.GetKeyUp(KeyCode.LeftAlt))
-        {
-            if (OnAltKeyUpEvent != null)
-                OnAltKeyUpEvent();
         }
     }
 

@@ -24,7 +24,6 @@ public class OlChapBehaviour : MonoBehaviour
     {
         if (_playerObjective <= GameController.questProgress)
         {
-            Debug.Log(_playerObjective);
             _playerObjective++;
             GameController.spawnKey = true;
         }
@@ -33,7 +32,6 @@ public class OlChapBehaviour : MonoBehaviour
 
     private void DisplayQuestObjective()
     {
-        Debug.Log(_playerObjective);
         _soundPlayer.PlayAudioClip(_playerObjective - 1);
     }
 }

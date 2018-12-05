@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33845953679168930}
   - component: {fileID: 23988451103588424}
   - component: {fileID: 95569553768796918}
+  - component: {fileID: 65549551389166066}
   m_Layer: 0
   m_Name: Legs01
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873099545579492}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.61, y: 0, z: -10.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873099545579492}
   m_Mesh: {fileID: 4300000, guid: b32eca94d1985f84b8144cb4fa54090c, type: 3}
+--- !u!65 &65549551389166066
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873099545579492}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5476575, y: 0.9776172, z: 0.35}
+  m_Center: {x: 0.04938297, y: -0.35327026, z: 0}
 --- !u!95 &95569553768796918
 Animator:
   serializedVersion: 3

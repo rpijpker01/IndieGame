@@ -57,7 +57,7 @@ public class ItemDrop : MonoBehaviour
 
         if (!_playerInventory.IsFull())
         {
-            Item itemCopy = Instantiate(_item);
+            Item itemCopy = _item;
             _playerInventory.AddItem(itemCopy);
             GameController.errorMessage.AddMessage(string.Format("Picked up {0}", itemCopy.Name, Color.white));
             Destroy(this.gameObject);

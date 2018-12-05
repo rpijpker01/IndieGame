@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33331966018547624}
   - component: {fileID: 23078795238926964}
   - component: {fileID: 95290998413179968}
+  - component: {fileID: 65718007526005080}
   m_Layer: 0
   m_Name: Chest02
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652684750681184}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.978, y: 0.12, z: -10.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652684750681184}
   m_Mesh: {fileID: 4300000, guid: 4add996c7ac2c1543ad72c7802153c5a, type: 3}
+--- !u!65 &65718007526005080
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652684750681184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.8681098, z: 0.35}
+  m_Center: {x: -0.0012540966, y: -0.1319256, z: 0.010319442}
 --- !u!95 &95290998413179968
 Animator:
   serializedVersion: 3
