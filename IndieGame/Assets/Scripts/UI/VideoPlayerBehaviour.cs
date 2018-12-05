@@ -7,14 +7,17 @@ using UnityEngine.Video;
 public class VideoPlayerBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _uiCanvas;
+    private List<GameObject> _objectsToDisable;
 
     private bool _playedOnce = false;
 
     // Use this for initialization
     private void Awake()
     {
-        _uiCanvas.SetActive(false);
+        foreach (GameObject obj in _objectsToDisable)
+        {
+            obj.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -27,7 +30,10 @@ public class VideoPlayerBehaviour : MonoBehaviour
         }
         if (_playedOnce && !GetComponent<VideoPlayer>().isPlaying)
         {
-            _uiCanvas.SetActive(true);
+            foreach (GameObject obj in _objectsToDisable)
+            {
+                obj.SetActive(true);
+            }
             GameController.mainCanvas.transform.GetChild(0).gameObject.SetActive(true);
             GameController.mainCanvas.FadeOutBlack();
             Destroy(this.gameObject);

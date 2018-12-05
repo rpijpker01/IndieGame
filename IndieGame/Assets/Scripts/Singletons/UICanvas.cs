@@ -43,6 +43,7 @@ public class UICanvas : MonoBehaviour
     private void Awake()
     {
         GameController.uiCanvas = this;
+        uiCanvas = this;
 
         _healthBarTransform = _healthBar.GetComponent<RectTransform>();
         _healthValue = _healthText.GetComponent<Text>();

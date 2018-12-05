@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour
         if (_screenSize.Contains(Input.mousePosition))
         {
             RaycastHit hit = new RaycastHit();
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 500, 9);
             ManageGameObjectOnMouse(hit.transform.gameObject);
         }
 

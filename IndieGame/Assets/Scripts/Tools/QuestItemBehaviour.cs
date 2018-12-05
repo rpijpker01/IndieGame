@@ -37,7 +37,11 @@ public class QuestItemBehaviour : MonoBehaviour
         if (other.tag == "Player")
         {
             GameController.questProgress++;
-            GameController.spawnKey = false;
+            if (GameController.questProgress >= 5)
+            {
+                OlChapBehaviour.ContinuePorgression();
+                ObjectiveText.SetObjectiveText("- Go back to the old man");
+            }
             Destroy(this.gameObject);
         }
     }

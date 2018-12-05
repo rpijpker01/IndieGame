@@ -12,6 +12,8 @@ public class OlChapBehaviour : MonoBehaviour
     public static bool visitedMerchant = false;
     public static bool visitedBlacksmith = false;
 
+    private bool _killPlayer = false;
+
     // Use this for initialization
     void Start()
     {
@@ -30,6 +32,14 @@ public class OlChapBehaviour : MonoBehaviour
                 GameController.uiCanvas.CloseDialogBox();
                 GameController.player.GetComponent<PlayerMovement>().enabled = true;
                 GameController.player.GetComponent<PlayerAttacks>().enabled = true;
+
+                if (_playerObjective >= 7 && _killPlayer && !_soundPlayer.GetAudioSources()[0].isPlaying)
+                {
+                    GameController.player.GetComponent<SoundPlayer>().PlayAudioClip(9);
+                    _killPlayer = false;
+
+                    //Show credits or whatever
+                }
             }
         }
     }
@@ -53,6 +63,10 @@ public class OlChapBehaviour : MonoBehaviour
     public void DisplayQuestObjective()
     {
         _soundPlayer.PlayAudioClip(_playerObjective - 1);
+        if (_playerObjective >= 7)
+        {
+            _killPlayer = true;
+        }
 
         switch (_playerObjective)
         {

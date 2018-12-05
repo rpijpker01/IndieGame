@@ -21,7 +21,7 @@ public class WarehouseDoor : MonoBehaviour
     {
         if (gameObject == this.gameObject)
         {
-            if (GameController.questProgress >= 5)
+            if (OlChapBehaviour.GetQuestProgression() >= 7)
             {
                 GameController.mainCanvas.FadeToBlack();
                 OlChapBehaviour.ContinuePorgression();
