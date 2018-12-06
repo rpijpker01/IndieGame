@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33809009096426132}
   - component: {fileID: 23209698558577520}
   - component: {fileID: 95701049083596364}
+  - component: {fileID: 65847200038886278}
   m_Layer: 0
   m_Name: Boots02
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841789008766938}
   m_Mesh: {fileID: 4300000, guid: 671e0cec2ff995548b23b0675c22ec00, type: 3}
+--- !u!65 &65847200038886278
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841789008766938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.49894106, z: 0.35}
+  m_Center: {x: -0.000000029802322, y: 0, z: 0}
 --- !u!95 &95701049083596364
 Animator:
   serializedVersion: 3

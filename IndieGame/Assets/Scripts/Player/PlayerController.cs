@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         {
             SetAnimationState(AnimationState.Dying);
             GameController.GoToHub();
+            GameController.player.GetComponent<PlayerMovement>().enabled = false;
+            GameController.player.GetComponent<PlayerAttacks>().enabled = false;
             died = true;
         }
         //_isPlayingDyingAnimation = false;
@@ -139,13 +141,13 @@ public class PlayerController : MonoBehaviour
     public void Heal(float pHealthPercent, float pTime)
     {
         float healAmount = GameController.maxHealth * (pHealthPercent * 0.01f);
-        _healthRegenSpeed += healAmount / (pTime * Time.deltaTime);
-        NormalizeHealthRegen(pTime);
+        _healthRegenSpeed += healAmount / pTime;
+        StartCoroutine(NormalizeHealthRegen(pTime));
     }
-    private IEnumerable NormalizeHealthRegen(float pTime)
+    private IEnumerator NormalizeHealthRegen(float pTime)
     {
         yield return new WaitForSeconds(pTime);
-        _healthRegenSpeed = 1 + (_strength * 0.1f);
+        _healthRegenSpeed = 2.5f + (_strength * 0.1f);
     }
 
     public float GetMana(bool pToInt = false)
@@ -168,13 +170,13 @@ public class PlayerController : MonoBehaviour
     public void Drink(float pManaPercent, float pTime)
     {
         float drinkAmount = GameController.maxMana * (pManaPercent * 0.01f);
-        _manaRegenSpeed += drinkAmount / (pTime * Time.deltaTime);
-        NormalizeManaRegen(pTime);
+        _manaRegenSpeed += drinkAmount / pTime;
+        StartCoroutine(NormalizeManaRegen(pTime));
     }
-    private IEnumerable NormalizeManaRegen(float pTime)
+    private IEnumerator NormalizeManaRegen(float pTime)
     {
         yield return new WaitForSeconds(pTime);
-        _manaRegenSpeed = 1 + (_intelligence * 0.1f);
+        _manaRegenSpeed = 2.5f + (_intelligence * 0.1f);
     }
 
     public void SetArmor(float pArmor)
@@ -186,13 +188,15 @@ public class PlayerController : MonoBehaviour
     public void SetStrength(float pStrength)
     {
         _strength = pStrength;
-        _healthRegenSpeed = 1 + (_strength * 0.1f);
+        _healthRegenSpeed = 2.5f + (_strength * 0.1f);
+        _physicalDamage = 10 + (_strength * 0.75f);
     }
 
     public void SetIntelligence(float pIntelligence)
     {
         _intelligence = pIntelligence;
-        _manaRegenSpeed = 1 + (_intelligence * 0.1f);
+        _manaRegenSpeed = 2.5f + (_intelligence * 0.1f);
+        _spellDamage = 50 + (_intelligence * 0.5f);
     }
 
     public static void SetAnimationState(AnimationState animationState)

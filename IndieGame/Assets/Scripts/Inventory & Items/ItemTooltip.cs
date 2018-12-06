@@ -82,8 +82,8 @@ public class ItemTooltip : MonoBehaviour
         _negative.Length = 0;
         _positive.Length = 0;
 
-        AddStat(pItem.HealthRecovery, "Health recovery", true);
-        AddStat(pItem.ManaRecovery, "Mana recovery", true);
+        AddStat(pItem.HealthRecovery, "Heals for\n% of Max Health\nover 10 seconds", true);
+        AddStat(pItem.ManaRecovery, "Recovers\n% of Max Mana\nover 10 seconds", true);
 
         _stats.text = _stringBuilder.ToString();
         _positiveStat.text = _positive.ToString();

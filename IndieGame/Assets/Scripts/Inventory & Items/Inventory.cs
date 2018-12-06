@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private List<Item> _startingItems;
 
+    private List<ItemSlot> _listOfConsumablesInInventory = new List<ItemSlot>();
+
     private Transform _itemsParent;
     private ItemSlot[] _itemSlots;
 
@@ -44,7 +46,14 @@ public class Inventory : MonoBehaviour
             if (_itemSlots[i].Item == null || (c != null && c.ID == pItem.ID && _itemSlots[i].Amount < c.MaxStacks))
             {
                 _itemSlots[i].Item = pItem;
-                _itemSlots[i].Amount++;
+                if (_itemSlots[i].Item is Equippable)
+                    _itemSlots[i].Amount = 1;
+                else
+                    _itemSlots[i].Amount++;
+
+                if (_itemSlots[i].Item is Consumable && (c == null || _itemSlots[i].Amount >= c.MaxStacks))
+                    _listOfConsumablesInInventory.Add(_itemSlots[i]);
+
                 return true;
             }
         }
@@ -58,9 +67,18 @@ public class Inventory : MonoBehaviour
         {
             if (_itemSlots[i].Item == pItem)
             {
-                _itemSlots[i].Amount--;
+                if (_itemSlots[i].Item is Equippable)
+                    _itemSlots[i].Amount = 0;
+                else
+                    _itemSlots[i].Amount--;
+
                 if (_itemSlots[i].Amount == 0)
+                {
+                    if (_itemSlots[i].Item is Consumable && _listOfConsumablesInInventory.Contains(_itemSlots[i]))
+                        _listOfConsumablesInInventory.Remove(_itemSlots[i]);
+
                     _itemSlots[i].Item = null;
+                }
                 return true;
             }
         }
@@ -96,6 +114,7 @@ public class Inventory : MonoBehaviour
                 {
                     Consumable c = _startingItems[i] as Consumable;
                     _itemSlots[i].Amount = c.StartCount;
+                    _listOfConsumablesInInventory.Add(_itemSlots[i]);
                 }
             }
         }
@@ -105,5 +124,11 @@ public class Inventory : MonoBehaviour
             _itemSlots[i].Item = null;
             _itemSlots[i].Amount = 0;
         }
+    }
+
+    public List<ItemSlot> ConsumablesInInventory
+    {
+        get { return _listOfConsumablesInInventory; }
+        set { _listOfConsumablesInInventory = value; }
     }
 }

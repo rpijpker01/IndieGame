@@ -852,6 +852,7 @@ GameObject:
   - component: {fileID: 114923071244176856}
   - component: {fileID: 195633922746524048}
   - component: {fileID: 114033881119828840}
+  - component: {fileID: 114672102026177970}
   m_Layer: 8
   m_Name: FinalRangedEnemy
   m_TagString: Enemy
@@ -2542,7 +2543,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551392744491942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -891.58386, y: 0, z: -77.36101}
+  m_LocalPosition: {x: -972.7797, y: 7.23458, z: -19.383276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4354952738394334}
@@ -2704,8 +2705,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!95 &95940249669692852
 Animator:
   serializedVersion: 3
@@ -2759,6 +2760,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 68e2394306ab75c4c98d017f09f2e563, type: 3}
   - {fileID: 8300000, guid: 7c688f2d33bdff84aa13241fcbae6073, type: 3}
   - {fileID: 8300000, guid: ef4e6e4c93ca7c6479500277d1831d58, type: 3}
+--- !u!114 &114672102026177970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551392744491942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33197178726daa142bec17095de9931f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxDrops: 0
 --- !u!114 &114923071244176856
 MonoBehaviour:
   m_ObjectHideFlags: 1

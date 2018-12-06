@@ -119,7 +119,7 @@ public class Portal : MonoBehaviour
 
     private void TeleportPlayer()
     {
-        if (Input.GetMouseButtonDown(0) && (GameController.questProgress >= 1 || GoToHubPortal))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit raycastHit = new RaycastHit();
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
@@ -127,10 +127,30 @@ public class Portal : MonoBehaviour
             {
                 if (GoToHubPortal)
                 {
+                    if (OlChapBehaviour.GetQuestProgression() == 2 || OlChapBehaviour.GetQuestProgression() == 4)
+                    {
+                        OlChapBehaviour.ContinuePorgression();
+                        ObjectiveText.SetObjectiveText("- Go back to the old man");
+                    }
                     GameController.GoToHub();
                 }
                 else
                 {
+                    switch (OlChapBehaviour.GetQuestProgression())
+                    {
+                        case 2:
+                            ObjectiveText.SetObjectiveText("- Kill and enemy and find an item");
+                            break;
+                        case 4:
+                            ObjectiveText.SetObjectiveText("- Kill a radish");
+                            break;
+                        case 5:
+                            ObjectiveText.SetObjectiveText("- Find and loot a chest");
+                            break;
+                        case 6:
+                            ObjectiveText.SetObjectiveText("- Find keys (" + GameController.questProgress + "/5)");
+                            break;
+                    }
                     GameController.GoToLevel();
                 }
             }

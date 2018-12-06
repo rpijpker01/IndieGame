@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public enum ConsumableType
 {
@@ -11,24 +12,52 @@ public class Consumable : Item
 {
     [SerializeField] private int _startCount;
     [SerializeField] private float _effectivenessPercent;
+    [SerializeField] private float _duration;
 
     private ConsumableType _consumableType;
 
-    private float _potionCooldown;
-    private float _cooldownTimeLeft;
+    public static float potionCooldown;
+    public static float healthPotionCooldown;
+    public static float manaPotionCooldown;
     private float _healthRecovery;
     private float _manaRecovery;
     private int _maxStacks;
 
-    public void Use(InventoryManager pInv)
+    public bool Use()
     {
-        _cooldownTimeLeft = _potionCooldown;
+        potionCooldown = 30;
+
+        if (_consumableType == ConsumableType.HealthPotion)
+        {
+            if (healthPotionCooldown > 0)
+            {
+                GameController.errorMessage.AddMessage(string.Format("{0} is on cooldown", _name));
+                return false;
+            }
+            GameController.playerController.Heal(_healthRecovery, _duration);
+            healthPotionCooldown = potionCooldown;
+            return true;
+        }
+        else if (_consumableType == ConsumableType.ManaPotion)
+        {
+            if (manaPotionCooldown > 0)
+            {
+                GameController.errorMessage.AddMessage(string.Format("{0} is on cooldown", _name));
+                return false;
+            }
+            GameController.playerController.Drink(_manaRecovery, _duration);
+            manaPotionCooldown = potionCooldown;
+            return true;
+        }
+
+        return false;
     }
 
     public void SetEffectiveness()
     {
         _healthRecovery = 0;
         _manaRecovery = 0;
+        _maxStacks = 20;
 
         switch (_consumableType)
         {
@@ -42,7 +71,6 @@ public class Consumable : Item
         }
     }
 
-    public float PotionCooldown { get { return _potionCooldown; } set { _potionCooldown = value; } }
     public int MaxStacks { get { return _maxStacks; } }
     public ConsumableType ItemType { get { return _consumableType; } set { _consumableType = value; } }
     public int StartCount { get { return _startCount; } }

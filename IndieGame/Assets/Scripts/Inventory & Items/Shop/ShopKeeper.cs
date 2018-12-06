@@ -77,6 +77,12 @@ public class ShopKeeper : MonoBehaviour, IPointerClickHandler
         if (this.gameObject != go) return;
 
         SetAllWindowsActive();
+
+        if (OlChapBehaviour.GetQuestProgression() == 3)
+        {
+            OlChapBehaviour.ContinuePorgression();
+            ObjectiveText.SetObjectiveText("- Return to the old man");
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
