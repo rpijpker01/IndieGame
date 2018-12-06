@@ -99,6 +99,7 @@ public class ShopInventory : MonoBehaviour
             int rnd = UnityEngine.Random.Range(0, pList.Count);
 
             _itemSlots[i].Item = pList.ToArray()[rnd].GetCopy();
+            _itemSlots[i].Item.IsInShop = true;
             _itemSlots[i].Amount = 1;
 
             if (pList.ToArray()[rnd] is Consumable)

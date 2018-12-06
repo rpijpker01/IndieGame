@@ -283,37 +283,45 @@ public class InventoryManager : MonoBehaviour
 
             if (pDropItemSlot is EquipmentSlot)
             {
-                if (dropItem != null)
+                if (!(_draggedSlot is ShopItemSlot))
                 {
-                    dropItem.Unequip(this);
 
-                    if (esDrop.EquipmentType == EquipmentType.Gloves)
+                    if (dropItem != null)
                     {
-                        _equipmentPanel.EquipmentSlots[3].Item = null;
-                        _equipmentPanel.EquipmentSlots[3].Amount = 0;
+                        dropItem.Unequip(this);
 
-                    }
-                    else if (esDrop.EquipmentType == EquipmentType.Gloves1)
-                    {
-                        _equipmentPanel.EquipmentSlots[2].Item = null;
-                        _equipmentPanel.EquipmentSlots[2].Amount = 0;
-                    }
-                }
-                if (dragItem != null)
-                {
-                    dragItem.Equip(this);
-
-                    if (dragItem.ItemType == EquipmentType.Gloves)
                         if (esDrop.EquipmentType == EquipmentType.Gloves)
                         {
-                            _equipmentPanel.EquipmentSlots[3].Item = dragItem;
-                            _equipmentPanel.EquipmentSlots[3].Amount = 1;
+                            _equipmentPanel.EquipmentSlots[3].Item = null;
+                            _equipmentPanel.EquipmentSlots[3].Amount = 0;
+
                         }
                         else if (esDrop.EquipmentType == EquipmentType.Gloves1)
                         {
-                            _equipmentPanel.EquipmentSlots[2].Item = dragItem;
-                            _equipmentPanel.EquipmentSlots[2].Amount = 1;
+                            _equipmentPanel.EquipmentSlots[2].Item = null;
+                            _equipmentPanel.EquipmentSlots[2].Amount = 0;
                         }
+                    }
+                    if (dragItem != null)
+                    {
+                        dragItem.Equip(this);
+
+                        if (dragItem.ItemType == EquipmentType.Gloves)
+                            if (esDrop.EquipmentType == EquipmentType.Gloves)
+                            {
+                                _equipmentPanel.EquipmentSlots[3].Item = dragItem;
+                                _equipmentPanel.EquipmentSlots[3].Amount = 1;
+                            }
+                            else if (esDrop.EquipmentType == EquipmentType.Gloves1)
+                            {
+                                _equipmentPanel.EquipmentSlots[2].Item = dragItem;
+                                _equipmentPanel.EquipmentSlots[2].Amount = 1;
+                            }
+                    }
+                }
+                else
+                {
+                    GameController.errorMessage.AddMessage("Can't do that!");
                 }
             }
 
