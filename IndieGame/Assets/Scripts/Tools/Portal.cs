@@ -127,7 +127,7 @@ public class Portal : MonoBehaviour
             {
                 if (GoToHubPortal)
                 {
-                    if (OlChapBehaviour.GetQuestProgression() == 2 || OlChapBehaviour.GetQuestProgression() == 4 || OlChapBehaviour.GetQuestProgression() == 5 || OlChapBehaviour.GetQuestProgression() == 6)
+                    if (OlChapBehaviour.GetQuestProgression() == 2 || OlChapBehaviour.GetQuestProgression() == 4)
                     {
                         OlChapBehaviour.ContinuePorgression();
                         ObjectiveText.SetObjectiveText("- Go back to the old man");
@@ -148,7 +148,7 @@ public class Portal : MonoBehaviour
                             ObjectiveText.SetObjectiveText("- Find and loot a chest");
                             break;
                         case 6:
-                            ObjectiveText.SetObjectiveText("- Find keys (0/5)");
+                            ObjectiveText.SetObjectiveText("- Find keys (" + GameController.questProgress + "/5)");
                             break;
                     }
                     GameController.GoToLevel();

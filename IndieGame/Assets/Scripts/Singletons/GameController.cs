@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     public static float intelligence;
 
     public static bool mouseIsOnScreen;
+    public static bool gameHasStarted;
 
     private GameObject _gameObjectToCompare;
     private bool _mouseOverAnotherObject;
@@ -141,10 +142,10 @@ public class GameController : MonoBehaviour
 
         ManageInputEvents();
 
-        if (_screenSize.Contains(Input.mousePosition))
+        if (gameHasStarted && _screenSize.Contains(Input.mousePosition))
         {
             RaycastHit hit = new RaycastHit();
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 500, 9);
             ManageGameObjectOnMouse(hit.transform.gameObject);
         }
 
@@ -162,6 +163,8 @@ public class GameController : MonoBehaviour
 
     private void ManageInputEvents()
     {
+        if (!gameHasStarted) return;
+
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Q))
         {
             KeyCode lastKey = Input.GetKeyDown(KeyCode.E) ? KeyCode.E : KeyCode.Q;

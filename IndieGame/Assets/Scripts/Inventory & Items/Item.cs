@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
 public enum DropsFrom
 {
@@ -25,12 +24,6 @@ public class Item : ScriptableObject
     [SerializeField] DropsFrom _dropsFrom;
 
     private bool _isInShop;
-
-    private void Awake()
-    {
-        string path = AssetDatabase.GetAssetPath(this);
-        _id = AssetDatabase.AssetPathToGUID(path);
-    }
 
     public virtual Item GetCopy()
     {

@@ -15,7 +15,6 @@ public class CameraFollowPlayer : MonoBehaviour
     private float cameraSpeed;
 
     private bool _paused;
-
     private Transform _playerTransform;
     private Vector3 _vel = new Vector3();
 
@@ -27,6 +26,8 @@ public class CameraFollowPlayer : MonoBehaviour
     private float _defaultCameraSpeed;
 
     private float _intensity = 0.5f;
+
+    private Quaternion _targetRotation;
 
     public delegate void CameraShake(float intensity, int durationInMs);
     public static CameraShake cameraShake;
@@ -41,8 +42,8 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        _playerTransform = GameController.player.transform;
-        transform.position = _playerTransform.transform.position + _offset;
+        //_playerTransform = GameController.player.transform;
+        //transform.position = _playerTransform.transform.position + _offset;
 
         _defaultCameraSpeed = cameraSpeed;
     }
@@ -57,6 +58,8 @@ public class CameraFollowPlayer : MonoBehaviour
         if (_paused || _shaking || GameController.player == null) return;
 
         transform.position = Vector3.SmoothDamp(transform.position, new Vector3(_playerTransform.position.x, _playerTransform.position.y * ySmoothing, _playerTransform.position.z) + _offset, ref _vel, cameraSpeed);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, cameraSpeed);
     }
 
     private void ShakeCamera(float intensity, int durationInMs = 1500)
@@ -83,4 +86,7 @@ public class CameraFollowPlayer : MonoBehaviour
     }
 
     public bool Paused { get { return _paused; } set { _paused = value; } }
+    public Transform Target { get { return _playerTransform; } set { _playerTransform = value; } }
+    public Quaternion TargetRotation { get { return _targetRotation; } set { _targetRotation = value; } }
+    public Vector3 Offset { get { return _offset; } set { _offset = value; } }
 }

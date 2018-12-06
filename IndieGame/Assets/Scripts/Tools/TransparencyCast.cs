@@ -72,7 +72,7 @@ public class TransparencyCast : MonoBehaviour
 
     private void GetObstructingObjects()
     {
-        Ray ray = new Ray(this.transform.position, (GameController.player.transform.position - this.transform.position).normalized);
+        Ray ray = new Ray(this.transform.position - (transform.forward * 5), (GameController.player.transform.position - this.transform.position).normalized);
         RaycastHit[] raycasts = Physics.RaycastAll(ray, (this.transform.position - GameController.player.transform.position).magnitude);
         _lastObstructingTransforms.Clear();
         foreach (Transform _transform in _obstructingTransforms)
@@ -82,6 +82,10 @@ public class TransparencyCast : MonoBehaviour
         _obstructingTransforms.Clear();
         foreach (RaycastHit raycastHit in raycasts)
         {
+            foreach (Transform t in raycastHit.transform)
+            {
+                _obstructingTransforms.Add(t);
+            }
             _obstructingTransforms.Add(raycastHit.transform);
         }
 

@@ -107,7 +107,8 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        float dmgTaken = damage * (1 - (_damageResistance * 0.01f));
+        float dmgTaken = Mathf.RoundToInt(damage / _damageResistance);
+
         //Subtract damage from current health
         _currentHealth -= dmgTaken;
 
@@ -182,13 +183,16 @@ public class PlayerController : MonoBehaviour
     public void SetArmor(float pArmor)
     {
         _armor = pArmor;
-        _damageResistance = _armor * 0.1f;
+        _damageResistance = _armor * 0.05f;
+        if (_damageResistance > 5)
+            _damageResistance = 5;
     }
 
     public void SetStrength(float pStrength)
     {
         _strength = pStrength;
         _healthRegenSpeed = 2.5f + (_strength * 0.1f);
+        //Maybe tweak
         _physicalDamage = 10 + (_strength * 0.75f);
     }
 
@@ -196,6 +200,7 @@ public class PlayerController : MonoBehaviour
     {
         _intelligence = pIntelligence;
         _manaRegenSpeed = 2.5f + (_intelligence * 0.1f);
+        //Maybe tweak
         _spellDamage = 50 + (_intelligence * 0.5f);
     }
 

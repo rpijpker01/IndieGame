@@ -29,7 +29,7 @@ public class BasicAttackBehaviour : MonoBehaviour
             if (_collisionLayer.value == (_collisionLayer.value | (1 << other.gameObject.layer)))
             {
                 //Damage enemy
-                other.GetComponent<EnemyController>().TakeDamage(_damageValue, GameController.player.transform.position, 250, 3);
+                other.GetComponent<EnemyController>().TakeDamage(GameController.playerController.PhysicalDamage, GameController.player.transform.position, 250, 3);
 
                 //Make sure enemy isn't hit twice by adding it to the list
                 _hitEnemies.Add(other.gameObject);

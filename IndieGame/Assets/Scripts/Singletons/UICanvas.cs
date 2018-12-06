@@ -43,6 +43,7 @@ public class UICanvas : MonoBehaviour
     private void Awake()
     {
         GameController.uiCanvas = this;
+        uiCanvas = this;
 
         _healthBarTransform = _healthBar.GetComponent<RectTransform>();
         _healthValue = _healthText.GetComponent<Text>();
@@ -123,7 +124,10 @@ public class UICanvas : MonoBehaviour
 
         //Get the target scale for the bars
         _healthBarTargetScale = hp / maxHp;
-        _manaBarTargetScale = mana / maxMana;
+        if (maxMana != 0)
+            _manaBarTargetScale = mana / maxMana;
+        else
+            _manaBarTargetScale = 1;
 
         //Change bars' scale
         _healthBarTransform.localScale = new Vector3(Mathf.Clamp(Mathf.Lerp(_healthBarTransform.localScale.x, _healthBarTargetScale, Time.deltaTime * _barUpdateSpeed), 0, 1), 1, 1);

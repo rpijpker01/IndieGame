@@ -4,14 +4,52 @@ using UnityEngine;
 
 public class MenuNavigation : MonoBehaviour
 {
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private GameObject _controlsMenu;
+    [SerializeField] private GameObject _skillsAndConsumables;
+    [SerializeField] private Transform[] _cameraPoints;
+
+    private CameraFollowPlayer _camScript;
+
+    private Quaternion _originalCamTransform;
+    private Vector3 _originalCamOffset;
+
+    public void Start()
+    {
+        _camScript = GameController.camera.GetComponent<CameraFollowPlayer>();
+
+        _originalCamTransform = GameController.camera.transform.rotation;
+        _originalCamOffset = _camScript.Offset;
+
+        _camScript.Target = _cameraPoints[0];
+        _camScript.TargetRotation = _cameraPoints[0].rotation;
+
+        _camScript.Offset = Vector3.zero;
+
+        _skillsAndConsumables.SetActive(false);
+    }
+
     public void StartGame()
     {
-        //Start game here
+        _camScript.Target = GameController.player.transform;
+        _camScript.TargetRotation = _originalCamTransform;
+        _camScript.Offset = _originalCamOffset;
+
+        GameController.gameHasStarted = true;
+        GameController.player.GetComponent<PlayerMovement>().enabled = true;
+        GameController.player.GetComponent<PlayerAttacks>().enabled = true;
+
+        _mainMenu.SetActive(false);
+        _skillsAndConsumables.SetActive(true);
     }
 
     public void ControlsMenu()
     {
+        _camScript.Target = _cameraPoints[1];
+        _camScript.TargetRotation = _cameraPoints[1].rotation;
 
+        _mainMenu.SetActive(false);
+        _controlsMenu.SetActive(true);
     }
 
     public void ExitGame()
@@ -21,6 +59,10 @@ public class MenuNavigation : MonoBehaviour
 
     public void Back()
     {
-        //Go back to previous menu
+        _camScript.Target = _cameraPoints[0];
+        _camScript.TargetRotation = _cameraPoints[0].rotation;
+
+        _mainMenu.SetActive(true);
+        _controlsMenu.SetActive(false);
     }
 }

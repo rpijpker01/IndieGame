@@ -53,8 +53,11 @@ public class MainCanvas : MonoBehaviour
                     GameController.playerController.SetMana(GameController.maxMana);
                     GameController.playerController.died = false;
                     GameController.player.GetComponent<Collider>().enabled = true;
-                    GameController.player.GetComponent<PlayerMovement>().enabled = true;
-                    GameController.player.GetComponent<PlayerAttacks>().enabled = true;
+                    if (GameController.gameHasStarted)
+                    {
+                        GameController.player.GetComponent<PlayerMovement>().enabled = true;
+                        GameController.player.GetComponent<PlayerAttacks>().enabled = true;
+                    }
                 }
                 _blackgroundImage.color = new Color(_blackgroundImage.color.r, _blackgroundImage.color.g, _blackgroundImage.color.b, Mathf.Lerp(_blackgroundImage.color.a, 0, Time.deltaTime * _fadeSpeed));
                 break;
