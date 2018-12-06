@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class OlChapBehaviour : MonoBehaviour
     public static bool visitedMerchant = false;
     public static bool visitedBlacksmith = false;
 
-    private bool _killPlayer = false;
+    private DateTime _killPlayerTime = DateTime.MaxValue;
 
     // Use this for initialization
     void Start()
@@ -25,17 +26,17 @@ public class OlChapBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!_soundPlayer.GetAudioSources()[0].isPlaying || Input.GetKeyDown(KeyCode.Escape) || (GameController.player.transform.position - transform.position).magnitude > 4.9999f)
+        if (!_soundPlayer.GetAudioSources()[0].isPlaying || Input.GetKeyDown(KeyCode.Escape) || ((GameController.player.transform.position - transform.position).magnitude > 4.9999f && _playerObjective <= 7))
         {
             if (GameController.uiCanvas != null)
             {
                 GameController.uiCanvas.CloseDialogBox();
                 GetComponent<AudioSource>().Stop();
 
-                if (_playerObjective >= 7 && _killPlayer && !_soundPlayer.GetAudioSources()[0].isPlaying)
+                if (_playerObjective >= 7 && DateTime.Now > _killPlayerTime && !_soundPlayer.GetAudioSources()[0].isPlaying)
                 {
                     GameController.player.GetComponent<SoundPlayer>().PlayAudioClip(9);
-                    _killPlayer = false;
+                    _killPlayerTime = DateTime.MaxValue;
 
                     //Show credits or whatever
                 }
@@ -64,7 +65,7 @@ public class OlChapBehaviour : MonoBehaviour
         _soundPlayer.PlayAudioClip(_playerObjective - 1);
         if (_playerObjective > 7)
         {
-            _killPlayer = true;
+            _killPlayerTime = DateTime.Now.AddSeconds(3);
         }
 
         switch (_playerObjective)
