@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4512360470932242}
   - component: {fileID: 20690960443584792}
   - component: {fileID: 124710375086734726}
-  - component: {fileID: 81637904193332886}
   - component: {fileID: 114425533320467664}
+  - component: {fileID: 114315850164771812}
+  - component: {fileID: 114396519599259598}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -36,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1699307516077436}
-  m_LocalRotation: {x: 0.379831, y: 0.11259254, z: -0.046637353, w: 0.91699314}
-  m_LocalPosition: {x: 140.7, y: 9.61, z: -121.98}
+  m_LocalRotation: {x: -0.046636205, y: 0.9169934, z: -0.37983128, w: -0.11258989}
+  m_LocalPosition: {x: -900.25, y: 9.61, z: -59.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45.000004, y: 14, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.000004, y: 193.99998, z: 0}
 --- !u!20 &20690960443584792
 Camera:
   m_ObjectHideFlags: 1
@@ -79,13 +80,31 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81637904193332886
-AudioListener:
+--- !u!114 &114315850164771812
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1699307516077436}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: f8074a59113f05e48a78d5ea8edfba4f, type: 2}
+--- !u!114 &114396519599259598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dd01ad1dea76342b1b306433063d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transparentShader: {fileID: 4800000, guid: 77d9b8aa8225b0f4490143343e0fa11d, type: 3}
+  _fadeSpeed: 3
 --- !u!114 &114425533320467664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,10 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bab3d7f4c22d940b7cf705e0d9704c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: -1.5, y: 8, z: -6.25}
+  _offset: {x: 1.5, y: 8, z: 6.25}
   ySmoothing: 1
   cameraSpeed: 0.15
-  _shakeMagnitude: 1
+  _shakeMagnitude: 0.3
 --- !u!124 &124710375086734726
 Behaviour:
   m_ObjectHideFlags: 1

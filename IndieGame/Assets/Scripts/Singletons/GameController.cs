@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 
 public class GameController : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class GameController : MonoBehaviour
     private DateTime _fadeTime;
     [SerializeField]
     private GameObject _playerHubSpawnPosition;
+
+    [Header("Post-processing")]
+    [SerializeField]
+    private PostProcessingProfile _townPostProcessing;
+    [SerializeField]
+    private PostProcessingProfile _forestPostProcessing;
 
     //Quest stuff
     public static int questProgress = 0;
@@ -251,6 +258,8 @@ public class GameController : MonoBehaviour
             PlayerMovement.InvertControls();
             gameController.GetComponents<AudioSource>()[1].Stop();
 
+            camera.GetComponent<PostProcessingBehaviour>().profile = _forestPostProcessing;
+
             _loadingLevel = false;
         }
     }
@@ -264,6 +273,9 @@ public class GameController : MonoBehaviour
             PlayerMovement.InvertControls();
             gameController.GetComponents<AudioSource>()[0].Stop();
             player.GetComponent<PlayerMovement>().rotation = new Vector3(0, 0, 0);
+
+            camera.GetComponent<PostProcessingBehaviour>().profile = _townPostProcessing;
+
             _loadingHub = false;
         }
     }
