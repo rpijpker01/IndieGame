@@ -58,6 +58,7 @@ public class Consumable : Item
         _healthRecovery = 0;
         _manaRecovery = 0;
         _maxStacks = 20;
+        _itemValue = 10;
 
         switch (_consumableType)
         {

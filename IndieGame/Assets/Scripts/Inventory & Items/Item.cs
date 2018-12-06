@@ -17,7 +17,8 @@ public class Item : ScriptableObject
     [SerializeField] protected GameObject _prefabWhenDropped;
     [Space]
     [Tooltip("Items in the shop are 25% more expensive")]
-    [SerializeField] protected int _itemValue;
+    [SerializeField] protected Vector2Int _priceRange;
+    protected int _itemValue;
     [Space]
     [Range(0, 100)]
     [SerializeField] protected float _dropChancePercent;

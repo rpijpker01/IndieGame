@@ -76,15 +76,13 @@ public class EquipmentPanel : MonoBehaviour
                 {
                     if (pItem.ItemType == EquipmentType.Gloves)
                     {
-                        _equipmentSlots[i + 1].Amount--;
-                        if (_equipmentSlots[i + 1].Amount == 0)
-                            _equipmentSlots[i + 1].Item = null;
+                        _equipmentSlots[i + 1].Amount = 0;
+                        _equipmentSlots[i + 1].Item = null;
                     }
                     else if (pItem.ItemType == EquipmentType.Gloves1)
                     {
-                        _equipmentSlots[i - 1].Amount--;
-                        if (_equipmentSlots[i - 1].Amount == 0)
-                            _equipmentSlots[i - 1].Item = null;
+                        _equipmentSlots[i - 1].Amount = 0;
+                        _equipmentSlots[i - 1].Item = null;
                     }
 
                     _equipmentSlots[i].Item = null;

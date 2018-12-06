@@ -9,24 +9,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 037b6b7d98459004ea845ef5f1554da9, type: 3}
-  m_Name: Boots003
+  m_Name: BootsSetA001
   m_EditorClassIdentifier: 
   _id: 50898015cf58f0147b17f4d4f353c35f
-  _name: ya sis' boots, mate
-  _iconInInventory: {fileID: 21300000, guid: 5214b95162d952b4899e69aa3cb8c004, type: 3}
+  _name: Sissy Booties
+  _iconInInventory: {fileID: 21300000, guid: f75b63f97ed3cb7439c92b87c5f062f4, type: 3}
   _iconWhenEquipped: {fileID: 21300000, guid: 84703b1404cc5f44dba8ea950106ad38, type: 3}
   _prefabWhenDropped: {fileID: 1242081023667688, guid: 0ed09c3966c2d354a8487d25307ed933,
     type: 2}
-  _itemValue: 10
-  _dropChancePercent: 100
+  _priceRange: {x: 20, y: 150}
+  _dropChancePercent: 30
   _dropsFrom: 2
-  _healthValue: {x: -100, y: 100}
-  _manaValue: {x: -100, y: 100}
-  _armorValue: {x: -100, y: 100}
-  _strengthValue: {x: -100, y: 100}
-  _intelligenceValue: {x: -100, y: 100}
+  _healthValue: {x: 0, y: 0}
+  _manaValue: {x: 10, y: 10}
+  _armorValue: {x: 10, y: 20}
+  _strengthValue: {x: -5, y: 0}
+  _intelligenceValue: {x: 5, y: 15}
   _healthValuePercent: {x: 0, y: 0}
-  _manaValuePercent: {x: 0, y: 0}
+  _manaValuePercent: {x: 10, y: 10}
   _armorValuePercent: {x: 0, y: 0}
   _strengthValuePercent: {x: 0, y: 0}
-  _intelligenceValuePercent: {x: 0, y: 0}
+  _intelligenceValuePercent: {x: 0, y: 10}

@@ -69,6 +69,8 @@ public class Equippable : Item
 
         _intelligence = (int)Random.Range(_intelligenceValue.x, _intelligenceValue.y);
         _intelligencePercent = (int)Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
+
+        _itemValue = Random.Range(_priceRange.x, _priceRange.y);
     }
 
     public override Item GetCopy()

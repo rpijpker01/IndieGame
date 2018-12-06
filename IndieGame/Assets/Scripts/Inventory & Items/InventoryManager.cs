@@ -403,7 +403,7 @@ public class InventoryManager : MonoBehaviour
         if (_inventory.RemoveItem(pItem))
         {
             GameObject go = Instantiate(_lootDropPrefab, GameController.player.transform.position + GameController.player.transform.forward, Quaternion.identity);
-            go.GetComponentInChildren<ItemDrop>().Init(pItem, GameController.player.transform, false);
+            go.GetComponentInChildren<ItemDrop>().Init(pItem, GameController.player.transform, false, false);
         }
     }
 

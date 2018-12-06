@@ -15,7 +15,7 @@ public class ItemDrop : MonoBehaviour
     private Inventory _playerInventory;
     private Animation _itemFlipAnimation;
 
-    public void Init(Item pItem, Transform pPos, bool pAddForce = true)
+    public void Init(Item pItem, Transform pPos, bool pGetCopy = true, bool pAddForce = true)
     {
         _playerTransform = GameController.player.GetComponent<Transform>();
         _itemTooltip = GameObject.Find("InGameUICanvas").transform.GetChild(4).GetComponent<ItemTooltip>();
@@ -26,7 +26,11 @@ public class ItemDrop : MonoBehaviour
 
         //Ignore collision with player
         GameObject itemGo = Instantiate(pItem.PrefabWhenDropped, this.transform);
-        _item = pItem;
+        if (pGetCopy)
+            _item = pItem.GetCopy();
+        else
+            _item = pItem;
+
         itemGo.transform.tag = "LootDrop";
         itemGo.layer = 10;
         GetComponent<HighlightGameobject>().enabled = false;
