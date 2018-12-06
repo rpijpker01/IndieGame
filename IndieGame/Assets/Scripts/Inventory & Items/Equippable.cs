@@ -71,6 +71,31 @@ public class Equippable : Item
         _intelligencePercent = (int)Random.Range(_intelligenceValuePercent.x, _intelligenceValuePercent.y);
 
         _itemValue = Random.Range(_priceRange.x, _priceRange.y);
+
+        switch (this.name.ToLower().ToCharArray()[0])
+        {
+            case 'h':
+                _equipmentType = EquipmentType.Helm;
+                break;
+            case 'c':
+                _equipmentType = EquipmentType.Chest;
+                break;
+            case 'g':
+                _equipmentType = EquipmentType.Gloves;
+                break;
+            case 'p':
+                _equipmentType = EquipmentType.Pants;
+                break;
+            case 'b':
+                _equipmentType = EquipmentType.Boots;
+                break;
+            case 'w':
+                _equipmentType = EquipmentType.Weapon;
+                break;
+            case 'o':
+                _equipmentType = EquipmentType.OffHand;
+                break;
+        }
     }
 
     public override Item GetCopy()

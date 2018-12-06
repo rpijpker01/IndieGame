@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4988472154152714}
   - component: {fileID: 114966841629841104}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WolfHowl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4966885929915458}
   - component: {fileID: 65127564092528780}
   - component: {fileID: 114671472402615702}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Crickets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4025160335831868}
   - component: {fileID: 114675105956498346}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Chicken2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4543049539943596}
   - component: {fileID: 114998654222292546}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Chicken1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4243300734671220}
   - component: {fileID: 65739229765988954}
   - component: {fileID: 114580364307214568}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CalmWind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4975801960184114}
   - component: {fileID: 65427382007056276}
   - component: {fileID: 114465631464329882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LoudWind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4386398696018152}
   - component: {fileID: 114034204771248818}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WolfHowl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4152378187735066}
   - component: {fileID: 114022564880955678}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Owls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,9 +519,9 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   Params: []
-  OverrideAttenuation: 1
-  OverrideMinDistance: 60
-  OverrideMaxDistance: 80
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!114 &114671472402615702
 MonoBehaviour:
   m_ObjectHideFlags: 1

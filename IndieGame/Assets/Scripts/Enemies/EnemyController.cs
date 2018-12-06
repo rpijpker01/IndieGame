@@ -65,6 +65,8 @@ public class EnemyController : MonoBehaviour
         _soundPlayer = GetComponent<SoundPlayer>();
         _animator = GetComponent<Animator>();
         _health = _startingHealth;
+        _meleeDamage = 20;
+        _rangedDamage = 25;
 
         if (GetComponent<Animation>() != null)
         {
