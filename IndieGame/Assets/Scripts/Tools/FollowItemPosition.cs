@@ -14,7 +14,14 @@ public class FollowItemPosition : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Camera.main.WorldToScreenPoint(_item.transform.position) + Vector3.up * 50;
+        if (_item != null)
+        {
+            transform.position = Camera.main.WorldToScreenPoint(_item.transform.position) + Vector3.up * 50;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void Init()

@@ -42,7 +42,13 @@ public class QuestItemBehaviour : MonoBehaviour
                 OlChapBehaviour.ContinuePorgression();
                 ObjectiveText.SetObjectiveText("- Go back to the old man");
             }
-            Destroy(this.gameObject);
+            else
+            {
+                ObjectiveText.SetObjectiveText("- Find keys (" + GameController.questProgress + "/5)");
+            }
+            GetComponent<Collider>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<AudioSource>().Play();
         }
     }
 }

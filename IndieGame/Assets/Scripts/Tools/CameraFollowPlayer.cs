@@ -57,7 +57,8 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         if (_paused || _shaking || GameController.player == null) return;
 
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(_playerTransform.position.x, _playerTransform.position.y * ySmoothing, _playerTransform.position.z) + _offset, ref _vel, cameraSpeed);
+        if (_playerTransform != null)
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(_playerTransform.position.x, _playerTransform.position.y * ySmoothing, _playerTransform.position.z) + _offset, ref _vel, cameraSpeed);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, cameraSpeed);
     }

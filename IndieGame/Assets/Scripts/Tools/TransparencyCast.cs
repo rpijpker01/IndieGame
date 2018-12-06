@@ -42,7 +42,7 @@ public class TransparencyCast : MonoBehaviour
             {
                 if (_obstructingTransforms[i] != null)
                 {
-                    if (_obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 2.5f)
+                    if (_obstructingTransforms[i].GetComponent<Renderer>() != null && _obstructingTransforms[i].GetComponent<Renderer>().material.shader.name != _transparentShader.name && _obstructingTransforms[i].GetComponent<Renderer>().bounds.size.y > 2.5f)
                     {
                         Material[] materials = _obstructingTransforms[i].GetComponent<Renderer>().materials;
                         foreach (Material material in materials)

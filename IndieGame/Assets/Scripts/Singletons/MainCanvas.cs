@@ -75,6 +75,14 @@ public class MainCanvas : MonoBehaviour
     public void FadeOutBlack()
     {
         _fadeState = FadeState.FadingOut;
+        if (GameController.player.transform.position.x < -600)
+        {
+            GameController.gameController.GetComponents<AudioSource>()[1].Play();
+        }
+        else
+        {
+            GameController.gameController.GetComponents<AudioSource>()[0].Play();
+        }
     }
 
     public float GetBlackgroundAlpha()

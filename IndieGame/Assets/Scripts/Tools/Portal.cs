@@ -101,25 +101,12 @@ public class Portal : MonoBehaviour
                 }
             }
         }
-
-        //temp keybind;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (GoToHubPortal)
-            {
-                GameController.GoToHub();
-            }
-            else
-            {
-                GameController.GoToLevel();
-            }
-        }
     }
 
 
     private void TeleportPlayer()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && OlChapBehaviour.GetQuestProgression() > 1)
         {
             RaycastHit raycastHit = new RaycastHit();
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit);
@@ -127,11 +114,6 @@ public class Portal : MonoBehaviour
             {
                 if (GoToHubPortal)
                 {
-                    if (OlChapBehaviour.GetQuestProgression() == 2 || OlChapBehaviour.GetQuestProgression() == 4)
-                    {
-                        OlChapBehaviour.ContinuePorgression();
-                        ObjectiveText.SetObjectiveText("- Go back to the old man");
-                    }
                     GameController.GoToHub();
                 }
                 else

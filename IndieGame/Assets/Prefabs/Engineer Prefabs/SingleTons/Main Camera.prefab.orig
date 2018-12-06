@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1699307516077436}
+  m_IsPrefabParent: 1
+--- !u!1 &1699307516077436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4512360470932242}
+  - component: {fileID: 20690960443584792}
+  - component: {fileID: 124710375086734726}
+  - component: {fileID: 114425533320467664}
+<<<<<<< HEAD
+  - component: {fileID: 114478110103698282}
+=======
+  - component: {fileID: 114315850164771812}
+  - component: {fileID: 114396519599259598}
+>>>>>>> a74839125655f5f299695bfd5ccc584ae6187753
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4512360470932242
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_LocalRotation: {x: -0.046636205, y: 0.9169934, z: -0.37983128, w: -0.11258989}
+  m_LocalPosition: {x: -900.25, y: 9.61, z: -59.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 45.000004, y: 193.99998, z: 0}
+--- !u!20 &20690960443584792
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+<<<<<<< HEAD
+--- !u!114 &114425533320467664
+=======
+--- !u!114 &114315850164771812
+>>>>>>> a74839125655f5f299695bfd5ccc584ae6187753
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+<<<<<<< HEAD
+  m_Script: {fileID: 11500000, guid: 84bab3d7f4c22d940b7cf705e0d9704c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 1.5, y: 8, z: 6.25}
+  ySmoothing: 1
+  cameraSpeed: 0.15
+  _shakeMagnitude: 0.3
+--- !u!114 &114478110103698282
+=======
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: f8074a59113f05e48a78d5ea8edfba4f, type: 2}
+--- !u!114 &114396519599259598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dd01ad1dea76342b1b306433063d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transparentShader: {fileID: 4800000, guid: 77d9b8aa8225b0f4490143343e0fa11d, type: 3}
+  _fadeSpeed: 3
+--- !u!114 &114425533320467664
+>>>>>>> a74839125655f5f299695bfd5ccc584ae6187753
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dd01ad1dea76342b1b306433063d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  _transparentShader: {fileID: 4800000, guid: 77d9b8aa8225b0f4490143343e0fa11d, type: 3}
+  _fadeSpeed: 3
+=======
+  _offset: {x: 1.5, y: 8, z: 6.25}
+  ySmoothing: 1
+  cameraSpeed: 0.15
+  _shakeMagnitude: 0.3
+>>>>>>> a74839125655f5f299695bfd5ccc584ae6187753
+--- !u!124 &124710375086734726
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699307516077436}
+  m_Enabled: 1

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 
 public class GameController : MonoBehaviour
 {
@@ -51,6 +52,12 @@ public class GameController : MonoBehaviour
     private DateTime _fadeTime;
     [SerializeField]
     private GameObject _playerHubSpawnPosition;
+
+    [Header("Post-processing")]
+    [SerializeField]
+    private PostProcessingProfile _townPostProcessing;
+    [SerializeField]
+    private PostProcessingProfile _forestPostProcessing;
 
     //Quest stuff
     public static int questProgress = 0;
@@ -131,6 +138,13 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //temp keybind;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            levelGenerator.DestroyOldLevel();
+            GoToLevel();
+        }
+
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             mainCanvas.FadeToBlack();
@@ -145,8 +159,10 @@ public class GameController : MonoBehaviour
         if (gameHasStarted && _screenSize.Contains(Input.mousePosition))
         {
             RaycastHit hit = new RaycastHit();
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 500, 9);
-            ManageGameObjectOnMouse(hit.transform.gameObject);
+            int mask = (1 << 9);
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 500, ~mask);
+            if (hit.transform != null)
+                ManageGameObjectOnMouse(hit.transform.gameObject);
         }
 
         //Fade out the blackground when neccesary
@@ -243,6 +259,10 @@ public class GameController : MonoBehaviour
             BakeNavMesh();
             CameraFollowPlayer.InvertCamera();
             PlayerMovement.InvertControls();
+            gameController.GetComponents<AudioSource>()[1].Stop();
+
+            camera.GetComponent<PostProcessingBehaviour>().profile = _forestPostProcessing;
+
             _loadingLevel = false;
         }
     }
@@ -254,7 +274,11 @@ public class GameController : MonoBehaviour
             TeleportPlayerToHub();
             CameraFollowPlayer.InvertCamera();
             PlayerMovement.InvertControls();
+            gameController.GetComponents<AudioSource>()[0].Stop();
             player.GetComponent<PlayerMovement>().rotation = new Vector3(0, 0, 0);
+
+            camera.GetComponent<PostProcessingBehaviour>().profile = _townPostProcessing;
+
             _loadingHub = false;
         }
     }
@@ -295,6 +319,7 @@ public class GameController : MonoBehaviour
     {
         if (!gameController.isTransitioning)
         {
+            levelGenerator.DestroyOldLevel();
             gameController.isTransitioning = true;
             gameController._loadingHub = true;
             mainCanvas.FadeToBlack();

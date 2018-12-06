@@ -14,6 +14,11 @@ public class LootableChest : MonoBehaviour
         GameController.OnMouseLeftClickGameObject += OpenChest;
     }
 
+    private void OnDestroy()
+    {
+        GameController.OnMouseLeftClickGameObject -= OpenChest;
+    }
+
     private void OpenChest(GameObject go)
     {
         if (this.gameObject != go) return;

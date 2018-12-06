@@ -243,6 +243,11 @@ public class EnemyController : MonoBehaviour
         if (!_animator.GetBool("isDying"))
         {
             //Play death animation here lmao
+            if (!_isMeleeEnemy && OlChapBehaviour.GetQuestProgression() == 4)
+            {
+                OlChapBehaviour.ContinuePorgression();
+                ObjectiveText.SetObjectiveText("- Go back to the old man");
+            }
             SetAnimationState(AnimationState.Dying);
             GetComponent<Collider>().enabled = false;
             GetComponent<DropLoot>().DropItems(this.transform);
