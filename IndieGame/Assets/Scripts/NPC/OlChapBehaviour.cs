@@ -63,7 +63,7 @@ public class OlChapBehaviour : MonoBehaviour
     public void DisplayQuestObjective()
     {
         _soundPlayer.PlayAudioClip(_playerObjective - 1);
-        if (_playerObjective >= 7)
+        if (_playerObjective > 7)
         {
             _killPlayer = true;
         }
@@ -100,6 +100,7 @@ public class OlChapBehaviour : MonoBehaviour
                 break;
             case 8:
                 GameController.uiCanvas.OpenDialogBox("Hehehe Well well well, you didn’t think I could keep someone as powerful as you in my town now would you? To tell you the truth young one, the other foresters never went missing, they all died by my hand! And your body will be a great addition to the collection hehehe. Now be a good lad young one & don’t make this difficult.");
+                GameController.gameController.GetComponents<AudioSource>()[1].Stop();
                 break;
             default:
                 GameController.uiCanvas.OpenDialogBox("Insert hardcoded string here :-)");

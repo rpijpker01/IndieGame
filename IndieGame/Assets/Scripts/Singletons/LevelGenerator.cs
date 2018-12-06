@@ -123,12 +123,21 @@ public class LevelGenerator : MonoBehaviour
 
     private void StartGeneratingLevel(int width, int height)
     {
+        //for (int i = _spawnedPathPieces.Count - 1; i >= 0; i--)
+        //{
+        //    Destroy(_spawnedPathPieces[i]);
+        //    _spawnedPathPieces.RemoveAt(i);
+        //}
+        GenerateDungeonLevel(width, width);
+    }
+
+    public void DestroyOldLevel()
+    {
         for (int i = _spawnedPathPieces.Count - 1; i >= 0; i--)
         {
             Destroy(_spawnedPathPieces[i]);
             _spawnedPathPieces.RemoveAt(i);
         }
-        GenerateDungeonLevel(width, width);
     }
 
     private void GenerateQuestItems()

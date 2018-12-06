@@ -27,6 +27,7 @@ public class WarehouseDoor : MonoBehaviour
                 OlChapBehaviour.ContinuePorgression();
                 GameObject.Find("villageElder").GetComponent<OlChapBehaviour>().DisplayQuestObjective();
                 GameObject.Find("villageElder").GetComponent<AudioSource>().spatialBlend = 0;
+                GetComponent<AudioSource>().Play();
             }
         }
     }

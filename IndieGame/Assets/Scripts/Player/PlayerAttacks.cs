@@ -91,7 +91,7 @@ public class PlayerAttacks : MonoBehaviour
 
     public void SpawnBasicAttackCollisionBox()
     {
-        _collisionBox = Instantiate(_attackCollisionBox, transform.position + transform.forward * _collider.bounds.size.z * 2 + transform.up * _collider.bounds.extents.y, transform.rotation, transform.parent);
+        _collisionBox = Instantiate(_attackCollisionBox, transform.position + transform.forward * _collider.bounds.size.z * 1.25f + transform.up * _collider.bounds.extents.y, transform.rotation, transform.parent);
         _collisionBox.GetComponent<BasicAttackBehaviour>().damageValue = _attackDamage;
     }
 

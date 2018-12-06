@@ -60,6 +60,13 @@ public class ItemDrop : MonoBehaviour
             Item itemCopy = _item;
             _playerInventory.AddItem(itemCopy);
             GameController.errorMessage.AddMessage(string.Format("Picked up {0}", itemCopy.Name, Color.white));
+
+            if (OlChapBehaviour.GetQuestProgression() == 2)
+            {
+                OlChapBehaviour.ContinuePorgression();
+                ObjectiveText.SetObjectiveText("- Go back to the old man");
+            }
+
             Destroy(this.gameObject);
             Destroy(_textScript.gameObject);
         }

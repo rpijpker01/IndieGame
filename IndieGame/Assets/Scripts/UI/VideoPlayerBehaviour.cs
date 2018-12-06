@@ -36,6 +36,7 @@ public class VideoPlayerBehaviour : MonoBehaviour
             }
             GameController.mainCanvas.transform.GetChild(0).gameObject.SetActive(true);
             GameController.mainCanvas.FadeOutBlack();
+            GameController.gameController.GetComponents<AudioSource>()[1].Play();
             Destroy(this.gameObject);
         }
     }
