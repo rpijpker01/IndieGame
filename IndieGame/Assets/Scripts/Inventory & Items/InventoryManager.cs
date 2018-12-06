@@ -109,27 +109,42 @@ public class InventoryManager : MonoBehaviour
 
     private void UseConsumable(KeyCode pKey)
     {
-        foreach (ItemSlot itemSlot in _inventory.ConsumablesInInventory)
+        int pots = 0;
+        for (int i = 0; i < _inventory.SlotsInInventory.Length; i++)
         {
-            Consumable c = itemSlot.Item as Consumable;
+            if (_inventory.SlotsInInventory[i].Item is Equippable) continue;
 
-            if (pKey == KeyCode.E && c.ItemType == ConsumableType.ManaPotion)
+            Consumable c = _inventory.SlotsInInventory[i].Item as Consumable;
+            if (pKey == KeyCode.E && c != null)
             {
-                if (c.Use())
+                if (c.ItemType == ConsumableType.ManaPotion)
                 {
-                    _inventory.RemoveItem(c);
-                    return;
+                    pots++;
+                    if (c.Use())
+                    {
+                        _inventory.RemoveItem(c);
+                        return;
+                    }
                 }
             }
-            else if (pKey == KeyCode.Q && c.ItemType == ConsumableType.HealthPotion)
+            else if (pKey == KeyCode.Q && c != null)
             {
-                if (c.Use())
+                if (c.ItemType == ConsumableType.HealthPotion)
                 {
-                    _inventory.RemoveItem(c);
-                    return;
+                    pots++;
+                    if (c.Use())
+                    {
+                        _inventory.RemoveItem(c);
+                        return;
+                    }
                 }
             }
         }
+
+        if (pKey == KeyCode.E && pots == 0)
+            GameController.errorMessage.AddMessage("No Mana Potions in inventory");
+        else if (pKey == KeyCode.Q && pots == 0)
+            GameController.errorMessage.AddMessage("No Health Potions in inventory");
     }
 
     private bool DragToSell(ItemSlot pItemSlot)
@@ -510,14 +525,9 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                //Give player coins for selling the item
-                Equippable e = pItem as Equippable;
-                if (e != null)
-                {
-                    _playerCoins.AddCoins(e.Value);
-                    e.IsInShop = true;
-                    GameController.errorMessage.AddMessage(e.Name + " has been sold!", Color.green);
-                }
+                _playerCoins.AddCoins(pItem.Value);
+                pItem.IsInShop = true;
+                GameController.errorMessage.AddMessage(pItem.Name + " has been sold!", Color.green);
             }
         }
     }

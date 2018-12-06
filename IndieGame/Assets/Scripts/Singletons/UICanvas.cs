@@ -100,15 +100,15 @@ public class UICanvas : MonoBehaviour
         int hpAmount = 0;
         int manaAmount = 0;
 
-        foreach (ItemSlot itemSlot in _playerInventory.ConsumablesInInventory)
+        for (int i = 0; i < _playerInventory.SlotsInInventory.Length; i++)
         {
-            Consumable c = itemSlot.Item as Consumable;
+            Consumable c = _playerInventory.SlotsInInventory[i].Item as Consumable;
             if (c == null) continue;
 
             if (c.ItemType == ConsumableType.HealthPotion)
-                hpAmount += itemSlot.Amount;
+                hpAmount += _playerInventory.SlotsInInventory[i].Amount;
             else if (c.ItemType == ConsumableType.ManaPotion)
-                manaAmount += itemSlot.Amount;
+                manaAmount += _playerInventory.SlotsInInventory[i].Amount;
         }
 
         _hpStacks.text = hpAmount.ToString();

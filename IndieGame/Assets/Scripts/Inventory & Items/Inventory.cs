@@ -52,7 +52,10 @@ public class Inventory : MonoBehaviour
                     _itemSlots[i].Amount++;
 
                 if (_itemSlots[i].Item is Consumable && (c == null || _itemSlots[i].Amount >= c.MaxStacks))
+                {
                     _listOfConsumablesInInventory.Add(_itemSlots[i]);
+                    print(_listOfConsumablesInInventory.Count);
+                }
 
                 return true;
             }
@@ -123,6 +126,14 @@ public class Inventory : MonoBehaviour
         {
             _itemSlots[i].Item = null;
             _itemSlots[i].Amount = 0;
+        }
+    }
+
+    public ItemSlot[] SlotsInInventory
+    {
+        get
+        {
+            return _itemSlots;
         }
     }
 
