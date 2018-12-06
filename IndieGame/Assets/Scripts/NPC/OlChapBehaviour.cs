@@ -30,6 +30,7 @@ public class OlChapBehaviour : MonoBehaviour
             if (GameController.uiCanvas != null)
             {
                 GameController.uiCanvas.CloseDialogBox();
+                GetComponent<AudioSource>().Stop();
 
                 if (_playerObjective >= 7 && _killPlayer && !_soundPlayer.GetAudioSources()[0].isPlaying)
                 {
