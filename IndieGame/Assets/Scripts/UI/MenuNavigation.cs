@@ -7,6 +7,7 @@ public class MenuNavigation : MonoBehaviour
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _controlsMenu;
     [SerializeField] private GameObject _skillsAndConsumables;
+    [SerializeField] private GameObject _objectiveText;
     [SerializeField] private Transform[] _cameraPoints;
 
     private CameraFollowPlayer _camScript;
@@ -27,6 +28,7 @@ public class MenuNavigation : MonoBehaviour
         _camScript.Offset = Vector3.zero;
 
         _skillsAndConsumables.SetActive(false);
+        _objectiveText.SetActive(false);
     }
 
     public void StartGame()
@@ -41,6 +43,7 @@ public class MenuNavigation : MonoBehaviour
 
         _mainMenu.SetActive(false);
         _skillsAndConsumables.SetActive(true);
+        _objectiveText.SetActive(true);
     }
 
     public void ControlsMenu()

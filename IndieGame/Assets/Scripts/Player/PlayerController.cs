@@ -184,8 +184,8 @@ public class PlayerController : MonoBehaviour
     {
         _armor = pArmor;
         _damageResistance = _armor * 0.05f;
-        if (_damageResistance > 5)
-            _damageResistance = 5;
+        if (_damageResistance > 3)
+            _damageResistance = 3;
     }
 
     public void SetStrength(float pStrength)

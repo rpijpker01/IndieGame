@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     public static event Action OnAltKeyDownEvent;
     public static event Action OnAltKeyUpEvent;
     public static event Action<KeyCode> OnUseConsumableEvent;
+    public static event Action<List<Item>> OnBackToHubEvent;
 
     public static float maxHealth;
     public static float maxMana;
@@ -89,6 +90,11 @@ public class GameController : MonoBehaviour
 
         Physics.IgnoreLayerCollision(10, 10);
         //Physics.IgnoreLayerCollision(10, 11);
+    }
+
+    private void Start()
+    {
+        OnBackToHubEvent(lootPool);
     }
 
     private void BakeNavMesh()
@@ -323,6 +329,8 @@ public class GameController : MonoBehaviour
             gameController.isTransitioning = true;
             gameController._loadingHub = true;
             mainCanvas.FadeToBlack();
+
+            OnBackToHubEvent(lootPool);
         }
     }
 }

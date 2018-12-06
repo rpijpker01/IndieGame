@@ -32,6 +32,7 @@ public class ShopInventory : MonoBehaviour
             _itemSlots[i].OnPointerExitEvent += OnPointerExitEvent;
             _itemSlots[i].OnDragEvent += OnDragEvent;
             _itemSlots[i].OnDropEvent += OnDropEvent;
+            GameController.OnBackToHubEvent += RollNewItems;
         }
 
         SetStartingItems();
@@ -81,6 +82,37 @@ public class ShopInventory : MonoBehaviour
 
         GameController.errorMessage.AddMessage("Shop is full!");
         return true;
+    }
+
+    private void RollNewItems(List<Item> pList)
+    {
+        for (int j = 0; j < _itemSlots.Length; j++)
+        {
+            _itemSlots[j].Item = null;
+            _itemSlots[j].Amount = 0;
+        }
+
+        int i = 0;
+
+        for (; i < _itemSlots.Length && i < 10; i++)
+        {
+            int rnd = UnityEngine.Random.Range(0, pList.Count);
+
+            _itemSlots[i].Item = pList.ToArray()[rnd].GetCopy();
+            _itemSlots[i].Amount = 1;
+
+            if (pList.ToArray()[rnd] is Consumable)
+            {
+                Consumable c = pList.ToArray()[rnd] as Consumable;
+                _itemSlots[i].Amount = 20;
+            }
+        }
+
+        for (; i < _itemSlots.Length; i++)
+        {
+            _itemSlots[i].Item = null;
+            _itemSlots[i].Amount = 0;
+        }
     }
 
     private void SetStartingItems()

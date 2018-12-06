@@ -82,7 +82,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     public static void InvertCamera()
     {
-        cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y + 180, cam.transform.rotation.eulerAngles.z);
+        cam._targetRotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y + 180, cam.transform.rotation.eulerAngles.z);
         cam._offset = new Vector3(-cam._offset.x, cam._offset.y, -cam._offset.z);
     }
 
